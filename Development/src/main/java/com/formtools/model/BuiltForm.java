@@ -1,6 +1,7 @@
 package com.formtools.model;
 
 /**
+ * 用户创建的表单
  * @author myl
  * @create 2020-02-05  14:13
  */
@@ -9,7 +10,7 @@ public class BuiltForm {
     private String id;
     //建表者id
     private String builderId;
-    //表结构
+    //表结构，是一个json串
     private String formStructure;
 
     public BuiltForm() {
