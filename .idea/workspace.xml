@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="123bac73-5190-4a25-92a1-73df8c17a6c4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Development/src/main/java/com/formtools/FormtoolsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Development/src/main/java/com/formtools/FormtoolsApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Development/src/main/java/com/formtools/controller/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Development/src/main/java/com/formtools/controller/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Development/src/main/java/com/formtools/mapper/FillFormMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Development/src/main/java/com/formtools/mapper/FillFormMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Development/src/main/java/com/formtools/mapper/FormDataMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Development/src/main/java/com/formtools/mapper/FormDataMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Development/src/test/java/com/formtools/FillFormMapperTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Development/src/test/java/com/formtools/FillFormMapperTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Development/src/test/java/com/formtools/FormDataTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Development/src/test/java/com/formtools/FormDataTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Development/src/test/java/com/formtools/FormtoolsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Development/src/test/java/com/formtools/FormtoolsApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Development/src/test/java/com/formtools/FormtoolsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Development/src/test/java/com/formtools/BuiltFormTests.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/Development/target/" />
@@ -24,56 +16,7 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Development/src/main/java/com/formtools/mapper/FormDataMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="41" column="52" selection-start-line="41" selection-start-column="52" selection-end-line="41" selection-end-column="52" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Development/src/test/java/com/formtools/FormDataTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Development/src/test/java/com/formtools/FormtoolsApplicationTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Development/src/main/java/com/formtools/mapper/BuiltFormMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="23" column="25" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -172,77 +115,6 @@
               <item name="FormTools" type="462c0819:PsiDirectoryNode" />
               <item name="Development" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormTools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormTools" type="462c0819:PsiDirectoryNode" />
-              <item name="Development" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormTools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormTools" type="462c0819:PsiDirectoryNode" />
-              <item name="Development" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormTools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormTools" type="462c0819:PsiDirectoryNode" />
-              <item name="Development" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="formtools" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormTools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormTools" type="462c0819:PsiDirectoryNode" />
-              <item name="Development" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="formtools" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormTools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormTools" type="462c0819:PsiDirectoryNode" />
-              <item name="Development" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="formtools" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormTools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormTools" type="462c0819:PsiDirectoryNode" />
-              <item name="Development" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="formtools" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormTools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormTools" type="462c0819:PsiDirectoryNode" />
-              <item name="Development" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormTools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormTools" type="462c0819:PsiDirectoryNode" />
-              <item name="Development" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="FormTools" type="b2602c69:ProjectViewProjectNode" />
@@ -437,7 +309,7 @@
       <workItem from="1580879724321" duration="15978000" />
       <workItem from="1580895764572" duration="652000" />
       <workItem from="1580896527191" duration="2429000" />
-      <workItem from="1580906092669" duration="4510000" />
+      <workItem from="1580906092669" duration="4786000" />
     </task>
     <task id="LOCAL-00001" summary="创建“通用表单工具”项目">
       <created>1580880337822</created>
@@ -481,16 +353,17 @@
       <option name="project" value="LOCAL" />
       <updated>1580906271833</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="增加对表单数据的增删查改的功能">
+      <created>1580910819656</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1580910819656</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="FormDataTests_addFormData - 2020.02.05 at 21h 04m 47s.xml">
-      <configuration name="FormDataTests.addFormData" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="FormDataTests_addFormData - 2020.02.05 at 21h 05m 32s.xml">
-      <configuration name="FormDataTests.addFormData" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="FormDataTests_testCreateForm - 2020.02.05 at 21h 06m 01s.xml">
       <configuration name="FormDataTests.testCreateForm" configurationId="JUnit" />
     </history-entry>
@@ -515,15 +388,20 @@
     <history-entry file="FormDataTests_testUpdataFormData - 2020.02.05 at 21h 47m 29s.xml">
       <configuration name="FormDataTests.testUpdataFormData" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="FormDataTests_testDeleteFormData - 2020.02.05 at 21h 50m 26s.xml">
+      <configuration name="FormDataTests.testDeleteFormData" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="FormDataTests_testAddFormData - 2020.02.05 at 21h 50m 47s.xml">
+      <configuration name="FormDataTests.testAddFormData" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23569000" />
+    <option name="totallyTimeSpent" value="23845000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2557047" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2557047" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info id="Designer" order="3" />
@@ -531,13 +409,13 @@
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.46233383" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.44165435" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3988183" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.11078287" />
+      <window_info anchor="bottom" id="Version Control" order="8" visible="true" weight="0.2703102" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Spring" order="10" />
       <window_info anchor="bottom" id="Terminal" order="11" />
@@ -563,7 +441,8 @@
     <MESSAGE value="springboot+mybatis对all_built_form增删改查测试，使用注解和xml配置混合" />
     <MESSAGE value="junit测试mybatis CRUD" />
     <MESSAGE value="更新" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新" />
+    <MESSAGE value="增加对表单数据的增删查改的功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加对表单数据的增删查改的功能" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Development/src/main/java/com/formtools/Application.java" />
@@ -692,29 +571,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Development/src/test/java/com/formtools/FormtoolsApplicationTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Development/src/main/java/com/formtools/mapper/BuiltFormMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="23" column="25" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Development/src/main/java/com/formtools/mapper/FormDataMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
+        <state relative-caret-position="315">
           <caret line="41" column="52" selection-start-line="41" selection-start-column="52" selection-end-line="41" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -724,8 +583,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Development/src/test/java/com/formtools/FormDataTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+        <state relative-caret-position="359">
+          <caret line="56" column="1" lean-forward="true" selection-start-line="56" selection-start-column="1" selection-end-line="56" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Development/src/main/java/com/formtools/mapper/BuiltFormMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="23" column="25" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Development/src/test/java/com/formtools/BuiltFormTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="36" column="9" lean-forward="true" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
