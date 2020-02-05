@@ -20,7 +20,7 @@ public class UserMapperTests {
 
     @Test
     void addUserTest(){
-        int n=userMapper.addUser(new User("111","1315646@163.com","123456","shiny"));
+        int n=userMapper.addUser(new User("333","1315646@163.com","123456","shiny"));
         System.out.println(n);
     }
 
