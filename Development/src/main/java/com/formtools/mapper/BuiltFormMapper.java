@@ -17,9 +17,9 @@ public interface BuiltFormMapper {
 
     List<BuiltForm> findAllBuiltForm();
 
-    @Delete(" delete from all_built_form where id= #{id} ")
-    void deleteBuiltForm(String id);
-
     @Update("update all_built_form set formStructure=#{formStructure} where id=#{id} ")
     int updateBuiltForm(BuiltForm builtForm);
+
+    @Delete(" delete from all_built_form where id= #{id} ")
+    int deleteBuiltForm(String id);
 }

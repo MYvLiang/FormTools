@@ -14,11 +14,7 @@ public class HelloController {
 
     @RequestMapping("/hello")
     public String hello() {
-        BuiltForm builtForm=new BuiltForm("111","111","*********");
-//        int n=builtFormMapper.addBuiltForm(builtForm);
-//        BuiltForm builtForm=builtFormMapper.getBuiltForm("111");
         List<BuiltForm> builtFormList=builtFormMapper.findAllBuiltForm();
-        builtFormMapper.updateBuiltForm(builtForm);
         return "Hello Spring Boot:"+builtFormList;
     }
 }
