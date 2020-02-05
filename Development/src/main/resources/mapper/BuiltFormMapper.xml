@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.formtools.mapper.BuiltFormMapper">
+
+	<resultMap type="BuiltForm" id="BuiltFormResult">
+		<id property="id" column="id"/>
+		<result property="builderId" column="builderId"/>
+		<result property="formStructure" column="formStructure"/>
+	</resultMap>
+
+	<insert id="addBuiltForm" parameterType="BuiltForm"  >
+		insert into all_built_form values (#{id},#{builderId},#{formStructure})
+	</insert>
+
+	<select id="getBuiltForm" parameterType="String" resultType="BuiltForm">
+		select * from all_built_form where id= #{id}
+	</select>
+
+	<select id="findAllBuiltForm" resultMap="BuiltFormResult">
+		select * from all_built_form
+	</select>
+
+</mapper> 
