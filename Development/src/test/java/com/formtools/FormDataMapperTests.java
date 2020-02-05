@@ -13,7 +13,7 @@ import java.util.List;
  * @create 2020-02-05  17:50
  */
 @SpringBootTest
-class FormDataTests {
+class FormDataMapperTests {
 
     @Resource
     FormDataMapper formDataMapper;
@@ -45,8 +45,8 @@ class FormDataTests {
             System.out.println(formData);
     }
     @Test
-    void testUpdataFormData(){
-        int n=formDataMapper.updataFormData("form11111111","data2","111");
+    void testUpdateFormData(){
+        int n=formDataMapper.updateFormData("form11111111","data2","111");
         System.out.println(n);
     }
     @Test

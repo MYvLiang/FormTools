@@ -27,18 +27,18 @@ public interface FormDataMapper {
     int deleteForm(String formId);
 
     @Insert("insert into ${formId} values(#{userId},#{data})")
-    int addFormData(String formId,String userId,String data);
+    int addFormData(String formId, String userId, String data);
 
     @Select("select * from ${formId} where userId=#{userId}")
-    FormData getFormData(String formId,String userId);
+    FormData getFormData(String formId, String userId);
 
     @Select("select * from ${formId}")
     List<FormData> findAllFormData(String formId);
 
     @Update("update ${formId} set data=#{data} where userId=#{userId}")
-    int updataFormData(String formId,String data,String userId);
+    int updateFormData(String formId, String data, String userId);
 
     @Delete("delete from ${formId} where userId=#{userId}")
-    int deleteFormData(String formId,String userId);
+    int deleteFormData(String formId, String userId);
 
 }

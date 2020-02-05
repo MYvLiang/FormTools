@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @SpringBootTest
-class BuiltFormTests {
+class BuiltFormMapperTests {
 
     @Resource
     BuiltFormMapper builtFormMapper;
