@@ -5,15 +5,15 @@ import com.formtools.model.BuiltForm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @SpringBootTest
 class FormtoolsApplicationTests {
 
-    @Autowired
+    @Resource
     BuiltFormMapper builtFormMapper;
 
     @Test
@@ -45,12 +45,12 @@ class FormtoolsApplicationTests {
         System.out.println(n);
     }
     @BeforeEach
-    public void init() {
+    void init() {
         System.out.println("开始测试-----------------");
     }
 
     @AfterEach
-    public void after() {
+    void after() {
         System.out.println("测试结束-----------------");
     }
 

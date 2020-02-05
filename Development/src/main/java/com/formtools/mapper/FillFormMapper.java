@@ -21,7 +21,7 @@ public interface FillFormMapper {
     @Insert("insert into fill_form values(#{userId},#{formId})")
     int addFillForm(FillForm fillForm);
 
-    @Select("select *from fill_form where userId=#{userId}")
+    @Select("select * from fill_form where userId=#{userId}")
     List<FillForm> findAllFillForm(String userId);
 
     @Delete("delete from fill_form where userId=#{userId} and formId=#{formId}")
