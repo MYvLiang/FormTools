@@ -20,21 +20,28 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-    public User getUser(Map<String, Object> map){
+    public User getUser(Map<String, Object> map) {
         return userMapper.getUser(map);
     }
 
-    public boolean addUser(User user){
+    public boolean addUser(User user) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("email", user.getEmail());
-        User haduser=getUser(map);
-        int n=0;
-        if(haduser==null&& MyUtils.isUserFormat(user)){
-            n=userMapper.addUser(user);
+        User haduser = getUser(map);
+        int n = 0;
+        if (haduser == null && MyUtils.isUserFormat(user)) {
+            n = userMapper.addUser(user);
         }
-        if(n>0){
+        if (n > 0) {
             return true;
         }
+        return false;
+    }
+
+    public boolean updateUser(User userMessage,User user){
+        String userId=userMessage.getUserId();
+        int n=userMapper.updateUser(user);
+        if(n>0)return true;
         return false;
     }
 }

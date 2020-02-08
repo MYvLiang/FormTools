@@ -1,12 +1,13 @@
 package com.formtools.model;
 
 /**
- * 用户创建的表单
+ * 用户创建的表单，
+ * 包含表单id、建表者id、储存表结构信息的JSON串
  * @author myl
  * @create 2020-02-05  14:13
  */
 public class BuiltForm {
-    //表id
+    //表单id
     private String id;
     //建表者id
     private String builderId;

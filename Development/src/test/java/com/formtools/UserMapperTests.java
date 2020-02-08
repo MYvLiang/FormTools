@@ -39,7 +39,7 @@ public class UserMapperTests {
         user.setUserId("111");
 //        user.setEmail("11111@gmail.com");
 //        user.setPassword("11111111");
-        user.setNickname("shiny");
+        user.setNickname("myl");
         int n=userMapper.updateUser(user);
         System.out.println(n);
     }
