@@ -12,15 +12,15 @@ public class BuiltForm {
     //建表者id
     private String builderId;
     //表结构，是一个json串
-    private String formStructure;
+    private String formInfo;
 
     public BuiltForm() {
     }
 
-    public BuiltForm(String id, String builderId, String formStructure) {
+    public BuiltForm(String id, String builderId, String formInfo) {
         this.id = id;
         this.builderId = builderId;
-        this.formStructure = formStructure;
+        this.formInfo = formInfo;
     }
 
     public String getId() {
@@ -40,11 +40,11 @@ public class BuiltForm {
     }
 
     public String getFormStructure() {
-        return formStructure;
+        return formInfo;
     }
 
-    public void setFormStructure(String formStructure) {
-        this.formStructure = formStructure;
+    public void setFormStructure(String formInfo) {
+        this.formInfo = formInfo;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class BuiltForm {
         return "BuiltForm{" +
                 "id='" + id + '\'' +
                 ", builderId='" + builderId + '\'' +
-                ", formStructure='" + formStructure + '\'' +
+                ", formInfo='" + formInfo + '\'' +
                 '}';
     }
 }

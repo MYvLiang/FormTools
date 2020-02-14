@@ -20,7 +20,7 @@ public class UserMapperTests {
 
     @Test
     void addUserTest(){
-        int n=userMapper.addUser(new User("333","1315646@163.com","123456","shiny"));
+        int n=userMapper.addUser(new User("11111111","1315646@163.com","123456","shiny"));
         System.out.println(n);
     }
 
@@ -39,7 +39,7 @@ public class UserMapperTests {
         user.setUserId("111");
 //        user.setEmail("11111@gmail.com");
 //        user.setPassword("11111111");
-        user.setNickname("myl");
+        user.setNickname("昵称昵称昵称昵称昵称昵称昵称昵称昵称昵称 ");
         int n=userMapper.updateUser(user);
         System.out.println(n);
     }

@@ -7,11 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="BuiltForm" id="BuiltFormResult">
 		<id property="id" column="id"/>
 		<result property="builderId" column="builderId"/>
-		<result property="formStructure" column="formStructure"/>
+		<result property="formInfo" column="formInfo"/>
 	</resultMap>
 
 	<insert id="addBuiltForm" parameterType="BuiltForm"  >
-		insert into all_built_form values (#{id},#{builderId},#{formStructure})
+		insert into all_built_form values (#{id},#{builderId},#{formInfo})
 	</insert>
 
 	<select id="getBuiltForm" parameterType="String" resultType="BuiltForm">
