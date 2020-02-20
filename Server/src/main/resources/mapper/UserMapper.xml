@@ -5,40 +5,44 @@
 <mapper namespace="com.formtools.mapper.UserMapper">
 
     <resultMap type="User" id="UserResult">
-        <id property="userId" column="userId"/>
-        <result property="email" column="email"/>
-        <result property="password" column="password"/>
-        <result property="nickname" column="nickname"/>
+        <id property="userId" column="user_id"/>
+        <result property="email" column="user_email"/>
+        <result property="password" column="user_password"/>
+        <result property="nickname" column="user_nickname"/>
+        <result property="profile" column="user_profile"/>
     </resultMap>
 
     <select id="getUser" parameterType="Map" resultMap="UserResult">
-        select * from user
+        select * from user_info
         <where>
             <if test="userId!=null">
-                userId=#{userId}
+                user_id=#{userId}
             </if>
             <if test="email!=null">
-                and email=#{email}
+                and user_email=#{email}
             </if>
             <if test="password!=null">
-                and password=#{password}
+                and user_password=#{password}
             </if>
         </where>
     </select>
 
     <update id="updateUser" parameterType="User">
-        update user
+        update user_info
         <set>
             <if test="email!=null">
-                email=#{email},
+                user_email=#{email},
             </if>
             <if test="password!=null">
-                password=#{password},
+                user_password=#{password},
             </if>
             <if test="nickname!=null">
-                nickname=#{nickname},
+                user_nickname=#{nickname},
+            </if>
+            <if test="profile!=null">
+                user_profile=#{profile},
             </if>
         </set>
-        where userId=#{userId}
+        where user_id=#{userId}
     </update>
 </mapper> 

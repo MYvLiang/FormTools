@@ -20,25 +20,29 @@ import java.util.List;
 @Mapper
 public interface FormDataMapper {
 
-    @Update("create table if not exists ${formId} (userId varchar(30),data varchar(10000))")
+    @Update("create table if not exists ${formId} (" +
+            "user_id varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '填表者的用户id'," +
+            "fill_info mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '填表者所填写的信息'," +
+            "fill_time datetime NOT NULL COMMENT '填表时间'," +
+            "alter_time datetime NOT NULL COMMENT '最后一次修改的时间（默认为填表时间）'," +
+            "PRIMARY KEY (user_id))")
     int createForm(String formId);
 
     @Update("drop table if exists ${formId}")
     int deleteForm(String formId);
 
-    @Insert("insert into ${formId} values(#{userId},#{data})")
-    int addFormData(String formId, String userId, String data);
+    @Insert("insert into ${formId} " +
+            "(user_id,fill_info,fill_time,alter_time)" +
+            " values(#{formData.userId},#{formData.fillInfo},#{formData.fillTime},#{formData.alterTime})")
+    int addFormData(String formId, FormData formData);
 
-    @Select("select * from ${formId} where userId=#{userId}")
-    FormData getFormData(String formId, String userId);
+    FormData getFormData(@Param("formId")String formId, @Param("userId")String userId);
 
-    @Select("select * from ${formId}")
     List<FormData> findAllFormData(String formId);
 
-    @Update("update ${formId} set data=#{data} where userId=#{userId}")
-    int updateFormData(String formId, String data, String userId);
+    int updateFormData(@Param("formId")String formId, @Param("formData")FormData formData);
 
-    @Delete("delete from ${formId} where userId=#{userId}")
+    @Delete("delete from ${formId} where user_id=#{userId}")
     int deleteFormData(String formId, String userId);
 
 }

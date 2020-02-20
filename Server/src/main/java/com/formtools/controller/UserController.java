@@ -87,7 +87,7 @@ public class UserController {
                 if (email != null && password != null && nickname != null) {
                     long timeMillis = System.currentTimeMillis();
                     String userId = "user" + timeMillis;
-                    User user = new User(userId, email, password, nickname);
+                    User user = new User(userId, email, password, nickname," ");
                     if (userService.addUser(user)) {
                         return user;
                     }

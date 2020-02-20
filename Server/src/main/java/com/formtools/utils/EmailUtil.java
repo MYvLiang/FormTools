@@ -17,7 +17,7 @@ public class EmailUtil {
      * @return 成功返回true
      * @throws MessagingException 失败抛出异常
      */
-    public static boolean SendMail(String email,String code) throws MessagingException {
+    public static boolean SendEmail(String email,String code) throws MessagingException {
 
         Properties props = new Properties();
         props.setProperty("mail.smtp.auth", "true");
@@ -30,9 +30,9 @@ public class EmailUtil {
 
         Message msg = new MimeMessage(session);
         //标题
-        msg.setSubject("这是封验证邮件....");
+        msg.setSubject("表单工具邮箱验证"+code);
         //正文
-        msg.setContent("验证码"+code, "text/html;charset=UTF-8");
+        msg.setContent("验证码："+code, "text/html;charset=UTF-8");
         msg.setFrom(new InternetAddress("nanrailgun@163.com"));//发件人邮箱(我的163邮箱)
         msg.setRecipient(Message.RecipientType.TO,
                 new InternetAddress(email)); //收件人邮箱

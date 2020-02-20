@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -20,38 +21,43 @@ class FormDataMapperTests {
 
     @Test
     void testCreateForm(){
-        int n=formDataMapper.createForm("form11111111");
+        int n=formDataMapper.createForm("form222222222");
         System.out.println(n);
     }
     @Test
     void testDeleteForm(){
-        int n=formDataMapper.deleteForm("form11111111");
+        int n=formDataMapper.deleteForm("form222222222");
         System.out.println(n);
     }
     @Test
     void testAddFormData(){
-        int n=formDataMapper.addFormData("form11111111","111","formdata");
+        int n=formDataMapper.addFormData("form222222222",new FormData("2222","{}",
+                new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis())));
         System.out.println(n);
     }
     @Test
     void testGetFormData(){
-        FormData formData=formDataMapper.getFormData("form11111111","111");
+        FormData formData=formDataMapper.getFormData("form222222222","1111");
         System.out.println(formData);
     }
     @Test
     void testFindAllFormData(){
-        List<FormData> formDataList=formDataMapper.findAllFormData("form11111111");
+        List<FormData> formDataList=formDataMapper.findAllFormData("form222222222");
         for(FormData formData:formDataList)
             System.out.println(formData);
     }
     @Test
     void testUpdateFormData(){
-        int n=formDataMapper.updateFormData("form11111111","data2","111");
+        FormData formData=new FormData();
+        formData.setUserId("1111");
+        formData.setFillInfo("{修改}");
+        formData.setAlterTime(new Timestamp(System.currentTimeMillis()));
+        int n=formDataMapper.updateFormData("form222222222", formData);
         System.out.println(n);
     }
     @Test
     void testDeleteFormData(){
-        int n=formDataMapper.deleteFormData("form11111111","111");
+        int n=formDataMapper.deleteFormData("form222222222","2222");
         System.out.println(n);
     }
 }

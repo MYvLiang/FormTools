@@ -14,7 +14,8 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
 
-    @Insert("insert into user values(#{userId},#{email},#{password},#{nickname})")
+    @Insert("insert into user_info(user_id,user_email,user_password,user_nickname,user_profile) " +
+            "values(#{userId},#{email},#{password},#{nickname},#{profile})")
     int addUser(User user);
 
     User getUser(Map<String, Object> map);

@@ -13,15 +13,18 @@ public class User {
     private String password;
     //昵称
     private String nickname;
+    //头像
+    private String profile;
 
     public User() {
     }
 
-    public User(String userId, String email, String password, String nickname) {
+    public User(String userId, String email, String password, String nickname, String profile) {
         this.userId = userId;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.profile = profile;
     }
 
     public String getUserId() {
@@ -56,13 +59,28 @@ public class User {
         this.nickname = nickname;
     }
 
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"userId\":\"")
+                .append(userId).append('\"');
+        sb.append(",\"email\":\"")
+                .append(email).append('\"');
+        sb.append(",\"password\":\"")
+                .append(password).append('\"');
+        sb.append(",\"nickname\":\"")
+                .append(nickname).append('\"');
+        sb.append(",\"profile\":\"")
+                .append(profile).append('\"');
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -18,12 +18,13 @@ import java.util.List;
 @Mapper
 public interface FillFormMapper {
 
-    @Insert("insert into fill_form values(#{userId},#{formId})")
+    @Insert("insert into fill_form" +
+            "(id,user_id,form_id)" +
+            " values(#{id},#{userId},#{formId})")
     int addFillForm(FillForm fillForm);
 
-    @Select("select * from fill_form where userId=#{userId}")
     List<FillForm> findAllFillForm(String userId);
 
-    @Delete("delete from fill_form where userId=#{userId} and formId=#{formId}")
+    @Delete("delete from fill_form where user_id=#{userId} and form_id=#{formId}")
     int deleteFillForm(String userId,String formId);
 }

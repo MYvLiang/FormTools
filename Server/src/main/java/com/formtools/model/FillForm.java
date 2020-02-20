@@ -6,6 +6,8 @@ package com.formtools.model;
  * @create 2020-02-05  16:59
  */
 public class FillForm {
+    //自增id，主键
+    private Integer id;
     //填表者id
     private String userId;
     //所填的表的id
@@ -14,9 +16,17 @@ public class FillForm {
     public FillForm() {
     }
 
-    public FillForm(String userId, String formId) {
+    public FillForm( String userId, String formId) {
         this.userId = userId;
         this.formId = formId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUserId() {
@@ -37,9 +47,14 @@ public class FillForm {
 
     @Override
     public String toString() {
-        return "FillForm{" +
-                "userId='" + userId + '\'' +
-                ", formId='" + formId + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"id\":")
+                .append(id);
+        sb.append(",\"userId\":\"")
+                .append(userId).append('\"');
+        sb.append(",\"formId\":\"")
+                .append(formId).append('\"');
+        sb.append('}');
+        return sb.toString();
     }
 }

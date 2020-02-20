@@ -20,20 +20,20 @@ class FillFormMapperTests {
 
     @Test
     void testAddFillForm() {
-        int n = fillFormMapper.addFillForm(new FillForm("111", "444"));
+        int n = fillFormMapper.addFillForm(new FillForm("333", "555"));
         System.out.println(n);
     }
 
     @Test
     void testFindAllFillForm() {
-        List<FillForm> fillForms = fillFormMapper.findAllFillForm("111");
+        List<FillForm> fillForms = fillFormMapper.findAllFillForm("333");
         for (FillForm fillForm : fillForms)
             System.out.println(fillForm);
     }
 
     @Test
     void testDeleteFillForm() {
-        int n = fillFormMapper.deleteFillForm("111", "444");
+        int n = fillFormMapper.deleteFillForm("333", "555");
         System.out.println(n);
     }
 }

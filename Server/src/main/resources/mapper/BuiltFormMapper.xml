@@ -5,21 +5,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.formtools.mapper.BuiltFormMapper">
 
 	<resultMap type="BuiltForm" id="BuiltFormResult">
-		<id property="id" column="id"/>
-		<result property="builderId" column="builderId"/>
-		<result property="formInfo" column="formInfo"/>
+		<id property="formId" column="form_id"/>
+		<result property="builderId" column="builder_id"/>
+		<result property="formTitle" column="form_title"/>
+		<result property="formInfo" column="form_info"/>
+		<result property="builtTime" column="built_time"/>
+		<result property="beginTime" column="begin_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="maxCount" column="max_count"/>
+		<result property="formState" column="form_state"/>
 	</resultMap>
 
-	<insert id="addBuiltForm" parameterType="BuiltForm"  >
-		insert into all_built_form values (#{id},#{builderId},#{formInfo})
-	</insert>
-
-	<select id="getBuiltForm" parameterType="String" resultType="BuiltForm">
-		select * from all_built_form where id= #{id}
+	<select id="getBuiltForm" parameterType="String" resultMap="BuiltFormResult">
+		select * from all_built_form where form_id= #{formId}
 	</select>
 
 	<select id="findAllBuiltForm" resultMap="BuiltFormResult">
 		select * from all_built_form
 	</select>
+
+	<update id="updateBuiltForm" parameterType="BuiltForm">
+		update all_built_form
+		<set>
+			<if test="formInfo!=null">
+				form_info=#{formInfo},
+			</if>
+			<if test="formTitle!=null">
+				form_title=#{formTitle},
+			</if>
+			<if test="endTime!=null">
+				end_time=#{endTime},
+			</if>
+			<if test="maxCount!=null">
+				max_count=#{maxCount},
+			</if>
+			<if test="formState!=null">
+				form_state=#{formState},
+			</if>
+		</set>
+		where form_id=#{formId}
+	</update>
 
 </mapper> 
