@@ -128,12 +128,9 @@ local.properties
 .scala_dependencies
 .worksheet
 
-### Example userModel template template
-### Example userModel template
 
 # IntelliJ project files
-.idea
-*.iml
+
 out
 gen
 ### Java template
