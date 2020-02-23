@@ -1,8 +1,8 @@
 package com.formtools.service.impl;
 
 import com.formtools.mapper.UserMapper;
+import com.formtools.model.UserModel;
 import com.formtools.service.UserService;
-import com.formtools.model.User;
 import com.formtools.utils.MyUtils;
 import org.springframework.stereotype.Service;
 
@@ -20,17 +20,17 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-    public User getUser(Map<String, Object> map) {
+    public UserModel getUser(Map<String, Object> map) {
         return userMapper.getUser(map);
     }
 
-    public boolean addUser(User user) {
+    public boolean addUser(UserModel userModel) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("email", user.getEmail());
-        User haduser = getUser(map);
+        map.put("email", userModel.getEmail());
+        UserModel haduser = getUser(map);
         int n = 0;
-        if (haduser == null && MyUtils.isUserFormat(user)) {
-            n = userMapper.addUser(user);
+        if (haduser == null && MyUtils.isUserFormat(userModel)) {
+            n = userMapper.addUser(userModel);
         }
         if (n > 0) {
             return true;
@@ -38,9 +38,9 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    public boolean updateUser(User userMessage,User user){
-        String userId=userMessage.getUserId();
-        int n=userMapper.updateUser(user);
+    public boolean updateUser(UserModel userModelMessage, UserModel userModel){
+        String userId= userModelMessage.getUserId();
+        int n=userMapper.updateUser(userModel);
         if(n>0)return true;
         return false;
     }

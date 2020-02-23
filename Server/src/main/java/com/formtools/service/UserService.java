@@ -1,6 +1,7 @@
 package com.formtools.service;
 
-import com.formtools.model.User;
+import com.formtools.model.UserModel;
+
 import java.util.Map;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Map;
 
 public interface UserService {
 
-    User getUser(Map<String, Object> map);
+    UserModel getUser(Map<String, Object> map);
 
-    boolean addUser(User user);
+    boolean addUser(UserModel userModel);
 }

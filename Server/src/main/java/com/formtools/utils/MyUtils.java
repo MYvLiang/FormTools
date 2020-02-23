@@ -1,6 +1,6 @@
 package com.formtools.utils;
 
-import com.formtools.model.User;
+import com.formtools.model.UserModel;
 
 /**
  * @author myl
@@ -8,7 +8,7 @@ import com.formtools.model.User;
  */
 public class MyUtils {
 
-    public static boolean isUserFormat(User user){
+    public static boolean isUserFormat(UserModel userModel){
         return true;
     }
 }

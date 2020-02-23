@@ -1,6 +1,6 @@
 package com.formtools.mapper;
 
-import com.formtools.model.User;
+import com.formtools.model.UserModel;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,10 +16,10 @@ public interface UserMapper {
 
     @Insert("insert into user_info(user_id,user_email,user_password,user_nickname,user_profile) " +
             "values(#{userId},#{email},#{password},#{nickname},#{profile})")
-    int addUser(User user);
+    int addUser(UserModel userModel);
 
-    User getUser(Map<String, Object> map);
+    UserModel getUser(Map<String, Object> map);
 
-    int updateUser(User user);
+    int updateUser(UserModel userModel);
 
 }

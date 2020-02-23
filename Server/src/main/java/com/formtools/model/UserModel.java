@@ -4,7 +4,7 @@ package com.formtools.model;
  * @author myl
  * @create 2020-02-05  21:59
  */
-public class User {
+public class UserModel {
     //用户id
     private String userId;
     //邮箱
@@ -16,10 +16,16 @@ public class User {
     //头像
     private String profile;
 
-    public User() {
+    public UserModel() {
     }
 
-    public User(String userId, String email, String password, String nickname, String profile) {
+    public UserModel(String userId, String nickname, String profile) {
+        this.userId = userId;
+        this.nickname = nickname;
+        this.profile = profile;
+    }
+
+    public UserModel(String userId, String email, String password, String nickname, String profile) {
         this.userId = userId;
         this.email = email;
         this.password = password;

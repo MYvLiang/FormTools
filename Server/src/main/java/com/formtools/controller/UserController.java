@@ -2,7 +2,7 @@ package com.formtools.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.formtools.model.User;
+import com.formtools.model.UserModel;
 import com.formtools.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,18 +36,18 @@ public class UserController {
      * @return
      */
     @GetMapping("/user")
-    public User getUser(@RequestParam(value = "email", defaultValue = "VoV") String email,
-                        @RequestParam(value = "password", defaultValue = "VoV") String password) {
+    public UserModel getUser(@RequestParam(value = "email", defaultValue = "VoV") String email,
+                             @RequestParam(value = "password", defaultValue = "VoV") String password) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("email", email);
         map.put("password", password);
-        User user = userService.getUser(map);
-        if (user != null) {
-            if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
-                return user;
+        UserModel userModel = userService.getUser(map);
+        if (userModel != null) {
+            if (email.equals(userModel.getEmail()) && password.equals(userModel.getPassword())) {
+                return userModel;
             }
         }
-        return new User();
+        return new UserModel();
     }
 
 
@@ -77,7 +77,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/user")
-    public User getUser(@RequestBody(required = false) String userMessage) {
+    public UserModel getUser(@RequestBody(required = false) String userMessage) {
         try {
             JSONObject jsonObject = JSON.parseObject(userMessage);
             if (jsonObject != null) {
@@ -86,37 +86,37 @@ public class UserController {
                 String nickname = jsonObject.getString("nickname");
                 if (email != null && password != null && nickname != null) {
                     long timeMillis = System.currentTimeMillis();
-                    String userId = "user" + timeMillis;
-                    User user = new User(userId, email, password, nickname," ");
-                    if (userService.addUser(user)) {
-                        return user;
+                    String userId = "userModel" + timeMillis;
+                    UserModel userModel = new UserModel(userId, email, password, nickname," ");
+                    if (userService.addUser(userModel)) {
+                        return userModel;
                     }
                 }
             }
         } catch (Exception e) {
         }
-        return new User();
+        return new UserModel();
     }
     @PutMapping("/user")
-    public User updateUser(@RequestBody(required = false) String userMessage, HttpSession httpSession){
+    public UserModel updateUser(@RequestBody(required = false) String userMessage, HttpSession httpSession){
         try {
             JSONObject jsonObject = JSON.parseObject(userMessage);
             if (jsonObject != null) {
-                User user=new User();
+                UserModel userModel =new UserModel();
                 if(jsonObject.containsKey("email")){
-                    user.setEmail(jsonObject.getString("email"));
+                    userModel.setEmail(jsonObject.getString("email"));
                 }
                 if(jsonObject.containsKey("password")){
-                    user.setEmail(jsonObject.getString("password"));
+                    userModel.setEmail(jsonObject.getString("password"));
                 }
                 if(jsonObject.containsKey("nickname")){
-                    user.setEmail(jsonObject.getString("nickname"));
+                    userModel.setEmail(jsonObject.getString("nickname"));
                 }
-                User currentUser=(User)httpSession.getAttribute("current");
+                UserModel currentUserModel =(UserModel)httpSession.getAttribute("current");
 
             }
         } catch (Exception e) {
         }
-        return new User();
+        return new UserModel();
     }
 }
