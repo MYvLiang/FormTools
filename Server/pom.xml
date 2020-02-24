@@ -75,6 +75,13 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.9</version>
         </dependency>
+        <dependency>
+            <groupId>yb</groupId>
+            <artifactId>OpenApi</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/yb/OpenApi/1.0/YBOpenApi.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>

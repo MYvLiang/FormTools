@@ -2,7 +2,7 @@ HELP.md
 target/
 !**/src/main/**
 !**/src/test/**
-
+!lib/**
 ### STS ###
 .apt_generated
 .classpath
