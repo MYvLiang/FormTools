@@ -1,6 +1,9 @@
 package com.formtools.service;
 
 import com.formtools.model.User;
+import com.formtools.vo.ResultVo;
+
+import javax.mail.MessagingException;
 import java.util.Map;
 
 /**
@@ -13,4 +16,6 @@ public interface UserService {
     User getUser(Map<String, Object> map);
 
     boolean addUser(User user);
+
+    ResultVo sendEmailCode(String email) throws MessagingException;
 }

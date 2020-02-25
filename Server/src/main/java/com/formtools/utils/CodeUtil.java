@@ -8,6 +8,7 @@ public class CodeUtil {
      * @return 验证码
      */
     public static String createCode(){
-        return String.valueOf(System.currentTimeMillis()%1000L);
+        StringBuffer stringBuffer=new StringBuffer(String.valueOf(System.currentTimeMillis()));
+        return stringBuffer.substring(9);
     }
 }
