@@ -3,11 +3,16 @@ package com.formtools.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.formtools.model.UserModel;
+import com.formtools.enums.ErrorMsg;
 import com.formtools.service.UserService;
+import com.formtools.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Email;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +21,7 @@ import java.util.Map;
  * @create 2020-02-05  22:57
  */
 @RestController
+@Validated
 public class UserController {
 
     @Autowired
@@ -118,5 +124,14 @@ public class UserController {
         } catch (Exception e) {
         }
         return new UserModel();
+    }
+
+    @GetMapping("/email-code")
+    public ResultVo sendEmailCode(@RequestParam("email") @Email String email){
+        try {
+            return userService.sendEmailCode(email);
+        } catch (MessagingException e) {
+            return ResultVo.fail(ErrorMsg.EMAIL_SEND_ERROR);
+        }
     }
 }
