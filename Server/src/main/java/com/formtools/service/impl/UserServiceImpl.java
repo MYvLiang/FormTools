@@ -7,7 +7,6 @@ import com.formtools.model.UserModel;
 import com.formtools.service.UserService;
 import com.formtools.utils.*;
 import com.formtools.vo.ResultVo;
-import com.formtools.utils.MyUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,7 +43,7 @@ public class UserServiceImpl implements UserService {
         map.put("email", userModel.getEmail());
         UserModel haduser = getUser(map);
         int n = 0;
-        if (haduser == null && MyUtils.isUserFormat(userModel)) {
+        if (haduser == null) {
             n = userMapper.addUser(userModel);
         }
         return n > 0;

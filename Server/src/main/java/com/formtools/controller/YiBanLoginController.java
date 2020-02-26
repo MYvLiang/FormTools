@@ -4,7 +4,7 @@ import cn.yiban.open.Authorize;
 import cn.yiban.open.common.User;
 import com.alibaba.fastjson.JSONObject;
 import com.formtools.model.UserModel;
-import com.formtools.service.IOtherUserService;
+import com.formtools.service.OtherUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/YBAPI")
 public class YiBanLoginController {
     @Autowired
-    private IOtherUserService iOtherUserService;
+    private OtherUserService otherUserService;
 
     private final String APP_ID="985f6bf0a2b04632";
     private final String APP_SEC="413ee0b76cb3d8e00e84ab5c2c24f100";
@@ -64,7 +64,7 @@ public class YiBanLoginController {
             String profile=info.getString("yb_userhead");
 
             UserModel userModel=new UserModel(userId,nickname,profile);
-            iOtherUserService.updateUser(userModel);
+            otherUserService.updateUser(userModel);
 
             Cookie uesrIdCookie=new Cookie("uesrId",userId);
             uesrIdCookie.setMaxAge(7*24*60*60);

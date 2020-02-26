@@ -2,7 +2,6 @@ package com.formtools.service.impl;
 
 import com.formtools.mapper.UserMapper;
 import com.formtools.model.UserModel;
-import com.formtools.service.IOtherUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,7 +13,7 @@ import java.util.Map;
  * @create 2020-02-23  23:34
  */
 @Service
-public class OtherUserService implements IOtherUserService {
+public class OtherUserServiceImpl implements com.formtools.service.OtherUserService {
     @Resource
     private UserMapper userMapper;
 
