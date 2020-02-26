@@ -18,4 +18,6 @@ public interface UserService {
     UserModel getUser(Map<String, Object> map);
     ResultVo sendEmailCode(String email) throws MessagingException;
     boolean addUser(UserModel userModel);
+    boolean isTrueCode(UserModel userModel,String code);
+    boolean register(UserModel userModel,String code);
 }

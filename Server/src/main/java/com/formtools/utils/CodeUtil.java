@@ -9,6 +9,6 @@ public class CodeUtil {
      */
     public static String createCode(){
         StringBuffer stringBuffer=new StringBuffer(String.valueOf(System.currentTimeMillis()));
-        return stringBuffer.substring(9);
+        return stringBuffer.substring(stringBuffer.length()-4);
     }
 }

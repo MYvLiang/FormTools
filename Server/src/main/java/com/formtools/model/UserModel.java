@@ -1,18 +1,37 @@
 package com.formtools.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
+
 /**
  * @author myl
  * @create 2020-02-05  21:59
  */
 public class UserModel {
+
+    public interface register extends Default {}
+
     //用户id
     private String userId;
+
+    @NotNull(groups = register.class)
+    @NotEmpty(groups = register.class)
+    @Email(groups = register.class)
     //邮箱
     private String email;
+
+    @NotNull(groups = register.class)
+    @NotEmpty(groups = register.class)
     //密码
     private String password;
+
+    @NotNull(groups = register.class)
+    @NotEmpty(groups = register.class)
     //昵称
     private String nickname;
+
     //头像
     private String profile;
 

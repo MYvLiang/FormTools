@@ -1,9 +1,8 @@
 package com.formtools.Handler;
 
+import com.formtools.Exception.ParamException;
 import com.formtools.enums.ErrorMsg;
 import com.formtools.vo.ResultVo;
-import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
-import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +31,11 @@ public class GlobalExceptionHandler {
         }
 
         return ResultVo.fail(ErrorMsg.PARAM_ERROR, map);
+    }
+
+    @ExceptionHandler(ParamException.class)
+    public ResultVo ParamExceptionHandler(ParamException e){
+        return ResultVo.fail(ErrorMsg.PARAM_ERROR,e.getMap());
     }
 
 }

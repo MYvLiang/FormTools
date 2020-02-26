@@ -1,5 +1,6 @@
 package com.formtools.service.impl;
 
+import com.formtools.Exception.ParamException;
 import com.formtools.enums.ErrorMsg;
 import com.formtools.mapper.UserMapper;
 import com.formtools.model.UserModel;
@@ -25,7 +26,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UserServiceImpl implements UserService {
 
     //email验证码储存器
-    //@Autowired
     private static ConcurrentHashMap<String,Examiner> emailCodeReservoir=new ConcurrentHashMap();
 
     @Resource
@@ -36,6 +36,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean addUser(UserModel userModel) {
+        long timeMillis = System.currentTimeMillis();
+        String userId = "userModel" + timeMillis;
+        userModel.setProfile("");
+        userModel.setUserId(userId);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("email", userModel.getEmail());
         UserModel haduser = getUser(map);
@@ -43,17 +47,13 @@ public class UserServiceImpl implements UserService {
         if (haduser == null && MyUtils.isUserFormat(userModel)) {
             n = userMapper.addUser(userModel);
         }
-        if (n > 0) {
-            return true;
-        }
-        return false;
+        return n > 0;
     }
 
     public boolean updateUser(UserModel userModelMessage, UserModel userModel){
         String userId= userModelMessage.getUserId();
         int n=userMapper.updateUser(userModel);
-        if(n>0)return true;
-        return false;
+        return n > 0;
     }
 
     @Transactional //开启事务控制
@@ -79,5 +79,37 @@ public class UserServiceImpl implements UserService {
         //置入缓存
         emailCodeReservoir.put(email,new Examiner(code,LocalDateTime.now()));
         return ResultVo.success();
+    }
+
+    /**
+     * 判断验证码是否正确
+     * @param userModel 注册用户信息（只需用户email）
+     * @param code 验证码
+     * @return true
+     * 验证码错误抛参数错误异常
+     */
+    public boolean isTrueCode(UserModel userModel,String code){
+        if (code!=null && !code.equals("")){
+            Examiner examiner=emailCodeReservoir.get(userModel.getEmail());
+            if (examiner!=null && examiner.getCode().equals(code)){
+                emailCodeReservoir.remove(userModel.getEmail());
+                return true;
+            }
+        }
+        Map<String,String> map=new HashMap<>();
+        map.put("code","验证码错误");
+        throw new ParamException(map);
+    }
+
+    /**
+     * 注册用户
+     * @param userModel 注册用户信息
+     * @param code 验证码
+     * @return 是否成功
+     */
+    public boolean register(UserModel userModel,String code){
+
+        if (isTrueCode(userModel,code)) return addUser(userModel);
+        return false;
     }
 }
