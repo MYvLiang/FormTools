@@ -15,7 +15,7 @@ import java.util.Map;
 
 public interface UserService {
 
-    UserModel getUser(Map<String, Object> map);
+    UserModel getUser(Map<String, String> map);
     ResultVo sendEmailCode(String email) throws MessagingException;
     boolean addUser(UserModel userModel);
     boolean isTrueCode(UserModel userModel,String code);

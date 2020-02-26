@@ -30,7 +30,7 @@ public class WeiXinLoginController {
     @GetMapping("/code")
     public WeiXinCode getwxCode() {
         String scene = "scene" + System.currentTimeMillis();
-        wxSceneMap.put(scene, "on");
+        wxSceneMap.put(scene, "no");
         WeiXinCode weiXinCode = new WeiXinCode();
         weiXinCode.setCodeURL(WeiXinCodeUtil.getCodeURL(scene));
         weiXinCode.setScene(scene);

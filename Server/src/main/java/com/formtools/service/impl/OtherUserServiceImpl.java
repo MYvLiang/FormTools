@@ -18,7 +18,7 @@ public class OtherUserServiceImpl implements com.formtools.service.OtherUserServ
     private UserMapper userMapper;
 
     public boolean updateUser(UserModel userModel){
-        Map<String, Object> map = new HashMap();
+        Map<String, String> map = new HashMap();
         map.put("userId", userModel.getUserId());
         UserModel hasUser =userMapper.getUser(map);
         int n=0;

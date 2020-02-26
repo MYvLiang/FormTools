@@ -32,7 +32,7 @@ public class UserModelMapperTests {
 
     @Test
     void getUserTest(){
-        Map<String, Object> map = new HashMap();
+        Map<String, String> map = new HashMap();
         map.put("userId", "1111");
 //        map.put("email", "222222222@163.com");
 //        map.put("password","123456");

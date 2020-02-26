@@ -18,7 +18,7 @@ public interface UserMapper {
             "values(#{userId},#{email},#{password},#{nickname},#{profile})")
     int addUser(UserModel userModel);
 
-    UserModel getUser(Map<String, Object> map);
+    UserModel getUser(Map<String, String> map);
 
     int updateUser(UserModel userModel);
 

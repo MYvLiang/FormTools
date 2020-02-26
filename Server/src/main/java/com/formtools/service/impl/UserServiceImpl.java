@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-    public UserModel getUser(Map<String, Object> map) {
+    public UserModel getUser(Map<String,String> map) {
         return userMapper.getUser(map);
     }
 
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         String userId = "userModel" + timeMillis;
         userModel.setProfile("");
         userModel.setUserId(userId);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, String> map = new HashMap();
         map.put("email", userModel.getEmail());
         UserModel haduser = getUser(map);
         int n = 0;
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional //开启事务控制
     public ResultVo sendEmailCode(String email) throws MessagingException {
-        Map<String,Object> tempMap=new HashMap<>();
+        Map<String,String> tempMap=new HashMap<>();
         tempMap.put("email",email);
         UserModel realUser=userMapper.getUser(tempMap);
         //若账号已存在
