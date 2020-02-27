@@ -1,7 +1,7 @@
 package com.formtools.utils;
 
+import com.formtools.OtherConfig;
 import com.formtools.vo.WXToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
@@ -20,9 +20,9 @@ public class WeiXinTokenUtil {
     private static int expires_in=-1;
     private static LocalDateTime time=LocalDateTime.now();
 
-    private static final String GRANT_TYPE="client_credential";
-    private static final String APPID="wx80e741529e832e6b";
-    private static final String SECRET="4e1e6771f9c2ca3cee6edcee2306921f";
+    private static final String GRANT_TYPE= OtherConfig.GRANT_TYPE;
+    private static final String APPID=OtherConfig.APPID;
+    private static final String SECRET=OtherConfig.SECRET;
 
     public static String getToken() {
         Duration duration=Duration.between(time,LocalDateTime.now());

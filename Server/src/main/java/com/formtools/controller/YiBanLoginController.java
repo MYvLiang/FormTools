@@ -3,6 +3,7 @@ package com.formtools.controller;
 import cn.yiban.open.Authorize;
 import cn.yiban.open.common.User;
 import com.alibaba.fastjson.JSONObject;
+import com.formtools.OtherConfig;
 import com.formtools.model.UserModel;
 import com.formtools.service.OtherUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,12 @@ public class YiBanLoginController {
     @Autowired
     private OtherUserService otherUserService;
 
-    private final String APP_ID="985f6bf0a2b04632";
-    private final String APP_SEC="413ee0b76cb3d8e00e84ab5c2c24f100";
-    private final String BACK_URL="http://localhost:8080/YBAPI/auth";
-    private final String DEFAULTREDIRECTURL="http://shinytengxvnyun.cn";
+    private final String APP_ID= OtherConfig.APP_ID;
+    private final String APP_SEC=OtherConfig.APP_SEC;
+    private final String BACK_URL=OtherConfig.BACK_URL;
+    private final String DEFAULTREDIRECTURL=OtherConfig.DEFAULTREDIRECTURL;
 
-    @RequestMapping("/yb")
+    @RequestMapping("/login")
     public String yblogin(@RequestParam(value = "state",
             defaultValue = DEFAULTREDIRECTURL)String state){
         Authorize authorize=new Authorize(APP_ID,APP_SEC);
