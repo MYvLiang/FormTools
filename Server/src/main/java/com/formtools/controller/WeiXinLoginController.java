@@ -3,13 +3,13 @@ package com.formtools.controller;
 import com.formtools.model.UserModel;
 import com.formtools.service.OtherUserService;
 import com.formtools.utils.WeiXinCodeUtil;
-import com.formtools.vo.WeiXinCode;
 import com.formtools.vo.WeiXinUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.ConcurrentHashMap;
-
 
 /**
  * @author myl
@@ -23,18 +23,17 @@ public class WeiXinLoginController {
 
     private static ConcurrentHashMap<String, String> wxSceneMap=new ConcurrentHashMap();
     /**
-     * 返回小程序二维码的url和scene，二维码使用参数scene生成
+     * 返回小程序二维码和scene，二维码使用参数scene生成
      *
      * @return
      */
-    @GetMapping("/code")
-    public WeiXinCode getwxCode() {
+    @GetMapping(value= "/code",produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] getwxCode(HttpServletResponse response) {
         String scene = "scene" + System.currentTimeMillis();
+        byte[] code=WeiXinCodeUtil.getCode(scene);
         wxSceneMap.put(scene, "no");
-        WeiXinCode weiXinCode = new WeiXinCode();
-        weiXinCode.setCodeURL(WeiXinCodeUtil.getCodeURL(scene));
-        weiXinCode.setScene(scene);
-        return weiXinCode;
+        response.setHeader("scene",scene);
+        return code;
     }
 
     /**

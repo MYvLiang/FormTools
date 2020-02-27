@@ -26,7 +26,7 @@ public class WeiXinTokenUtil {
 
     public static String getToken() {
         Duration duration=Duration.between(time,LocalDateTime.now());
-        System.out.println("duration="+duration.toMillis());
+//        System.out.println("duration="+duration.toMillis());
         if (duration.toMillis()<expires_in*1000&&(!token.equals(""))){
 //            System.out.println("原token");
             return token;
@@ -38,7 +38,7 @@ public class WeiXinTokenUtil {
         params.put("appid", APPID);
         params.put("secret", SECRET);
         WXToken wxToken = restTemplate.getForObject(url, WXToken.class, params);
-        System.out.println("wxToken="+wxToken);
+//        System.out.println("wxToken="+wxToken);
         if(wxToken.getErrcode()==null||wxToken.getErrcode()==0){
             expires_in=wxToken.getExpires_in()-200;
             token=wxToken.getAccess_token();
