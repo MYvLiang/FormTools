@@ -1,17 +1,23 @@
 package com.formtools.vo;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author myl
  * @create 2020-02-23  21:36
  */
 public class WeiXinUser {
     //微信小程序用户的openid
+    @NotNull
     private String openid;
     //小程序码的参数
+    @NotNull
     private String scene;
     //微信昵称
+    @NotNull
     private String nickName;
     //微信头像
+    @NotNull
     private String avatarUrl;
 
     public WeiXinUser() {

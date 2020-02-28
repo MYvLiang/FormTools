@@ -1,14 +1,19 @@
 package com.formtools.controller;
 
+import com.formtools.enums.ErrorMsg;
 import com.formtools.model.UserModel;
 import com.formtools.service.OtherUserService;
 import com.formtools.utils.WeiXinCodeUtil;
+import com.formtools.vo.ResultVo;
 import com.formtools.vo.WeiXinUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -17,26 +22,28 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @RestController
 @RequestMapping("/weixin")
+@Validated
 public class WeiXinLoginController {
     @Autowired
     private OtherUserService otherUserService;
 
-    private static ConcurrentHashMap<String, String> wxSceneMap=new ConcurrentHashMap();
+    private static ConcurrentHashMap<String, String> wxSceneMap = new ConcurrentHashMap();
     /**
      * 返回小程序二维码和scene，二维码使用参数scene生成
      *
      * @return
      */
-    @GetMapping(value= "/code",produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/code", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getwxCode(HttpServletResponse response) {
         String scene = "scene" + System.currentTimeMillis();
-        byte[] code=WeiXinCodeUtil.getCode(scene);
+        byte[] code = WeiXinCodeUtil.getCode(scene);
         wxSceneMap.put(scene, "no");
-        response.setHeader("scene",scene);
+        response.setHeader("scene", scene);
         return code;
     }
 
     /**
+     * 检验小程序中是否授权登录
      * 返回no即小程序端未授权登录
      * 返回yes即小程序端已授权登录
      *
@@ -44,17 +51,35 @@ public class WeiXinLoginController {
      * @return
      */
     @GetMapping("/isLogin")
-    public String isLogin(@RequestParam String scene) {
-        return wxSceneMap.get(scene);
+    public ResultVo isLogin(@RequestParam String scene,HttpServletResponse response) {
+        String sceneState = wxSceneMap.get(scene);
+        if(sceneState==null){
+            return ResultVo.fail(ErrorMsg.PARAM_ERROR,"该scene不存在");
+        }else if (!sceneState.equals("no")) {
+            Cookie uesrIdCookie=new Cookie("userId",sceneState);
+            uesrIdCookie.setMaxAge(360*24*60*60);
+            uesrIdCookie.setPath("/");
+            uesrIdCookie.setHttpOnly(true);
+            response.addCookie(uesrIdCookie);
+            wxSceneMap.remove(scene);
+            return ResultVo.success("yes");
+        }
+        return ResultVo.success("no");
     }
 
+    /**
+     * 小程序中调用该接口进行登录
+     * @param wxUser
+     * @return
+     */
     @PostMapping("/login")
-    public String wxLogin(@RequestBody WeiXinUser wxUser) {
+    public ResultVo wxLogin(@RequestBody @Valid WeiXinUser wxUser) {
         UserModel userModel = new UserModel(wxUser.getOpenid(),
                 wxUser.getNickName(), wxUser.getAvatarUrl());
-        if(otherUserService.updateUser(userModel)){
-            wxSceneMap.put(wxUser.getScene(), "yes");
+        if (otherUserService.updateUser(userModel)) {
+            wxSceneMap.put(wxUser.getScene(), wxUser.getOpenid());
+            return ResultVo.success("登录成功");
         }
-        return "success";
+        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR,"更新或添加用户信息时出错");
     }
 }

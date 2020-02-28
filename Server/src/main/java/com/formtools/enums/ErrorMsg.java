@@ -12,7 +12,8 @@ public enum ErrorMsg {
     PARAM_ERROR("参数错误"),
     SYSTEM_ERROR("系统错误"),
     REGISTER_ERROR("注册失败"),
-    OPERAT_FREQUENCY("操作频繁 稍后重试");
+    OPERAT_FREQUENCY("操作频繁 稍后重试"),
+    MISSING_PARAMETER("缺少参数");
 
     private String msg;
 
