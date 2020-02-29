@@ -73,6 +73,7 @@ public class GlobalExceptionHandler {
     public ResultVo ParamExceptionHandler(ParamException e) {
         return ResultVo.fail(ErrorMsg.PARAM_ERROR, e.getMap());
     }
+
 }
 /**
  * DefaultHandlerExceptionResolver
