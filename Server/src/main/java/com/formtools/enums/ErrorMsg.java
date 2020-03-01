@@ -15,7 +15,8 @@ public enum ErrorMsg {
     FILE_TYPE_ERROR("文件类型错误 请选择.jpg或.png"),
     FILE_UPLOAD_ERROR("文件上传失败"),
     FILE_SIZE_ERROR("文件过大"),
-    OPERAT_FREQUENCY("操作频繁 稍后重试");
+    OPERAT_FREQUENCY("操作频繁 稍后重试"),
+    MISSING_PARAMETER("缺少参数");
 
     private String msg;
 

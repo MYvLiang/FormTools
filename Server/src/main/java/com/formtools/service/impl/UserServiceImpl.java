@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     public boolean addUser(UserModel userModel) {
         long timeMillis = System.currentTimeMillis();
-        String userId = "userModel" + timeMillis;
+        String userId = "user" + timeMillis;
         userModel.setProfile("");
         userModel.setUserId(userId);
         Map<String, String> map = new HashMap();

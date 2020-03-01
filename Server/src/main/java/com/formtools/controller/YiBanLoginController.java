@@ -68,7 +68,7 @@ public class YiBanLoginController {
             otherUserService.updateUser(userModel);
 
             Cookie uesrIdCookie=new Cookie("uesrId",userId);
-            uesrIdCookie.setMaxAge(7*24*60*60);
+            uesrIdCookie.setMaxAge(360*24*60*60);
             uesrIdCookie.setPath("/");
             uesrIdCookie.setHttpOnly(true);
             response.addCookie(uesrIdCookie);
