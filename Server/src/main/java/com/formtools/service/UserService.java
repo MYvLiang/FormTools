@@ -5,7 +5,9 @@ import com.formtools.vo.ResultVo;
 
 import javax.mail.MessagingException;
 import com.formtools.model.UserModel;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -20,4 +22,5 @@ public interface UserService {
     boolean addUser(UserModel userModel);
     boolean isTrueCode(UserModel userModel,String code);
     boolean register(UserModel userModel,String code);
+    boolean keepImage(MultipartFile multipartFile, String id) throws IOException;
 }

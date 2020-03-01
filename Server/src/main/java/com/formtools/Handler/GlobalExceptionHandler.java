@@ -10,6 +10,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.multipart.MultipartException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -74,6 +76,16 @@ public class GlobalExceptionHandler {
         return ResultVo.fail(ErrorMsg.PARAM_ERROR, e.getMap());
     }
 
+    /*@ExceptionHandler(Exception.class)
+    public Object CommonExceptionHandler(Exception e){
+        return "服务器错误";
+    }*/
+
+    //拦截文件过大异常
+    @ExceptionHandler(MultipartException.class)
+    public ResultVo SizeLimitExceededExceptionHandler(Exception e){
+        return ResultVo.fail(ErrorMsg.FILE_SIZE_ERROR);
+    }
 }
 /**
  * DefaultHandlerExceptionResolver
