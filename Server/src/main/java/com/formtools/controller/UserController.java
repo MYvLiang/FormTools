@@ -10,14 +10,17 @@ import com.formtools.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.io.IOException;
 
 
 /**
- * @author myl
- * @create 2020-02-05  22:57
+ * 用户的账号操作
  */
 @RestController
 @Validated
@@ -53,5 +56,30 @@ public class UserController {
             return ResultVo.success();
         }
         return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+    }
+
+    @PostMapping("/upload")
+    public ResultVo upload(@RequestParam("uploadFile") MultipartFile uploadFile){
+                //文件不空
+        if (uploadFile!=null && uploadFile.getOriginalFilename()!=null && !uploadFile.getOriginalFilename().equals("")){
+
+            //获取文件全名称
+            String file_name=uploadFile.getOriginalFilename();
+            //获取文件后缀
+            String file_type=file_name.substring(file_name.lastIndexOf("."));
+            //若文件类型错误
+            if (!file_type.equals(".jpg") && !file_type.equals(".png")){
+                return ResultVo.fail(ErrorMsg.FILE_TYPE_ERROR);
+            }
+
+            try {
+                //调用service保存
+                userService.keepImage(uploadFile,"111");//<<<<<<<<<用户id由token获取？
+                return ResultVo.success();
+            } catch (IOException e) {
+                return ResultVo.fail(ErrorMsg.FILE_UPLOAD_ERROR);
+            }
+        }
+        return ResultVo.fail(ErrorMsg.FILE_UPLOAD_ERROR);
     }
 }

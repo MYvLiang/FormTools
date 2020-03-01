@@ -3,11 +3,15 @@ package com.formtools.Handler;
 import com.formtools.Exception.ParamException;
 import com.formtools.enums.ErrorMsg;
 import com.formtools.vo.ResultVo;
+import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -50,7 +54,13 @@ public class GlobalExceptionHandler {
     }
 
     /*@ExceptionHandler(Exception.class)
-    public String CommonExceptionHandler(){
+    public Object CommonExceptionHandler(Exception e){
         return "服务器错误";
     }*/
+
+    //拦截文件过大异常
+    @ExceptionHandler(MultipartException.class)
+    public ResultVo SizeLimitExceededExceptionHandler(Exception e){
+        return ResultVo.fail(ErrorMsg.FILE_SIZE_ERROR);
+    }
 }

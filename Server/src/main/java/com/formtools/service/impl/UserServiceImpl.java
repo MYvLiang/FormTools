@@ -9,9 +9,13 @@ import com.formtools.utils.*;
 import com.formtools.vo.ResultVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -110,5 +114,22 @@ public class UserServiceImpl implements UserService {
 
         if (isTrueCode(userModel,code)) return addUser(userModel);
         return false;
+    }
+
+    /**
+     * 保存用户上传的头像（头像文件名以用户id命名）
+     * @param multipartFile 头像文件
+     * @param id 用户id
+     * @return true 上传成功
+     * 失败抛异常
+     */
+    public boolean keepImage(MultipartFile multipartFile, String id) throws IOException {
+        //在开发测试模式时，得到地址为：{项目跟目录}/target/static/images/users/images/id.jpg
+        File upload=new File(ResourceUtils.getURL("classpath:").getPath(),"static\\images\\users\\images\\"+id+".jpg");
+        if(!upload.exists()){
+            upload.mkdirs();
+        }
+        multipartFile.transferTo(upload);
+        return true;
     }
 }
