@@ -2,8 +2,8 @@ package com.formtools.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.formtools.model.UserModel;
 import com.formtools.enums.ErrorMsg;
+import com.formtools.model.UserModel;
 import com.formtools.service.UserService;
 import com.formtools.utils.ValidationUtil;
 import com.formtools.vo.ResultVo;
@@ -19,8 +19,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -30,8 +28,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Validated
 public class UserController {
 
-    //储存用户登入信息
-    private static ConcurrentHashMap<String, LocalDateTime> loginMap=new ConcurrentHashMap<>();
 
     @Autowired
     private ValidationUtil validationUtil;
@@ -56,11 +52,11 @@ public class UserController {
             return ResultVo.fail(ErrorMsg.EMAIL_LOGIN_ERROR);
         //成功则设置cookie
         Cookie cookie=new Cookie("userId",userId);
-        cookie.setMaxAge(60*60);
+        cookie.setMaxAge(10*365*24*60*60);
         cookie.setPath("/");
+        cookie.setHttpOnly(true);
         response.addCookie(cookie);
-        //置入缓存 记录时间
-        loginMap.put(userId,LocalDateTime.now());
+
         return ResultVo.success();
     }
 
@@ -77,9 +73,9 @@ public class UserController {
         Cookie cookie=new Cookie("userId",id);
         cookie.setMaxAge(0);
         cookie.setPath("/");
+        cookie.setHttpOnly(true);
         response.addCookie(cookie);
 
-        loginMap.remove(id);
         return ResultVo.success();
     }
 
