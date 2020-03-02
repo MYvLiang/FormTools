@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -26,13 +30,65 @@ import java.io.IOException;
 @Validated
 public class UserController {
 
+    //储存用户登入信息
+    private static ConcurrentHashMap<String, LocalDateTime> loginMap=new ConcurrentHashMap<>();
+
     @Autowired
     private ValidationUtil validationUtil;
 
     @Autowired
     private UserService userService;
 
+    /**
+     * 邮箱登录（请求参数类型为 formdata）
+     * @param email
+     * @param password
+     * @param response
+     * @return
+     */
+    @GetMapping("/login")
+    public ResultVo emailLogin(@RequestParam("email") @NotEmpty @NotNull @Email String email,
+                               @RequestParam("password") @NotEmpty @NotNull String password,
+                               HttpServletResponse response){
+        //账号验证失败
+        String userId=userService.emailLogin(email,password);
+        if (userId.equals(""))
+            return ResultVo.fail(ErrorMsg.EMAIL_LOGIN_ERROR);
+        //成功则设置cookie
+        Cookie cookie=new Cookie("userId",userId);
+        cookie.setMaxAge(60*60);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        //置入缓存 记录时间
+        loginMap.put(userId,LocalDateTime.now());
+        return ResultVo.success();
+    }
 
+    /**
+     * 退出登录
+     * @param id
+     * @param response
+     * @return
+     */
+    @GetMapping("/logout")
+    public ResultVo logout(@CookieValue("userId")
+                               @NotNull(message = "登录异常 请重新登录")
+                               @NotEmpty(message = "登录异常 请重新登录")String id, HttpServletResponse response){
+        Cookie cookie=new Cookie("userId",id);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        loginMap.remove(id);
+        return ResultVo.success();
+    }
+
+
+    /**
+     * 用户注册功能：验证码发送api
+     * @param email
+     * @return
+     */
     @GetMapping("/email-code")
     public ResultVo sendEmailCode(@RequestParam("email") @Email String email){
         try {
@@ -42,6 +98,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 用户注册
+     * @param message
+     * @return
+     */
     @PostMapping("/user")
     public ResultVo register(@RequestBody String message){
         JSONObject jsonObject=JSON.parseObject(message);
@@ -59,7 +120,10 @@ public class UserController {
     }
 
     @PostMapping("/upload")
-    public ResultVo upload(@RequestParam("uploadFile") MultipartFile uploadFile){
+    public ResultVo upload(@RequestParam("uploadFile") MultipartFile uploadFile,
+                           @CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
+                           @NotEmpty(message = "登录异常 请重新登录")
+                                   String id){
                 //文件不空
         if (uploadFile!=null && uploadFile.getOriginalFilename()!=null && !uploadFile.getOriginalFilename().equals("")){
 
@@ -74,7 +138,7 @@ public class UserController {
 
             try {
                 //调用service保存
-                userService.keepImage(uploadFile,"111");//<<<<<<<<<用户id由token获取？
+                userService.keepImage(uploadFile,id);
                 return ResultVo.success();
             } catch (IOException e) {
                 return ResultVo.fail(ErrorMsg.FILE_UPLOAD_ERROR);

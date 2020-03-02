@@ -16,7 +16,9 @@ public enum ErrorMsg {
     FILE_UPLOAD_ERROR("文件上传失败"),
     FILE_SIZE_ERROR("文件过大"),
     OPERAT_FREQUENCY("操作频繁 稍后重试"),
-    MISSING_PARAMETER("缺少参数");
+    MISSING_PARAMETER("缺少参数"),
+    COOKIE_ERROR("请重新登录"),
+    EMAIL_LOGIN_ERROR("登录失败 账号密码错误");
 
     private String msg;
 

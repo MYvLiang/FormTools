@@ -132,4 +132,21 @@ public class UserServiceImpl implements UserService {
         multipartFile.transferTo(upload);
         return true;
     }
+
+    /**
+     * 用户邮箱登录验证
+     * @param email 邮箱
+     * @param password 密码
+     * @return 成功返回用户id
+     * 否则返回“”（空字符）
+     */
+    public String emailLogin(String email,String password){
+        Map<String,String> map=new HashMap<>();
+        map.put("email",email);
+        UserModel userModel=userMapper.getUser(map);
+        if (userModel!=null && userModel.getPassword().equals(password)){
+            return userModel.getUserId();
+        }
+        return "";
+    }
 }

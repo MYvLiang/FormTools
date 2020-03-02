@@ -6,6 +6,7 @@ import com.formtools.vo.ResultVo;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestCookieException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -81,10 +82,23 @@ public class GlobalExceptionHandler {
         return "服务器错误";
     }*/
 
-    //拦截文件过大异常
+    /**
+     * 拦截文件过大异常
+     * @param e
+     * @return
+     */
     @ExceptionHandler(MultipartException.class)
     public ResultVo SizeLimitExceededExceptionHandler(Exception e){
         return ResultVo.fail(ErrorMsg.FILE_SIZE_ERROR);
+    }
+
+    /**
+     * 拦截cookie缺失异常
+     * @return
+     */
+    @ExceptionHandler(MissingRequestCookieException.class)
+    public ResultVo MissingRequestCookieExceptionHandler(){
+        return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
     }
 }
 /**
