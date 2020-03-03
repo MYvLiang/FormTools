@@ -19,6 +19,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -27,6 +29,9 @@ import java.io.IOException;
 @RestController
 @Validated
 public class UserController {
+
+    //域名
+    private static String domainName="localhost:8080";
 
 
     @Autowired
@@ -115,6 +120,12 @@ public class UserController {
         return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
     }
 
+    /**
+     * 上传头像
+     * @param uploadFile
+     * @param id
+     * @return 用户头像url
+     */
     @PostMapping("/upload")
     public ResultVo upload(@RequestParam("uploadFile") MultipartFile uploadFile,
                            @CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
@@ -134,12 +145,30 @@ public class UserController {
 
             try {
                 //调用service保存
-                userService.keepImage(uploadFile,id);
-                return ResultVo.success();
+                //返回图片储存地址
+                String image=userService.keepImage(uploadFile,id);
+                String file= "http://"+domainName+"/images/users/images/"+image;
+                return ResultVo.success(file);
             } catch (IOException e) {
                 return ResultVo.fail(ErrorMsg.FILE_UPLOAD_ERROR);
             }
         }
         return ResultVo.fail(ErrorMsg.FILE_UPLOAD_ERROR);
+    }
+
+    /**
+     * 获取用户信息
+     * @param id cookie所带userId
+     * @return
+     */
+    @GetMapping("/user")
+    public ResultVo getUser(@CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
+                            @NotEmpty(message = "登录异常 请重新登录")
+                                    String id){
+        Map<String,String> map=new HashMap<>();
+        map.put("userId",id);
+        UserModel userModel=userService.getUser(map);
+        if (userModel!=null) userModel.setUserId(null);
+        return ResultVo.success(userModel);
     }
 }

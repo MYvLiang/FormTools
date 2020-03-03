@@ -120,17 +120,17 @@ public class UserServiceImpl implements UserService {
      * 保存用户上传的头像（头像文件名以用户id命名）
      * @param multipartFile 头像文件
      * @param id 用户id
-     * @return true 上传成功
+     * @return 图片储存地址 上传成功
      * 失败抛异常
      */
-    public boolean keepImage(MultipartFile multipartFile, String id) throws IOException {
+    public String keepImage(MultipartFile multipartFile, String id) throws IOException {
         //在开发测试模式时，得到地址为：{项目跟目录}/target/static/images/users/images/id.jpg
         File upload=new File(ResourceUtils.getURL("classpath:").getPath(),"static\\images\\users\\images\\"+id+".jpg");
         if(!upload.exists()){
             upload.mkdirs();
         }
         multipartFile.transferTo(upload);
-        return true;
+        return upload.getName();
     }
 
     /**

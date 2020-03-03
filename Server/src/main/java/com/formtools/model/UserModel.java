@@ -1,5 +1,7 @@
 package com.formtools.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -9,6 +11,7 @@ import javax.validation.groups.Default;
  * @author myl
  * @create 2020-02-05  21:59
  */
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class UserModel {
 
     public interface register extends Default {}
