@@ -17,7 +17,7 @@ public class UserModel {
     public interface register extends Default {}
 
     //用户id
-    private String userId;
+    private Long userId;
 
     @NotNull(groups = register.class)
     @NotEmpty(groups = register.class)
@@ -41,13 +41,13 @@ public class UserModel {
     public UserModel() {
     }
 
-    public UserModel(String userId, String nickname, String profile) {
+    public UserModel(Long userId, String nickname, String profile) {
         this.userId = userId;
         this.nickname = nickname;
         this.profile = profile;
     }
 
-    public UserModel(String userId, String email, String password, String nickname, String profile) {
+    public UserModel(Long userId, String email, String password, String nickname, String profile) {
         this.userId = userId;
         this.email = email;
         this.password = password;
@@ -55,11 +55,11 @@ public class UserModel {
         this.profile = profile;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
