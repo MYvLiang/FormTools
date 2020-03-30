@@ -3,7 +3,10 @@ package com.formtools.service.impl;
 import com.formtools.Exception.ParamException;
 import com.formtools.enums.ErrorMsg;
 import com.formtools.mapper.UserMapper;
+import com.formtools.model.EmailVerify;
+import com.formtools.model.UserInfo;
 import com.formtools.model.UserModel;
+import com.formtools.model.UserVerify;
 import com.formtools.service.UserService;
 import com.formtools.utils.CodeUtil;
 import com.formtools.utils.EmailUtil;
@@ -36,24 +39,38 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-    public UserModel getUser(Map<String,String> map) {
-//        return userMapper.getUser(map);
-        return new UserModel();
+    public UserInfo getUserInfo(Long userId) {
+        return userMapper.getUserInfo(userId);
     }
 
+    /**
+     * 添加邮箱用户
+     * @param userModel
+     * @return
+     */
+    @Transactional //事务控制
     public boolean addUser(UserModel userModel) {
-//        long timeMillis = System.currentTimeMillis();
-//        String userId = "user" + timeMillis;
-//        userModel.setProfile("");
-//        userModel.setUserId(userId);
-//        Map<String, String> map = new HashMap();
-//        map.put("email", userModel.getEmail());
-//        UserModel haduser = getUser(map);
-//        int n = 0;
-//        if (haduser == null) {
-//            n = userMapper.addUser(userModel);
-//        }
-//        return n > 0;
+        //获取userId （可优化
+        long userId = System.currentTimeMillis();
+
+        UserVerify userVerify=new UserVerify();
+        userVerify.setUserId(userId);
+        userVerify.setOpenid(userModel.getEmail());
+        userVerify.setType('E');
+
+        UserInfo userInfo=new UserInfo();
+        userInfo.setUserId(userId);
+        userInfo.setNickname(userModel.getNickname());
+        userInfo.setProfile("");
+
+        EmailVerify emailVerify=new EmailVerify();
+        emailVerify.setEmail(userModel.getEmail());
+        emailVerify.setPassword(userModel.getPassword());
+
+        userMapper.addUserVerify(userVerify);
+        userMapper.addUserInfo(userInfo);
+        userMapper.addEmailVerify(emailVerify);
+
         return true;
     }
 
@@ -66,26 +83,23 @@ public class UserServiceImpl implements UserService {
 
     @Transactional //开启事务控制
     public ResultVo sendEmailCode(String email) throws MessagingException {
-//        Map<String,String> tempMap=new HashMap<>();
-//        tempMap.put("email",email);
-//        UserModel realUser=userMapper.getUser(tempMap);
-//        //若账号已存在
-//        if (realUser!=null)
-//            return ResultVo.fail(ErrorMsg.ACCOUNT_EXIT);
-//        Examiner examiner=emailCodeReservoir.get(email);
-//        //验证信息已存在缓存
-//        if (examiner!=null){
-//            String remainTime=examiner.timeComputer(LocalDateTime.now());
-//            //若未超过60s
-//            if (!remainTime.equals(""))
-//                return ResultVo.fail(ErrorMsg.OPERAT_FREQUENCY,remainTime);
-//        }
-//
-//        String code= CodeUtil.createCode();
-//        //发送邮件
-//        EmailUtil.SendEmail(email,code);
-//        //置入缓存
-//        emailCodeReservoir.put(email,new Examiner(code,LocalDateTime.now()));
+        UserVerify userVerify=userMapper.getUserVerify(email);
+        //若该验证方式已存在
+        if (userVerify!=null) return ResultVo.fail(ErrorMsg.ACCOUNT_EXIT);
+        //获取缓存
+        Examiner examiner=emailCodeReservoir.get(email);
+        //若该缓存存在
+        if (examiner!=null){
+            String remainTime=examiner.timeComputer(LocalDateTime.now());
+            //若未超过60s 返回剩余时间
+            if (!remainTime.equals(""))
+                return ResultVo.fail(ErrorMsg.OPERAT_FREQUENCY,remainTime);
+        }
+        String code= CodeUtil.createCode();
+        //发送邮件
+        EmailUtil.SendEmail(email,code);
+        //置入缓存
+        emailCodeReservoir.put(email,new Examiner(code,LocalDateTime.now()));
         return ResultVo.success();
     }
 
@@ -97,6 +111,7 @@ public class UserServiceImpl implements UserService {
      * 验证码错误抛参数错误异常
      */
     public boolean isTrueCode(UserModel userModel,String code){
+        //校验验证码 code
         if (code!=null && !code.equals("")){
             Examiner examiner=emailCodeReservoir.get(userModel.getEmail());
             if (examiner!=null && examiner.getCode().equals(code)){
@@ -143,15 +158,17 @@ public class UserServiceImpl implements UserService {
      * @param email 邮箱
      * @param password 密码
      * @return 成功返回用户id
-     * 否则返回“”（空字符）
+     * 否则返回0
      */
-    public String emailLogin(String email,String password){
-//        Map<String,String> map=new HashMap<>();
-//        map.put("email",email);
-//        UserModel userModel=userMapper.getUser(map);
-//        if (userModel!=null && userModel.getPassword().equals(password)){
-//            return userModel.getUserId();
-//        }
-        return "";
+    public Long emailLogin(String email,String password){
+        //查看 邮箱密码验证表 email_verify 中是否含有该账户
+        EmailVerify emailVerify = userMapper.getEmailVerify(email);
+        if (emailVerify!=null){
+            if (emailVerify.getPassword().equals(password)){
+                Long userId = userMapper.getUserVerify(email).getUserId();
+                return userId;
+            }
+        }
+        return 0L;
     }
 }
