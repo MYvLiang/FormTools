@@ -19,8 +19,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -177,10 +175,6 @@ public class UserController {
     public ResultVo getUser(@CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
                             @NotEmpty(message = "登录异常 请重新登录")
                                     String id){
-        Map<String,String> map=new HashMap<>();
-        map.put("userId",id);
-        UserModel userModel=userService.getUser(map);
-        if (userModel!=null) userModel.setUserId(null);
-        return ResultVo.success(userModel);
+        return ResultVo.success(userService.getUserInfo(Long.parseLong(id)));
     }
 }

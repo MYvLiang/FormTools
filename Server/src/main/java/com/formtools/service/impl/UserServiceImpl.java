@@ -39,9 +39,8 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-    public UserModel getUser(Map<String,String> map) {
-//        return userMapper.getUser(map);
-        return new UserModel();
+    public UserInfo getUserInfo(Long userId) {
+        return userMapper.getUserInfo(userId);
     }
 
     /**
