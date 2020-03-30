@@ -28,7 +28,7 @@ public class UserInfo {
     public UserInfo() {
     }
 
-    public UserInfo(Long userId, @NotNull(groups = register.class) @NotEmpty(groups = register.class) String nickname, String profile) {
+    public UserInfo(Long userId, String nickname, String profile) {
         this.userId = userId;
         this.nickname = nickname;
         this.profile = profile;

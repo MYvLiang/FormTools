@@ -16,7 +16,7 @@ public interface UserMapper {
 
     int addUserInfo(UserInfo userInfo);
 
-    UserModel getUserInfo(Long userId);
+    UserInfo getUserInfo(Long userId);
 
     int updateUserInfo(UserInfo userInfo);
 
@@ -24,7 +24,9 @@ public interface UserMapper {
 
     int updateUserVerify(UserVerify userVerify);
 
-    EmailVerify getEmailVerify(EmailVerify emailVerify);
+    UserVerify getUserVerify(String openid);
+
+    EmailVerify getEmailVerify(String email);
 
     int addEmailVerify(EmailVerify emailVerify);
 

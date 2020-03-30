@@ -17,7 +17,7 @@
     </resultMap>
 
     <resultMap type="EmailVerify" id="EmailVerify">
-        <id property="userId" column="user_id"/>
+        <result property="id" column="id"/>
         <result property="email" column="user_email"/>
         <result property="password" column="user_password"/>
     </resultMap>
@@ -27,7 +27,7 @@
     </insert>
 
     <select id="getUserInfo" parameterType="long" resultMap="UserResult">
-        select * from user_info where user_id=#{user_id}
+        select * from user_info where user_id=#{userId}
     </select>
 
     <update id="updateUserInfo" parameterType="UserInfo">
@@ -44,46 +44,44 @@
     </update>
 
     <insert id="addUserVerify" parameterType="UserVerify">
-        insert into user_verify values(#{userId},#{openid},#{type})
+        insert into user_verify values(#{id},#{userId},#{openid},#{type})
     </insert>
 
     <update id="updateUserVerify" parameterType="UserVerify">
         update user_verify
         <set>
-            <if test="userId!=null">
-                user_nickname=#{userId},
-            </if>
             <if test="openid!=null">
-                user_profile=#{openid},
+                openid=#{openid},
             </if>
             <if test="type!=null">
-                user_profile=#{type},
+                verify_type=#{type},
             </if>
         </set>
         where user_id=#{userId}
     </update>
 
-    <select id="getEmailVerify" parameterType="long" resultMap="EmailVerify">
-        select * from email_verify where user_id=#{user_id}
+    <select id="getUserVerify" parameterType="string" resultMap="UserVerify">
+        select * from user_verify where openid=#{openid}
+    </select>
+
+    <select id="getEmailVerify" parameterType="string" resultMap="EmailVerify">
+        select * from email_verify where user_email=#{email}
     </select>
 
     <insert id="addEmailVerify" parameterType="EmailVerify">
-        insert into email_verify values(#{userId},#{email},#{password})
+        insert into email_verify values(#{id},#{email},#{password})
     </insert>
 
     <update id="updateEmailVerify" parameterType="EmailVerify">
         update email_verify
         <set>
-            <if test="userId!=null">
-                user_nickname=#{userId},
-            </if>
             <if test="email!=null">
-                email=#{email},
+                user_email=#{email},
             </if>
             <if test="password!=null">
-                password=#{password},
+                user_password=#{password},
             </if>
         </set>
-        where user_id=#{userId}
+        where id=#{id}
     </update>
 </mapper> 

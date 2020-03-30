@@ -4,7 +4,6 @@ import cn.yiban.open.Authorize;
 import cn.yiban.open.common.User;
 import com.alibaba.fastjson.JSONObject;
 import com.formtools.OtherConfig;
-import com.formtools.model.UserModel;
 import com.formtools.service.OtherUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,14 +59,13 @@ public class YiBanLoginController {
                 return "redirect:"+DEFAULTREDIRECTURL;
             }
             JSONObject info=me.getJSONObject("info");
-            String userId=info.getString("yb_userid");
+            String openid=info.getString("yb_userid");
             String nickname=info.getString("yb_username");
             String profile=info.getString("yb_userhead");
-
-            UserModel userModel=new UserModel(userId,nickname,profile);
-            otherUserService.updateUser(userModel);
-
-            Cookie uesrIdCookie=new Cookie("uesrId",userId);
+            Long userId=otherUserService.updateUser(nickname,profile,openid);
+            if(userId==null) return "redirect:"+DEFAULTREDIRECTURL;
+//            System.out.println(userId);
+            Cookie uesrIdCookie=new Cookie("uesrId",String.valueOf(userId));
             uesrIdCookie.setMaxAge(360*24*60*60);
             uesrIdCookie.setPath("/");
             uesrIdCookie.setHttpOnly(true);

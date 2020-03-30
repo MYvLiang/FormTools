@@ -1,7 +1,10 @@
 package com.formtools;
 
 import com.formtools.mapper.UserMapper;
+import com.formtools.model.EmailVerify;
+import com.formtools.model.UserInfo;
 import com.formtools.model.UserModel;
+import com.formtools.model.UserVerify;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,34 +23,61 @@ public class UserModelMapperTests {
     UserMapper userMapper;
 
     @Test
-    void addUserTest(){
-//        int n=userMapper.addUser(new UserModel("5555","222222222@163.com","123456","shiny","touxiang1"));
-        UserModel userModel =new UserModel();
-        userModel.setUserId("99999");
-        userModel.setNickname("我我我");
-        userModel.setProfile("/fdfd/dfd/a.jpg");
-        int n=userMapper.addUser(userModel);
-        System.out.println(n);
+    void testaddUserInfo(){
+        UserInfo userInfo=new UserInfo(111111111L,"***","***");
+        int i=userMapper.addUserInfo(userInfo);
+        System.out.println(i);
     }
 
     @Test
-    void getUserTest(){
-        Map<String, String> map = new HashMap();
-        map.put("userId", "1111");
-//        map.put("email", "222222222@163.com");
-//        map.put("password","123456");
-        UserModel userModel =userMapper.getUser(map);
-        System.out.println(userModel);
+    void testgetUserInfo(){
+        UserInfo userInfo=userMapper.getUserInfo(111111111L);
+        System.out.println(userInfo);
+    }
+
+    @Test
+    void testupdateUserInfo(){
+        UserInfo userInfo=new UserInfo(111111111L,"222","***");
+        int i=userMapper.updateUserInfo(userInfo);
+        System.out.println(i);
+    }
+
+    @Test
+    void testaddUserVerify(){
+        UserVerify userVerify=new UserVerify(null,111111111L,"1111",'w');
+        int i=userMapper.addUserVerify(userVerify);
+        System.out.println(i);
+    }
+
+    @Test
+    void testupdateUserVerify(){
+        UserVerify userVerify=new UserVerify(null,111111111L,"11112",'w');
+        int i=userMapper.updateUserVerify(userVerify);
+    }
+
+    @Test
+    void testgetUserVerify(){
+        UserVerify userVerify=userMapper.getUserVerify("11112");
+        System.out.println(userVerify);
+    }
+
+    @Test
+    void testaddEmailVerify(){
+        EmailVerify emailVerify=new EmailVerify(null,"123","123");
+        System.out.println(userMapper.addEmailVerify(emailVerify));
+    }
+
+    @Test
+    void testgetEmailVerify(){
+        EmailVerify emailVerify=userMapper.getEmailVerify("123");
+        System.out.println(emailVerify);
     }
     @Test
-    void updateUserTest(){
-        UserModel userModel =new UserModel();
-        userModel.setUserId("11111");
-//        userModel.setEmail("11111@gmail.com");
-//        userModel.setPassword("11111111");
-        userModel.setNickname("昵称昵称");
-        userModel.setProfile("头像2");
-        int n=userMapper.updateUser(userModel);
-        System.out.println(n);
+    void testupdateEmailVerify(){
+        EmailVerify emailVerify=userMapper.getEmailVerify("123");
+        emailVerify.setEmail("1234");
+        System.out.println(userMapper.updateEmailVerify(emailVerify));
+        emailVerify=userMapper.getEmailVerify("1234");
+        System.out.println(emailVerify);
     }
 }
