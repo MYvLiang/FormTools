@@ -52,11 +52,11 @@ public class UserController {
                                @RequestParam("password") @NotEmpty @NotNull String password,
                                HttpServletResponse response){
         //账号验证失败
-        String userId=userService.emailLogin(email,password);
-        if (userId.equals(""))
+        Long userId=userService.emailLogin(email,password);
+        if (userId==0)
             return ResultVo.fail(ErrorMsg.EMAIL_LOGIN_ERROR);
         //成功则设置cookie
-        Cookie cookie=new Cookie("userId",userId);
+        Cookie cookie=new Cookie("userId",String.valueOf(userId));
         cookie.setMaxAge(10*365*24*60*60);
         cookie.setPath("/");
         cookie.setHttpOnly(true);

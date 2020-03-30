@@ -22,5 +22,5 @@ public interface UserService {
     boolean isTrueCode(UserModel userModel,String code);
     boolean register(UserModel userModel,String code);
     String keepImage(MultipartFile multipartFile, String id) throws IOException;
-    String emailLogin(String email,String password);
+    Long emailLogin(String email,String password);
 }

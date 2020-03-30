@@ -1,12 +1,10 @@
 package com.formtools.service.impl;
 
 import com.formtools.Exception.ParamException;
-import com.formtools.enums.ErrorMsg;
 import com.formtools.mapper.UserMapper;
+import com.formtools.model.EmailVerify;
 import com.formtools.model.UserModel;
 import com.formtools.service.UserService;
-import com.formtools.utils.CodeUtil;
-import com.formtools.utils.EmailUtil;
 import com.formtools.utils.Examiner;
 import com.formtools.vo.ResultVo;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,6 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -143,15 +140,17 @@ public class UserServiceImpl implements UserService {
      * @param email 邮箱
      * @param password 密码
      * @return 成功返回用户id
-     * 否则返回“”（空字符）
+     * 否则返回0
      */
-    public String emailLogin(String email,String password){
-//        Map<String,String> map=new HashMap<>();
-//        map.put("email",email);
-//        UserModel userModel=userMapper.getUser(map);
-//        if (userModel!=null && userModel.getPassword().equals(password)){
-//            return userModel.getUserId();
-//        }
-        return "";
+    public Long emailLogin(String email,String password){
+        //查看 邮箱密码验证表 email_verify 中是否含有该账户
+        EmailVerify emailVerify = userMapper.getEmailVerify(email);
+        if (emailVerify!=null){
+            if (emailVerify.getPassword().equals(password)){
+                Long userId = userMapper.getUserVerify(email).getUserId();
+                return userId;
+            }
+        }
+        return 0L;
     }
 }
