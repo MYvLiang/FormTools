@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Transactional //事务控制
-    public boolean addUser(UserModel userModel) {
+    public void addUser(UserModel userModel) {
         //获取userId （可优化
         long userId = System.currentTimeMillis();
 
@@ -70,8 +70,6 @@ public class UserServiceImpl implements UserService {
         userMapper.addUserVerify(userVerify);
         userMapper.addUserInfo(userInfo);
         userMapper.addEmailVerify(emailVerify);
-
-        return true;
     }
 
     public boolean updateUser(UserModel userModelMessage, UserModel userModel){
@@ -132,8 +130,15 @@ public class UserServiceImpl implements UserService {
      */
     public boolean register(UserModel userModel,String code){
 
-        if (isTrueCode(userModel,code)) return addUser(userModel);
-        return false;
+        if (isTrueCode(userModel,code)){
+            try {
+                //抓取异常 事务回滚
+                addUser(userModel);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

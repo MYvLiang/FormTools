@@ -18,7 +18,7 @@ public interface UserService {
 
     UserInfo getUserInfo(Long userId);
     ResultVo sendEmailCode(String email) throws MessagingException;
-    boolean addUser(UserModel userModel);
+    void addUser(UserModel userModel);
     boolean isTrueCode(UserModel userModel,String code);
     boolean register(UserModel userModel,String code);
     String keepImage(MultipartFile multipartFile, String id) throws IOException;
