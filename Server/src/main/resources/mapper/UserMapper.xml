@@ -44,7 +44,7 @@
     </update>
 
     <insert id="addUserVerify" parameterType="UserVerify">
-        insert into user_verify values(#{id},#{userId},#{openid},#{type})
+        insert into user_verify values(null,#{userId},#{openid},#{type})
     </insert>
 
     <update id="updateUserVerify" parameterType="UserVerify">
@@ -69,7 +69,7 @@
     </select>
 
     <insert id="addEmailVerify" parameterType="EmailVerify">
-        insert into email_verify values(#{id},#{email},#{password})
+        insert into email_verify values(null,#{email},#{password})
     </insert>
 
     <update id="updateEmailVerify" parameterType="EmailVerify">

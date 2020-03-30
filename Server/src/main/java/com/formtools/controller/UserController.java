@@ -31,7 +31,7 @@ import java.util.Map;
 public class UserController {
 
     //域名
-    private static String domainName="localhost:8080";
+    private static final String domainName="localhost:8080";
 
 
     @Autowired
@@ -100,15 +100,27 @@ public class UserController {
     }
 
     /**
-     * 用户注册
+     * 邮箱用户注册
      * @param message
      * @return
      */
     @PostMapping("/user")
     public ResultVo register(@RequestBody String message){
-        JSONObject jsonObject=JSON.parseObject(message);
-        //code在service有校验 此处不必
+        JSONObject jsonObject= null;
+        try {
+            jsonObject = JSON.parseObject(message);
+        } catch (Exception e) {
+            //参数解析错误
+            return ResultVo.fail(ErrorMsg.JSON_READ_ERROR);
+        }
+        // 提取随注册表单提交的验证码 code
+        // code在service有校验 此处不必
         String code=(String) jsonObject.get("code");
+        /*
+         * 注册信息包含：
+         * 用户名 邮箱 密码
+         */
+        //转化未 userModel对象
         UserModel userModel=JSONObject.parseObject(message,UserModel.class);
 
         //参数校验
@@ -117,7 +129,7 @@ public class UserController {
         if (userService.register(userModel,code)){
             return ResultVo.success();
         }
-        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+        return ResultVo.fail(ErrorMsg.REGISTER_ERROR);
     }
 
     /**

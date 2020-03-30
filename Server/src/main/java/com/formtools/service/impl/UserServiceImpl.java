@@ -4,6 +4,7 @@ import com.formtools.Exception.ParamException;
 import com.formtools.enums.ErrorMsg;
 import com.formtools.mapper.UserMapper;
 import com.formtools.model.EmailVerify;
+import com.formtools.model.UserInfo;
 import com.formtools.model.UserModel;
 import com.formtools.model.UserVerify;
 import com.formtools.service.UserService;
@@ -43,19 +44,34 @@ public class UserServiceImpl implements UserService {
         return new UserModel();
     }
 
+    /**
+     * 添加邮箱用户
+     * @param userModel
+     * @return
+     */
+    @Transactional //事务控制
     public boolean addUser(UserModel userModel) {
-//        long timeMillis = System.currentTimeMillis();
-//        String userId = "user" + timeMillis;
-//        userModel.setProfile("");
-//        userModel.setUserId(userId);
-//        Map<String, String> map = new HashMap();
-//        map.put("email", userModel.getEmail());
-//        UserModel haduser = getUser(map);
-//        int n = 0;
-//        if (haduser == null) {
-//            n = userMapper.addUser(userModel);
-//        }
-//        return n > 0;
+        //获取userId （可优化
+        long userId = System.currentTimeMillis();
+
+        UserVerify userVerify=new UserVerify();
+        userVerify.setUserId(userId);
+        userVerify.setOpenid(userModel.getEmail());
+        userVerify.setType('E');
+
+        UserInfo userInfo=new UserInfo();
+        userInfo.setUserId(userId);
+        userInfo.setNickname(userModel.getNickname());
+        userInfo.setProfile("");
+
+        EmailVerify emailVerify=new EmailVerify();
+        emailVerify.setEmail(userModel.getEmail());
+        emailVerify.setPassword(userModel.getPassword());
+
+        userMapper.addUserVerify(userVerify);
+        userMapper.addUserInfo(userInfo);
+        userMapper.addEmailVerify(emailVerify);
+
         return true;
     }
 
@@ -96,6 +112,7 @@ public class UserServiceImpl implements UserService {
      * 验证码错误抛参数错误异常
      */
     public boolean isTrueCode(UserModel userModel,String code){
+        //校验验证码 code
         if (code!=null && !code.equals("")){
             Examiner examiner=emailCodeReservoir.get(userModel.getEmail());
             if (examiner!=null && examiner.getCode().equals(code)){
