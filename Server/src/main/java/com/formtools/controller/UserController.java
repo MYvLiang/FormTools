@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 @RestController
 @Validated
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:63342", "null"})
 public class UserController {
 
     //域名

@@ -43,7 +43,12 @@
         methods:{
             login:function () {
                 axios.get("http://localhost:8080/login?"+"email="+this.email
-                +"&password="+this.password).then(function (response) {
+                +"&password="+this.password,changeOrigin=true,withCredentials=true).then(function (response) {
+                    // {
+                    //     // 单独配置
+                    //     changeOrigin:true,
+                    //         withCredentials: true
+                    // }
                     if (response.data.status_code===0){
                         alert(response.data.msg);
                         console.log(response.data)
