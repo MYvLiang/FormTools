@@ -31,8 +31,7 @@ public class WeiXinTokenUtil {
 //            System.out.println("原token");
             return token;
         }
-        String url = "https://api.weixin.qq.com/cgi-bin/token?" +
-                "grant_type={grant_type}&appid={appid}&secret={secret}";
+        String url = OtherConfig.TOKEN_URL+"{grant_type}&appid={appid}&secret={secret}";
         Map<String, String> params = new HashMap<>();
         params.put("grant_type", GRANT_TYPE);
         params.put("appid", APPID);

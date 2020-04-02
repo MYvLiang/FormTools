@@ -25,10 +25,10 @@ public class WeiXinCodeUtil {
     public static byte[] getCode(String scene) {
         String token=WeiXinTokenUtil.getToken();
 //        System.out.println("token="+token);
-        String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
+        String url = OtherConfig.CODE_URL + token;
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("scene", scene);
-        paramMap.put("page", "pages/webLogin/webLogin");
+//        paramMap.put("page",OtherConfig.LOGIN_PAGE);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Map<String, String>> entity = new HttpEntity(paramMap, headers);
