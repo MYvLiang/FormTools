@@ -4,30 +4,58 @@
     <meta charset="UTF-8">
     <title>登录</title>
     <link rel="stylesheet"href="css/login.css">
-</head>
-<body>
-<div id="login-box">
-    <h1>登录</h1>
-    <div class="form">
-        <div class="item">
-            <input type="text" placeholder="电子邮箱">
-        </div>
-        <div class="item">
-            <input type="text" placeholder="密码">
-        </div>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style type="text/css">
         a{text-decoration: none;}
         a:hover{text-decoration: underline;}
     </style>
-    <a href="Registered.html" style="color: black">注册</a>
-    <a href="ForgotPassword.html" style="color: black">找回密码</a>
-    <p></p>
-    <button>登录</button>
-    <p></p>
-    <img src="http://m.qpic.cn/psc?/V112TgEJ1gE547/dc.CEbKkDpD9Z7TwDzRx593xI9uHGWjwLf2E3hf1PGyS.xH7sUrSZeiUvf91TKa6UsTOHI5o90nxydD83JYXIg!!/b&bo=AATbAwAAAAARB.w!&rf=viewer_4" width="25px"height="25px"> <a href="WXLogin.html" style="color: black">微信登录</a>
-    <img src="http://m.qpic.cn/psc?/V112TgEJ1gE547/7o.xLwnHK.dZGyBaILrm99KQ8ZsA8VyruXLY8T6DlWCiPsLVOOrNbl0KDGtY2LWAeZReXJn6rvf0qvMTNyXzbaDpUqezf6refzuGsP9q7zI!/b&bo=AAQABAAAAAARFyA!&rf=viewer_4" width="25px"height="25px"><i>易班登录</i>
+</head>
+<body>
+<div id="app">
+    <div id="login-box">
+        <h1>登录</h1>
+        <div class="form">
+            <div class="item">
+                <input type="text" v-model="email" placeholder="电子邮箱">
+            </div>
+            <div class="item">
+                <input type="text" v-model="password" placeholder="密码">
+            </div>
+        </div>
+        <a href="Registered.html" style="color: black">注册</a>
+        <a href="ForgotPassword.html" style="color: black">找回密码</a>
+        <p></p>
+        <button @click="login">登录</button>
+        <p></p>
+        <img src="http://m.qpic.cn/psc?/V112TgEJ1gE547/dc.CEbKkDpD9Z7TwDzRx593xI9uHGWjwLf2E3hf1PGyS.xH7sUrSZeiUvf91TKa6UsTOHI5o90nxydD83JYXIg!!/b&bo=AATbAwAAAAARB.w!&rf=viewer_4" width="25px"height="25px"> <a href="WXLogin.html" style="color: black">微信登录</a>
+        <img src="http://m.qpic.cn/psc?/V112TgEJ1gE547/7o.xLwnHK.dZGyBaILrm99KQ8ZsA8VyruXLY8T6DlWCiPsLVOOrNbl0KDGtY2LWAeZReXJn6rvf0qvMTNyXzbaDpUqezf6refzuGsP9q7zI!/b&bo=AAQABAAAAAARFyA!&rf=viewer_4" width="25px"height="25px"><i>易班登录</i>
+    </div>
 </div>
-
 </body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            email:"",
+            password:""
+        },
+        methods:{
+            login:function () {
+                axios.get("http://localhost:8080/login?"+"email="+this.email
+                +"&password="+this.password).then(function (response) {
+                    if (response.data.status_code===0){
+                        alert(response.data.msg);
+                        console.log(response.data)
+                    }else {
+                        alert("登录成功");
+                        window.location.href="indexxxx.html"
+                    }
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            }
+        }
+    })
+</script>
 </html>
