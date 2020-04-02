@@ -4,38 +4,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.formtools.mapper.UserMapper">
 
-    <resultMap type="UserModel" id="UserResult">
+    <resultMap type="UserInfo" id="UserResult">
         <id property="userId" column="user_id"/>
-        <result property="email" column="user_email"/>
-        <result property="password" column="user_password"/>
         <result property="nickname" column="user_nickname"/>
         <result property="profile" column="user_profile"/>
     </resultMap>
 
-    <select id="getUser" parameterType="Map" resultMap="UserResult">
-        select * from user_info
-        <where>
-            <if test="userId!=null">
-                user_id=#{userId}
-            </if>
-            <if test="email!=null">
-                and user_email=#{email}
-            </if>
-            <if test="password!=null">
-                and user_password=#{password}
-            </if>
-        </where>
+    <resultMap type="UserVerify" id="UserVerify">
+        <id property="userId" column="user_id"/>
+        <result property="openid" column="openid"/>
+        <result property="type" column="verify_type"/>
+    </resultMap>
+
+    <resultMap type="EmailVerify" id="EmailVerify">
+        <result property="id" column="id"/>
+        <result property="email" column="user_email"/>
+        <result property="password" column="user_password"/>
+    </resultMap>
+
+    <insert id="addUserInfo" parameterType="UserInfo">
+        insert into user_info values(#{userId},#{nickname},#{profile})
+    </insert>
+
+    <select id="getUserInfo" parameterType="long" resultMap="UserResult">
+        select * from user_info where user_id=#{userId}
     </select>
 
-    <update id="updateUser" parameterType="UserModel">
+    <update id="updateUserInfo" parameterType="UserInfo">
         update user_info
         <set>
-            <if test="email!=null">
-                user_email=#{email},
-            </if>
-            <if test="password!=null">
-                user_password=#{password},
-            </if>
             <if test="nickname!=null">
                 user_nickname=#{nickname},
             </if>
@@ -44,5 +41,47 @@
             </if>
         </set>
         where user_id=#{userId}
+    </update>
+
+    <insert id="addUserVerify" parameterType="UserVerify">
+        insert into user_verify values(null,#{userId},#{openid},#{type})
+    </insert>
+
+    <update id="updateUserVerify" parameterType="UserVerify">
+        update user_verify
+        <set>
+            <if test="openid!=null">
+                openid=#{openid},
+            </if>
+            <if test="type!=null">
+                verify_type=#{type},
+            </if>
+        </set>
+        where user_id=#{userId}
+    </update>
+
+    <select id="getUserVerify" parameterType="string" resultMap="UserVerify">
+        select * from user_verify where openid=#{openid}
+    </select>
+
+    <select id="getEmailVerify" parameterType="string" resultMap="EmailVerify">
+        select * from email_verify where user_email=#{email}
+    </select>
+
+    <insert id="addEmailVerify" parameterType="EmailVerify">
+        insert into email_verify values(null,#{email},#{password})
+    </insert>
+
+    <update id="updateEmailVerify" parameterType="EmailVerify">
+        update email_verify
+        <set>
+            <if test="email!=null">
+                user_email=#{email},
+            </if>
+            <if test="password!=null">
+                user_password=#{password},
+            </if>
+        </set>
+        where id=#{id}
     </update>
 </mapper> 

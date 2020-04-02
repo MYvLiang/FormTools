@@ -62,7 +62,7 @@ public class WeiXinLoginController {
             uesrIdCookie.setHttpOnly(true);
             response.addCookie(uesrIdCookie);
             wxSceneMap.remove(scene);
-            return ResultVo.success("yes");
+            return ResultVo.success("success");
         }
         return ResultVo.success("no");
     }
@@ -74,11 +74,10 @@ public class WeiXinLoginController {
      */
     @PostMapping("/login")
     public ResultVo wxLogin(@RequestBody @Valid WeiXinUser wxUser) {
-        UserModel userModel = new UserModel(wxUser.getOpenid(),
-                wxUser.getNickName(), wxUser.getAvatarUrl());
-        if (otherUserService.updateUser(userModel)) {
-            wxSceneMap.put(wxUser.getScene(), wxUser.getOpenid());
-            return ResultVo.success("登录成功");
+        Long userId=otherUserService.updateUser(wxUser.getNickName(),wxUser.getAvatarUrl(),wxUser.getOpenid());
+        if(userId!=null){
+            wxSceneMap.put(wxUser.getScene(),String.valueOf(userId));
+            return ResultVo.success("success");
         }
         return ResultVo.fail(ErrorMsg.SYSTEM_ERROR,"更新或添加用户信息时出错");
     }

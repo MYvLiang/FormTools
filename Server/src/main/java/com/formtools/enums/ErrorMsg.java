@@ -18,7 +18,8 @@ public enum ErrorMsg {
     OPERAT_FREQUENCY("操作频繁 稍后重试"),
     MISSING_PARAMETER("缺少参数"),
     COOKIE_ERROR("请重新登录"),
-    EMAIL_LOGIN_ERROR("登录失败 账号密码错误");
+    EMAIL_LOGIN_ERROR("登录失败 账号密码错误"),
+    JSON_READ_ERROR("json参数解析错误");
 
     private String msg;
 

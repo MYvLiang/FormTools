@@ -11,7 +11,6 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.multipart.MultipartException;
 
 import javax.validation.ConstraintViolation;
@@ -89,7 +88,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MultipartException.class)
     public ResultVo SizeLimitExceededExceptionHandler(Exception e){
-        return ResultVo.fail(ErrorMsg.FILE_SIZE_ERROR);
+        return new ResultVo(0,e.getLocalizedMessage(),null);
     }
 
     /**

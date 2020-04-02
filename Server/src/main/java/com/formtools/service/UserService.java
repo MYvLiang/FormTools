@@ -1,13 +1,13 @@
 package com.formtools.service;
 
 
+import com.formtools.model.UserInfo;
 import com.formtools.model.UserModel;
 import com.formtools.vo.ResultVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * @author myl
@@ -16,11 +16,11 @@ import java.util.Map;
 
 public interface UserService {
 
-    UserModel getUser(Map<String, String> map);
+    UserInfo getUserInfo(Long userId);
     ResultVo sendEmailCode(String email) throws MessagingException;
-    boolean addUser(UserModel userModel);
+    void addUser(UserModel userModel);
     boolean isTrueCode(UserModel userModel,String code);
     boolean register(UserModel userModel,String code);
     String keepImage(MultipartFile multipartFile, String id) throws IOException;
-    String emailLogin(String email,String password);
+    Long emailLogin(String email,String password);
 }

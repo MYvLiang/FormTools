@@ -1,10 +1,10 @@
 package com.formtools.mapper;
 
+import com.formtools.model.EmailVerify;
+import com.formtools.model.UserInfo;
 import com.formtools.model.UserModel;
-import org.apache.ibatis.annotations.Insert;
+import com.formtools.model.UserVerify;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.Map;
 
 /**
  * CRUD用户信息
@@ -14,12 +14,21 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
 
-    @Insert("insert into user_info(user_id,user_email,user_password,user_nickname,user_profile) " +
-            "values(#{userId},#{email},#{password},#{nickname},#{profile})")
-    int addUser(UserModel userModel);
+    int addUserInfo(UserInfo userInfo);
 
-    UserModel getUser(Map<String, String> map);
+    UserInfo getUserInfo(Long userId);
 
-    int updateUser(UserModel userModel);
+    int updateUserInfo(UserInfo userInfo);
 
+    int addUserVerify(UserVerify userVerify);
+
+    int updateUserVerify(UserVerify userVerify);
+
+    UserVerify getUserVerify(String openid);
+
+    EmailVerify getEmailVerify(String email);
+
+    int addEmailVerify(EmailVerify emailVerify);
+
+    int updateEmailVerify(EmailVerify emailVerify);
 }

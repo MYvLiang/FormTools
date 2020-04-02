@@ -28,6 +28,7 @@ public class WeiXinCodeUtil {
         String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("scene", scene);
+        paramMap.put("page", "pages/webLogin/webLogin");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Map<String, String>> entity = new HttpEntity(paramMap, headers);
