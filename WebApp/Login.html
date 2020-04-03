@@ -46,8 +46,8 @@
     var app = new Vue({
         el: '#app',
         data: {
-            email: "1234@qq.com",
-            password: "123"
+            email: "",
+            password: ""
         },
         methods: {
             login: function () {
@@ -62,8 +62,8 @@
                         console.log(response.data)
                     } else {
                         alert("登录成功");
-                        console.log(response)
-                        // window.location.href="indexxxx.html"
+                        console.log(response);
+                        window.location.href="indexxxx.html"
                     }
                 }).catch(function (error) {
                     console.log(error)
