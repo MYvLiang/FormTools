@@ -26,4 +26,6 @@ public class OtherConfig {
 
     //部署域名
     public static final String APPURL="http://api.shinytengxvnyun.cn";
+
+    public static int cookieMaxAge=60*60*24*365;
 }

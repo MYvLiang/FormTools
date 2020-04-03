@@ -65,8 +65,8 @@ public class YiBanLoginController {
             Long userId=otherUserService.updateUser(nickname,profile,openid);
             if(userId==null) return "redirect:"+DEFAULTREDIRECTURL;
 //            System.out.println(userId);
-            Cookie uesrIdCookie=new Cookie("uesrId",String.valueOf(userId));
-            uesrIdCookie.setMaxAge(360*24*60*60);
+            Cookie uesrIdCookie=new Cookie("userId",String.valueOf(userId));
+            uesrIdCookie.setMaxAge(OtherConfig.cookieMaxAge);
             uesrIdCookie.setPath("/");
             uesrIdCookie.setHttpOnly(true);
             response.addCookie(uesrIdCookie);

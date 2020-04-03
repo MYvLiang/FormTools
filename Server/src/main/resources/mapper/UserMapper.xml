@@ -5,7 +5,6 @@
 <mapper namespace="com.formtools.mapper.UserMapper">
 
     <resultMap type="UserInfo" id="UserResult">
-        <id property="userId" column="user_id"/>
         <result property="nickname" column="user_nickname"/>
         <result property="profile" column="user_profile"/>
     </resultMap>

@@ -1,5 +1,6 @@
 package com.formtools.controller;
 
+import com.formtools.OtherConfig;
 import com.formtools.enums.ErrorMsg;
 import com.formtools.model.UserModel;
 import com.formtools.service.OtherUserService;
@@ -57,7 +58,7 @@ public class WeiXinLoginController {
             return ResultVo.fail(ErrorMsg.PARAM_ERROR,"该scene不存在");
         }else if (!sceneState.equals("no")) {
             Cookie uesrIdCookie=new Cookie("userId",sceneState);
-            uesrIdCookie.setMaxAge(360*24*60*60);
+            uesrIdCookie.setMaxAge(OtherConfig.cookieMaxAge);
             uesrIdCookie.setPath("/");
             uesrIdCookie.setHttpOnly(true);
             response.addCookie(uesrIdCookie);

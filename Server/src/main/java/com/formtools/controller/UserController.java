@@ -2,6 +2,7 @@ package com.formtools.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.formtools.OtherConfig;
 import com.formtools.enums.ErrorMsg;
 import com.formtools.model.UserModel;
 import com.formtools.service.UserService;
@@ -56,7 +57,7 @@ public class UserController {
             return ResultVo.fail(ErrorMsg.EMAIL_LOGIN_ERROR);
         //成功则设置cookie
         Cookie cookie=new Cookie("userId",String.valueOf(userId));
-        cookie.setMaxAge(10*365*24*60*60);
+        cookie.setMaxAge(OtherConfig.cookieMaxAge);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
