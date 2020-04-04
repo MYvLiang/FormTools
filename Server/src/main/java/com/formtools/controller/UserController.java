@@ -148,6 +148,42 @@ public class UserController {
     }
 
     /**
+     * 忘记密码 重设密码
+     * @param message
+     * @return
+     */
+    @PostMapping("reset-password")
+    public ResultVo resetPassword(@RequestBody String message){
+        JSONObject jsonObject;
+        try {
+            jsonObject = JSON.parseObject(message);
+        } catch (Exception e) {
+            //参数解析错误
+            return ResultVo.fail(ErrorMsg.JSON_READ_ERROR);
+        }
+
+        String code=(String) jsonObject.get("code");
+        String password=(String) jsonObject.get("password");
+        String passwordAgain=(String) jsonObject.get("password_again");
+
+        //两密码相等
+        if (password!=null && password.equals(passwordAgain)){
+            //转化为 userModel对象
+            UserModel userModel=JSONObject.parseObject(message,UserModel.class);
+            //参数校验
+            validationUtil.validateParam(userModel,new Class[]{UserModel.resetPassword.class});
+
+            if (userService.resetPassword(userModel,code)){
+                return ResultVo.success();
+            }
+        }
+        else {
+            return ResultVo.fail(ErrorMsg.PASSWORD_IS_NOT_SAME);
+        }
+        return ResultVo.fail(ErrorMsg.PASSWORD_RESET_ERROR);
+    }
+
+    /**
      * 上传头像
      * @param uploadFile
      * @param id

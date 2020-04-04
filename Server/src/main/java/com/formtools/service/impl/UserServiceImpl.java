@@ -125,23 +125,31 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 判断验证码是否正确
-     * @param userModel 注册用户信息（只需用户email）
+     * @param userModel
      * @param code 验证码
      * @return true
      * 验证码错误抛参数错误异常
      */
-    public boolean isTrueCode(UserModel userModel,String code){
+    public boolean isTrueCode(UserModel userModel,String code,String type){
+        Map<String,Examiner> map;
+        if ("Z".equals(type)) {
+            map=emailCodeReservoir;
+        }
+        else if ("X".equals(type)){
+            map=emailCodeReservoirResetPassword;
+        }
+        else return false;
         //校验验证码 code
         if (code!=null && !code.equals("")){
-            Examiner examiner=emailCodeReservoir.get(userModel.getEmail());
+            Examiner examiner=map.get(userModel.getEmail());
             if (examiner!=null && examiner.getCode().equals(code)){
-                emailCodeReservoir.remove(userModel.getEmail());
+                map.remove(userModel.getEmail());
                 return true;
             }
         }
-        Map<String,String> map=new HashMap<>();
-        map.put("code","验证码错误");
-        throw new ParamException(map);
+        Map<String,String> temp=new HashMap<>();
+        temp.put("code","验证码错误");
+        throw new ParamException(temp);
     }
 
     /**
@@ -152,7 +160,7 @@ public class UserServiceImpl implements UserService {
      */
     public boolean register(UserModel userModel,String code){
 
-        if (isTrueCode(userModel,code)){
+        if (isTrueCode(userModel,code,"Z")){
             try {
                 //抓取异常 事务回滚
                 addUser(userModel);
@@ -161,6 +169,31 @@ public class UserServiceImpl implements UserService {
             }
         }
         return true;
+    }
+
+    public boolean resetPassword(UserModel userModel,String code){
+        if (isTrueCode(userModel,code,"X")){
+
+            EmailVerify emailVerify=new EmailVerify();
+            emailVerify.setEmail(userModel.getEmail());
+            emailVerify.setPassword(userModel.getPassword());
+
+            try {
+                updateEmailVerify(emailVerify);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 重设密码
+     * @param emailVerify
+     */
+    public void updateEmailVerify(EmailVerify emailVerify){
+        userMapper.updateEmailVerify(emailVerify);
     }
 
     /**
