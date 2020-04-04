@@ -74,13 +74,10 @@
     <update id="updateEmailVerify" parameterType="EmailVerify">
         update email_verify
         <set>
-            <if test="email!=null">
-                user_email=#{email},
-            </if>
             <if test="password!=null">
                 user_password=#{password},
             </if>
         </set>
-        where id=#{id}
+        where user_email=#{email}
     </update>
 </mapper> 

@@ -33,12 +33,20 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class UserServiceImpl implements UserService {
 
-    //email验证码储存器
+    //注册email验证码储存器
     private static ConcurrentHashMap<String, Examiner> emailCodeReservoir=new ConcurrentHashMap();
+
+    //修改密码
+    private static ConcurrentHashMap<String, Examiner> emailCodeReservoirResetPassword=new ConcurrentHashMap();
 
     @Resource
     private UserMapper userMapper;
 
+    /**
+     * 获取用户个人信息
+     * @param userId
+     * @return
+     */
     public UserInfo getUserInfo(Long userId) {
         return userMapper.getUserInfo(userId);
     }
@@ -72,20 +80,46 @@ public class UserServiceImpl implements UserService {
         userMapper.addEmailVerify(emailVerify);
     }
 
-    public boolean updateUser(UserModel userModelMessage, UserModel userModel){
-//        String userId= userModelMessage.getUserId();
-//        int n=userMapper.updateUser(userModel);
-//        return n > 0;
-        return true;
+    /**
+     * 修改用户个人信息
+     * @param userModel
+     * @return
+     */
+    public boolean updateUserInfo(UserModel userModel){
+        UserInfo userInfo=new UserInfo();
+        userInfo.setProfile(userModel.getProfile());
+        userInfo.setUserId(userModel.getUserId());
+        userInfo.setNickname(userModel.getNickname());
+
+        return userMapper.updateUserInfo(userInfo) > 0;
     }
 
+    /**
+     * 发送邮件
+     * @param email 待发送邮箱
+     * @param type 类型 注册Z 修改密码X
+     * @return
+     * @throws MessagingException
+     */
     @Transactional //开启事务控制
-    public ResultVo sendEmailCode(String email) throws MessagingException {
+    public ResultVo sendEmailCode(String email,String type) throws MessagingException {
+
+        Map<String,Examiner> map;
         UserVerify userVerify=userMapper.getUserVerify(email);
-        //若该验证方式已存在
-        if (userVerify!=null) return ResultVo.fail(ErrorMsg.ACCOUNT_EXIT);
+
+        if ("Z".equals(type)) {
+            map=emailCodeReservoir;
+            //若该验证方式已存在
+            if (userVerify!=null) return ResultVo.fail(ErrorMsg.ACCOUNT_EXIT);
+        }
+        else if ("X".equals(type)){
+            map=emailCodeReservoirResetPassword;
+            if (userVerify==null) return ResultVo.fail(ErrorMsg.ACCOUNT_NOT_EXIT);
+        }
+        else return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+
         //获取缓存
-        Examiner examiner=emailCodeReservoir.get(email);
+        Examiner examiner=map.get(email);
         //若该缓存存在
         if (examiner!=null){
             String remainTime=examiner.timeComputer(LocalDateTime.now());
@@ -97,29 +131,37 @@ public class UserServiceImpl implements UserService {
         //发送邮件
         EmailUtil.SendEmail(email,code);
         //置入缓存
-        emailCodeReservoir.put(email,new Examiner(code,LocalDateTime.now()));
+        map.put(email,new Examiner(code,LocalDateTime.now()));
         return ResultVo.success();
     }
 
     /**
      * 判断验证码是否正确
-     * @param userModel 注册用户信息（只需用户email）
+     * @param userModel
      * @param code 验证码
      * @return true
      * 验证码错误抛参数错误异常
      */
-    public boolean isTrueCode(UserModel userModel,String code){
+    public boolean isTrueCode(UserModel userModel,String code,String type){
+        Map<String,Examiner> map;
+        if ("Z".equals(type)) {
+            map=emailCodeReservoir;
+        }
+        else if ("X".equals(type)){
+            map=emailCodeReservoirResetPassword;
+        }
+        else return false;
         //校验验证码 code
         if (code!=null && !code.equals("")){
-            Examiner examiner=emailCodeReservoir.get(userModel.getEmail());
+            Examiner examiner=map.get(userModel.getEmail());
             if (examiner!=null && examiner.getCode().equals(code)){
-                emailCodeReservoir.remove(userModel.getEmail());
+                map.remove(userModel.getEmail());
                 return true;
             }
         }
-        Map<String,String> map=new HashMap<>();
-        map.put("code","验证码错误");
-        throw new ParamException(map);
+        Map<String,String> temp=new HashMap<>();
+        temp.put("code","验证码错误");
+        throw new ParamException(temp);
     }
 
     /**
@@ -130,7 +172,7 @@ public class UserServiceImpl implements UserService {
      */
     public boolean register(UserModel userModel,String code){
 
-        if (isTrueCode(userModel,code)){
+        if (isTrueCode(userModel,code,"Z")){
             try {
                 //抓取异常 事务回滚
                 addUser(userModel);
@@ -139,6 +181,31 @@ public class UserServiceImpl implements UserService {
             }
         }
         return true;
+    }
+
+    public boolean resetPassword(UserModel userModel,String code){
+        if (isTrueCode(userModel,code,"X")){
+
+            EmailVerify emailVerify=new EmailVerify();
+            emailVerify.setEmail(userModel.getEmail());
+            emailVerify.setPassword(userModel.getPassword());
+
+            try {
+                updateEmailVerify(emailVerify);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 重设密码
+     * @param emailVerify
+     */
+    public void updateEmailVerify(EmailVerify emailVerify){
+        userMapper.updateEmailVerify(emailVerify);
     }
 
     /**
