@@ -17,7 +17,7 @@ public class OtherUserServiceImpl implements OtherUserService {
     @Resource
     private UserMapper userMapper;
 
-    public Long updateUser(String nickname,String profile,String openid){
+    public Long updateUser(String nickname,String profile,String openid,Character type){
         UserVerify userVerify=userMapper.getUserVerify(openid);
 //        System.out.println(userVerify);
         Long userId;
@@ -27,7 +27,7 @@ public class OtherUserServiceImpl implements OtherUserService {
             n=userMapper.updateUserInfo(new UserInfo(userId,nickname,profile));
         }else {
             userId=System.currentTimeMillis();//需要优化，保证userId的唯一性
-            n=userMapper.addUserVerify(new UserVerify(null,userId,openid,'Y'));
+            n=userMapper.addUserVerify(new UserVerify(null,userId,openid,type));
             if(n==1){
                 n=userMapper.addUserInfo(new UserInfo(userId,nickname,profile));
             }else return null;

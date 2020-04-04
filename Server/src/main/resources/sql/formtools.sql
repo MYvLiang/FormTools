@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.33 (64 bit)
 MySQL - 8.0.18 : Database - formtools
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -32,6 +33,7 @@ CREATE TABLE `all_built_form` (
   `max_count` INT(11) DEFAULT NULL COMMENT '最多可填表的人数（可无）',
   `form_state` CHAR(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单状态（未开始：P;进行中：I；已截止：E）',
   `form_type` CHAR(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单类型 （问卷：W；登记：D，报名：B）',
+  UNIQUE (`form_id`),
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -45,6 +47,7 @@ CREATE TABLE `email_verify` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_email` VARCHAR(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_password` VARCHAR(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  UNIQUE (`user_email`),
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -78,6 +81,7 @@ CREATE TABLE `fill_registry_form` (
   `alter_time` DATETIME NOT NULL COMMENT '修改时间',
   `file_list` TEXT COLLATE utf8mb4_unicode_ci COMMENT '所有附件的路径集合',
   `check_state` CHAR(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '审核情况',
+  CONSTRAINT DATA_ID UNIQUE (`user_id`,`form_id`),
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -103,6 +107,7 @@ CREATE TABLE `user_verify` (
   `user_id` BIGINT(20) NOT NULL,
   `openid` VARCHAR(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `verify_type` CHAR(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  UNIQUE (`openid`),
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

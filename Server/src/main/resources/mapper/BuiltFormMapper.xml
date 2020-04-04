@@ -5,8 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.formtools.mapper.BuiltFormMapper">
 
 	<resultMap type="BuiltForm" id="BuiltFormResult">
+		<id property="id" column="id"/>
 		<id property="formId" column="form_id"/>
-		<result property="builderId" column="builder_id"/>
+		<result property="userId" column="user_id"/>
 		<result property="formTitle" column="form_title"/>
 		<result property="formInfo" column="form_info"/>
 		<result property="builtTime" column="built_time"/>
@@ -14,7 +15,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="endTime" column="end_time"/>
 		<result property="maxCount" column="max_count"/>
 		<result property="formState" column="form_state"/>
+		<result property="formType" column="form_type"/>
 	</resultMap>
+
+	<insert id="addBuiltForm" parameterType="BuiltForm">
+		insert into all_built_form
+		    (id,form_id,user_id,form_title,form_info,built_time,
+		     begin_time,end_time,max_count,form_state,form_type)
+		     value (null,#{formId},#{userId},#{formTitle},#{formInfo},#{builtTime},
+		            #{beginTime},#{endTime},#{maxCount},#{formState},#{formType})
+	</insert>
 
 	<select id="getBuiltForm" parameterType="String" resultMap="BuiltFormResult">
 		select * from all_built_form where form_id= #{formId}
@@ -45,5 +55,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</set>
 		where form_id=#{formId}
 	</update>
+
+	<delete id="deleteBuiltForm" parameterType="String">
+		delete from all_built_form where form_id= #{formId}
+	</delete>
 
 </mapper> 
