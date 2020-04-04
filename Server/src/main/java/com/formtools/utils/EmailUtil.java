@@ -10,6 +10,11 @@ import java.util.Properties;
 
 public class EmailUtil {
 
+    //发件人邮箱,授权码(可以在邮箱设置中获取到授权码的信息)
+    private static final String myEmail="nanrailgun@163.com";
+
+    private static final String myPassword="lzn422780767666";
+
     /**
      * 发送邮件
      * @param email 收件人邮箱
@@ -33,13 +38,13 @@ public class EmailUtil {
         msg.setSubject("表单工具邮箱验证"+code);
         //正文
         msg.setContent("验证码："+code, "text/html;charset=UTF-8");
-        msg.setFrom(new InternetAddress("nanrailgun@163.com"));//发件人邮箱(我的163邮箱)
+        msg.setFrom(new InternetAddress(myEmail));//发件人邮箱(我的163邮箱)
         msg.setRecipient(Message.RecipientType.TO,
                 new InternetAddress(email)); //收件人邮箱
         msg.saveChanges();
 
         Transport transport = session.getTransport();
-        transport.connect("nanrailgun@163.com","lzn422780767666");//发件人邮箱,授权码(可以在邮箱设置中获取到授权码的信息)
+        transport.connect(myEmail,myPassword);//发件人邮箱,授权码(可以在邮箱设置中获取到授权码的信息)
 
         transport.sendMessage(msg, msg.getAllRecipients());
 

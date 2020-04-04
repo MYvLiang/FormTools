@@ -92,7 +92,23 @@ public class UserController {
     @GetMapping("/email-code")
     public ResultVo sendEmailCode(@RequestParam("email") @Email String email){
         try {
-            return userService.sendEmailCode(email);
+            //注册
+            return userService.sendEmailCode(email,"Z");
+        } catch (MessagingException e) {
+            return ResultVo.fail(ErrorMsg.EMAIL_SEND_ERROR);
+        }
+    }
+
+    /**
+     * 用户注册功能：验证码发送api
+     * @param email
+     * @return
+     */
+    @GetMapping("/email-code/reset-password")
+    public ResultVo sendEmailCodeResetPassword(@RequestParam("email") @Email String email){
+        try {
+            //修改密码
+            return userService.sendEmailCode(email,"X");
         } catch (MessagingException e) {
             return ResultVo.fail(ErrorMsg.EMAIL_SEND_ERROR);
         }
@@ -129,6 +145,42 @@ public class UserController {
             return ResultVo.success();
         }
         return ResultVo.fail(ErrorMsg.REGISTER_ERROR);
+    }
+
+    /**
+     * 忘记密码 重设密码
+     * @param message
+     * @return
+     */
+    @PostMapping("reset-password")
+    public ResultVo resetPassword(@RequestBody String message){
+        JSONObject jsonObject;
+        try {
+            jsonObject = JSON.parseObject(message);
+        } catch (Exception e) {
+            //参数解析错误
+            return ResultVo.fail(ErrorMsg.JSON_READ_ERROR);
+        }
+
+        String code=(String) jsonObject.get("code");
+        String password=(String) jsonObject.get("password");
+        String passwordAgain=(String) jsonObject.get("password_again");
+
+        //两密码相等
+        if (password!=null && password.equals(passwordAgain)){
+            //转化为 userModel对象
+            UserModel userModel=JSONObject.parseObject(message,UserModel.class);
+            //参数校验
+            validationUtil.validateParam(userModel,new Class[]{UserModel.resetPassword.class});
+
+            if (userService.resetPassword(userModel,code)){
+                return ResultVo.success();
+            }
+        }
+        else {
+            return ResultVo.fail(ErrorMsg.PASSWORD_IS_NOT_SAME);
+        }
+        return ResultVo.fail(ErrorMsg.PASSWORD_RESET_ERROR);
     }
 
     /**
@@ -177,5 +229,22 @@ public class UserController {
                             @NotEmpty(message = "登录异常 请重新登录")
                                     String id){
         return ResultVo.success(userService.getUserInfo(Long.parseLong(id)));
+    }
+
+    /**
+     * 修改用户个人信息
+     * @param id
+     * @return
+     */
+    @PutMapping("/user")
+    public  ResultVo updateUser(@CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
+                                 @NotEmpty(message = "登录异常 请重新登录")
+                                         String id,
+                                @RequestBody UserModel userModel){
+        //参数校验
+        validationUtil.validateParam(userModel,new Class[]{UserModel.updateUserInfo.class});
+        userModel.setUserId(Long.parseLong(id));
+        if (userService.updateUserInfo(userModel)) return ResultVo.success();
+        return ResultVo.fail(ErrorMsg.ACCOUNT_NOT_EXIT);
     }
 }

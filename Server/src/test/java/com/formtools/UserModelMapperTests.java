@@ -5,12 +5,11 @@ import com.formtools.model.EmailVerify;
 import com.formtools.model.UserInfo;
 import com.formtools.model.UserModel;
 import com.formtools.model.UserVerify;
+import com.formtools.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author myl
@@ -21,6 +20,9 @@ public class UserModelMapperTests {
 
     @Resource
     UserMapper userMapper;
+
+    @Resource
+    UserServiceImpl userService;
 
     @Test
     void testaddUserInfo(){
@@ -79,5 +81,15 @@ public class UserModelMapperTests {
         System.out.println(userMapper.updateEmailVerify(emailVerify));
         emailVerify=userMapper.getEmailVerify("1234");
         System.out.println(emailVerify);
+    }
+    @Test
+    void updateUserInfoTest(){
+        UserModel userModel=new UserModel();
+        userModel.setProfile("111");
+        userModel.setNickname("haha");
+        userModel.setUserId(1585912422638L);
+
+        System.out.println(userService.updateUserInfo(userModel));
+        System.out.println();
     }
 }
