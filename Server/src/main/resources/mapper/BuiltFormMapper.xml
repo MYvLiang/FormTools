@@ -56,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where form_id=#{formId}
 	</update>
 
-	<delete id="deleteBuiltForm" parameterType="String">
+	<delete id="deleteBuiltForm" parameterType="long">
 		delete from all_built_form where form_id= #{formId}
 	</delete>
 

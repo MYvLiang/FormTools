@@ -12,9 +12,9 @@ public class BuiltForm {
     //自增id
     private Integer id;
     //表单id
-    private String formId;
+    private Long formId;
     //建表者id
-    private String userId;
+    private Long userId;
     //表单标题
     private String formTitle;
     //表单结构，是一个json串
@@ -35,7 +35,7 @@ public class BuiltForm {
     public BuiltForm() {
     }
 
-    public BuiltForm(String formId, String userId, String formTitle, String formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount, Character formState, Character formType) {
+    public BuiltForm(Long formId, Long userId, String formTitle, String formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount, Character formState, Character formType) {
         this.formId = formId;
         this.userId = userId;
         this.formTitle = formTitle;
@@ -56,19 +56,19 @@ public class BuiltForm {
         this.id = id;
     }
 
-    public String getFormId() {
+    public Long getFormId() {
         return formId;
     }
 
-    public void setFormId(String formId) {
+    public void setFormId(Long formId) {
         this.formId = formId;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

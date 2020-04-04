@@ -5,7 +5,7 @@ MySQL - 8.0.18 : Database - formtools
 */
 
 
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 /*!40101 SET SQL_MODE=''*/;
 
@@ -22,15 +22,15 @@ USE `formtools`;
 DROP TABLE IF EXISTS `all_built_form`;
 
 CREATE TABLE `all_built_form` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `form_id` VARCHAR(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单的id',
-  `user_id` VARCHAR(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单创建者的userId',
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `form_id`  BIGINT COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单的id',
+  `user_id`  BIGINT COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单创建者的userId',
   `form_title` VARCHAR(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单标题',
-  `form_info` MEDIUMTEXT COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单的信息',
+  `form_info` TEXT COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单的信息',
   `built_time` DATETIME NOT NULL COMMENT '建表时间',
   `begin_time` DATETIME NOT NULL COMMENT '开始填表时间（默认为建表时间）',
   `end_time` DATETIME DEFAULT NULL COMMENT '截止时间（可无）',
-  `max_count` INT(11) DEFAULT NULL COMMENT '最多可填表的人数（可无）',
+  `max_count` INT DEFAULT NULL COMMENT '最多可填表的人数（可无）',
   `form_state` CHAR(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单状态（未开始：P;进行中：I；已截止：E）',
   `form_type` CHAR(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单类型 （问卷：W；登记：D，报名：B）',
   UNIQUE (`form_id`),
@@ -44,7 +44,7 @@ CREATE TABLE `all_built_form` (
 DROP TABLE IF EXISTS `email_verify`;
 
 CREATE TABLE `email_verify` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_email` VARCHAR(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_password` VARCHAR(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   UNIQUE (`user_email`),
@@ -59,8 +59,8 @@ CREATE TABLE `email_verify` (
 DROP TABLE IF EXISTS `fill_questionnaire`;
 
 CREATE TABLE `fill_questionnaire` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `form_id` BIGINT(20) NOT NULL COMMENT '表单id',
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `form_id` BIGINT NOT NULL COMMENT '表单id',
   `fill_content` TEXT COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '填写的内容',
   `fill_time` DATETIME NOT NULL COMMENT '填表时间',
   PRIMARY KEY (`id`)
@@ -73,9 +73,9 @@ CREATE TABLE `fill_questionnaire` (
 DROP TABLE IF EXISTS `fill_registry_form`;
 
 CREATE TABLE `fill_registry_form` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `user_id` BIGINT(20) NOT NULL COMMENT '填表用户id',
-  `form_id` BIGINT(20) NOT NULL COMMENT '表单id',
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL COMMENT '填表用户id',
+  `form_id` BIGINT NOT NULL COMMENT '表单id',
   `fill_content` TEXT COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '填写的内容',
   `fill_time` DATETIME NOT NULL COMMENT '填表时间',
   `alter_time` DATETIME NOT NULL COMMENT '修改时间',
@@ -92,7 +92,7 @@ CREATE TABLE `fill_registry_form` (
 DROP TABLE IF EXISTS `user_info`;
 
 CREATE TABLE `user_info` (
-  `user_id` BIGINT(20) NOT NULL COMMENT '用户唯一id',
+  `user_id` BIGINT NOT NULL COMMENT '用户唯一id',
   `user_nickname` VARCHAR(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户昵称',
   `user_profile` TEXT COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户头像的url',
   PRIMARY KEY (`user_id`)
@@ -103,8 +103,8 @@ CREATE TABLE `user_info` (
 DROP TABLE IF EXISTS `user_verify`;
 
 CREATE TABLE `user_verify` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `user_id` BIGINT(20) NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL,
   `openid` VARCHAR(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `verify_type` CHAR(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   UNIQUE (`openid`),

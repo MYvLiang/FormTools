@@ -14,11 +14,11 @@ public interface BuiltFormMapper {
 
     int addBuiltForm(BuiltForm builtForm);
 
-    BuiltForm getBuiltForm(String formId);
+    BuiltForm getBuiltForm(Long formId);
 
     List<BuiltForm> findAllBuiltForm();
 
     int updateBuiltForm(BuiltForm builtForm);
 
-    int deleteBuiltForm(String id);
+    int deleteBuiltForm(Long formId);
 }

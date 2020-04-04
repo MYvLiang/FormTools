@@ -30,8 +30,8 @@ class BuiltFormMapperTests {
     @Test
     void testAddBuiltForm() {
         BuiltForm builtForm=new BuiltForm();
-        builtForm.setFormId("1111");
-        builtForm.setUserId("11111111");
+        builtForm.setFormId(2222L);
+        builtForm.setUserId(111111L);
         builtForm.setFormTitle("标题");
         builtForm.setFormInfo("字段");
         builtForm.setBuiltTime(new Timestamp(System.currentTimeMillis()));
@@ -45,7 +45,7 @@ class BuiltFormMapperTests {
     }
     @Test
     void testGetBuiltForm(){
-        BuiltForm builtForm=builtFormMapper.getBuiltForm("1111");
+        BuiltForm builtForm=builtFormMapper.getBuiltForm(1111L);
         System.out.println(builtForm);
     }
     @Test
@@ -58,7 +58,7 @@ class BuiltFormMapperTests {
     @Test
     void testUpdateBuiltForm(){
         BuiltForm builtForm=new BuiltForm();
-        builtForm.setFormId("1111");
+        builtForm.setFormId(1111L);
         builtForm.setFormTitle("标题2");
         builtForm.setFormInfo("字段2");
         builtForm.setBuiltTime(new Timestamp(System.currentTimeMillis()));
@@ -72,7 +72,7 @@ class BuiltFormMapperTests {
     }
     @Test
     void testDeleteBuiltForm(){
-        int n=builtFormMapper.deleteBuiltForm("2222");
+        int n=builtFormMapper.deleteBuiltForm(2222L);
         System.out.println(n);
     }
 
