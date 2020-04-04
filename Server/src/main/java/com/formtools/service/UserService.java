@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author myl
@@ -27,4 +28,5 @@ public interface UserService {
     boolean resetPassword(UserModel userModel,String code);
     void updateEmailVerify(EmailVerify emailVerify);
     boolean updateUserInfo(UserModel userModel);
+    Map getUserVerifyType(Long userId);
 }

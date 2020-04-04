@@ -80,4 +80,22 @@
         </set>
         where user_email=#{email}
     </update>
+
+    <select id="getUserVerifyType" resultType="hashmap">
+        select max(
+            case when verify_type='E'
+                then openid
+            end
+        ) as email ,
+        max(
+            case when verify_type='W'
+                then openid
+            end
+        ) as wechat ,
+        max(
+            case when verify_type='Y'
+                then openid
+            end
+        ) as yiban from user_verify where user_id=#{userId} group by user_id;
+    </select>
 </mapper> 

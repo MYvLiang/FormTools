@@ -243,4 +243,13 @@ public class UserServiceImpl implements UserService {
         }
         return 0L;
     }
+
+    /**
+     * 获取用户所有验证方式
+     * @param userId
+     * @return
+     */
+    public Map getUserVerifyType(Long userId){
+        return userMapper.getUserVerifyType(userId);
+    }
 }
