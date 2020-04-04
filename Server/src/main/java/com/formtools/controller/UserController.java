@@ -247,4 +247,18 @@ public class UserController {
         if (userService.updateUserInfo(userModel)) return ResultVo.success();
         return ResultVo.fail(ErrorMsg.ACCOUNT_NOT_EXIT);
     }
+
+    @GetMapping("all-verify-type")
+    public  ResultVo updateUser(@CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
+                                @NotEmpty(message = "登录异常 请重新登录")
+                                        String id){
+        Long userId;
+        try {
+            userId=Long.parseLong(id);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+        }
+        return ResultVo.success(userService.getUserVerifyType(userId));
+    }
 }

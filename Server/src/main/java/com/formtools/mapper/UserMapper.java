@@ -2,9 +2,10 @@ package com.formtools.mapper;
 
 import com.formtools.model.EmailVerify;
 import com.formtools.model.UserInfo;
-import com.formtools.model.UserModel;
 import com.formtools.model.UserVerify;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.Map;
 
 /**
  * CRUD用户信息
@@ -31,4 +32,6 @@ public interface UserMapper {
     int addEmailVerify(EmailVerify emailVerify);
 
     int updateEmailVerify(EmailVerify emailVerify);
+
+    Map getUserVerifyType(Long userId);
 }
