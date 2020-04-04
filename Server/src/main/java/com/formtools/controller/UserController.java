@@ -228,7 +228,14 @@ public class UserController {
     public ResultVo getUser(@CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
                             @NotEmpty(message = "登录异常 请重新登录")
                                     String id){
-        return ResultVo.success(userService.getUserInfo(Long.parseLong(id)));
+        Long userId;
+        try {
+            userId=Long.parseLong(id);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+        }
+        return ResultVo.success(userService.getUserInfo(userId));
     }
 
     /**
@@ -243,7 +250,14 @@ public class UserController {
                                 @RequestBody UserModel userModel){
         //参数校验
         validationUtil.validateParam(userModel,new Class[]{UserModel.updateUserInfo.class});
-        userModel.setUserId(Long.parseLong(id));
+        Long userId;
+        try {
+            userId=Long.parseLong(id);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+        }
+        userModel.setUserId(userId);
         if (userService.updateUserInfo(userModel)) return ResultVo.success();
         return ResultVo.fail(ErrorMsg.ACCOUNT_NOT_EXIT);
     }
