@@ -17,7 +17,7 @@ import java.io.IOException;
 public interface UserService {
 
     UserInfo getUserInfo(Long userId);
-    ResultVo sendEmailCode(String email) throws MessagingException;
+    ResultVo sendEmailCode(String email,String type) throws MessagingException;
     void addUser(UserModel userModel);
     boolean isTrueCode(UserModel userModel,String code);
     boolean register(UserModel userModel,String code);

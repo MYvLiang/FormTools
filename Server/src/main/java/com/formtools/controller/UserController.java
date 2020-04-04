@@ -92,7 +92,23 @@ public class UserController {
     @GetMapping("/email-code")
     public ResultVo sendEmailCode(@RequestParam("email") @Email String email){
         try {
-            return userService.sendEmailCode(email);
+            //注册
+            return userService.sendEmailCode(email,"Z");
+        } catch (MessagingException e) {
+            return ResultVo.fail(ErrorMsg.EMAIL_SEND_ERROR);
+        }
+    }
+
+    /**
+     * 用户注册功能：验证码发送api
+     * @param email
+     * @return
+     */
+    @GetMapping("/email-code/reset-password")
+    public ResultVo sendEmailCodeResetPassword(@RequestParam("email") @Email String email){
+        try {
+            //修改密码
+            return userService.sendEmailCode(email,"X");
         } catch (MessagingException e) {
             return ResultVo.fail(ErrorMsg.EMAIL_SEND_ERROR);
         }

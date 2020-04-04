@@ -33,8 +33,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class UserServiceImpl implements UserService {
 
-    //email验证码储存器
+    //注册email验证码储存器
     private static ConcurrentHashMap<String, Examiner> emailCodeReservoir=new ConcurrentHashMap();
+
+    //修改密码
+    private static ConcurrentHashMap<String, Examiner> emailCodeReservoirResetPassword=new ConcurrentHashMap();
 
     @Resource
     private UserMapper userMapper;
@@ -79,13 +82,32 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    /**
+     * 发送邮件
+     * @param email 待发送邮箱
+     * @param type 类型 注册Z 修改密码X
+     * @return
+     * @throws MessagingException
+     */
     @Transactional //开启事务控制
-    public ResultVo sendEmailCode(String email) throws MessagingException {
+    public ResultVo sendEmailCode(String email,String type) throws MessagingException {
+
+        Map<String,Examiner> map;
         UserVerify userVerify=userMapper.getUserVerify(email);
-        //若该验证方式已存在
-        if (userVerify!=null) return ResultVo.fail(ErrorMsg.ACCOUNT_EXIT);
+
+        if ("Z".equals(type)) {
+            map=emailCodeReservoir;
+            //若该验证方式已存在
+            if (userVerify!=null) return ResultVo.fail(ErrorMsg.ACCOUNT_EXIT);
+        }
+        else if ("X".equals(type)){
+            map=emailCodeReservoirResetPassword;
+            if (userVerify==null) return ResultVo.fail(ErrorMsg.ACCOUNT_NOT_EXIT);
+        }
+        else return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+
         //获取缓存
-        Examiner examiner=emailCodeReservoir.get(email);
+        Examiner examiner=map.get(email);
         //若该缓存存在
         if (examiner!=null){
             String remainTime=examiner.timeComputer(LocalDateTime.now());
@@ -97,7 +119,7 @@ public class UserServiceImpl implements UserService {
         //发送邮件
         EmailUtil.SendEmail(email,code);
         //置入缓存
-        emailCodeReservoir.put(email,new Examiner(code,LocalDateTime.now()));
+        map.put(email,new Examiner(code,LocalDateTime.now()));
         return ResultVo.success();
     }
 
