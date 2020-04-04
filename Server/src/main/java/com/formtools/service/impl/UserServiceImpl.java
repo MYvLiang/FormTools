@@ -42,6 +42,11 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
+    /**
+     * 获取用户个人信息
+     * @param userId
+     * @return
+     */
     public UserInfo getUserInfo(Long userId) {
         return userMapper.getUserInfo(userId);
     }
@@ -75,11 +80,18 @@ public class UserServiceImpl implements UserService {
         userMapper.addEmailVerify(emailVerify);
     }
 
-    public boolean updateUser(UserModel userModelMessage, UserModel userModel){
-//        String userId= userModelMessage.getUserId();
-//        int n=userMapper.updateUser(userModel);
-//        return n > 0;
-        return true;
+    /**
+     * 修改用户个人信息
+     * @param userModel
+     * @return
+     */
+    public boolean updateUserInfo(UserModel userModel){
+        UserInfo userInfo=new UserInfo();
+        userInfo.setProfile(userModel.getProfile());
+        userInfo.setUserId(userModel.getUserId());
+        userInfo.setNickname(userModel.getNickname());
+
+        return userMapper.updateUserInfo(userInfo) > 0;
     }
 
     /**

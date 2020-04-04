@@ -26,4 +26,5 @@ public interface UserService {
     Long emailLogin(String email,String password);
     boolean resetPassword(UserModel userModel,String code);
     void updateEmailVerify(EmailVerify emailVerify);
+    boolean updateUserInfo(UserModel userModel);
 }

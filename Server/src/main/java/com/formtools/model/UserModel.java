@@ -18,6 +18,8 @@ public class UserModel {
 
     public interface resetPassword extends Default{}
 
+    public interface updateUserInfo extends Default{}
+
     //用户id
     private Long userId;
 
@@ -32,8 +34,8 @@ public class UserModel {
     //密码
     private String password;
 
-    @NotNull(groups = register.class)
-    @NotEmpty(groups = register.class)
+    @NotNull(groups = {register.class,updateUserInfo.class})
+    @NotEmpty(groups = {register.class,updateUserInfo.class})
     //昵称
     private String nickname;
 
