@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.formtools.mapper.FillQuestionnaireMapper">
+
+    <resultMap type="FillQuestionnaire" id="FillQuestionnaireResult">
+        <id property="id" column="id"/>
+        <result property="formId" column="form_id"/>
+        <result property="fillContent" column="fill_content"/>
+        <result property="fillTime" column="fill_time"/>
+    </resultMap>
+
+    <insert id="addQuestionnaire" parameterType="FillQuestionnaire">
+        insert into fill_questionnaire
+            (id,form_id,fill_content,fill_time)
+            value (null,#{formId},#{fillContent},#{fillTime})
+    </insert>
+
+    <select id="findFilledQuestionnaire" parameterType="long" resultMap="FillQuestionnaireResult">
+        select * from fill_questionnaire where form_id=#{formId}
+    </select>
+
+    <delete id="deleteFilledQuestionnaire" parameterType="int">
+        delete from fill_questionnaire where id=#{id}
+    </delete>
+</mapper> 

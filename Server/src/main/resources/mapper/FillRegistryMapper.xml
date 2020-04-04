@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.formtools.mapper.FillRegistryMapper">
+
+    <resultMap type="FillRegistry" id="FillRegistryResult">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="formId" column="form_id"/>
+        <result property="fillContent" column="fill_content"/>
+        <result property="fillTime" column="fill_time"/>
+        <result property="alterTime" column="alter_time"/>
+        <result property="fileList" column="file_list"/>
+        <result property="checkState" column="check_state"/>
+    </resultMap>
+
+    <insert id="addRegistry" parameterType="FillRegistry">
+        insert into fill_registry_form
+        (id, user_id, form_id, fill_content, fill_time, alter_time, file_list, check_state)
+            value (null, #{userId}, #{formId}, #{fillContent}, #{fillTime}, #{alterTime}, #{fileList}, #{checkState})
+    </insert>
+
+    <select id="getFilledRegistry" resultMap="FillRegistryResult">
+        select *
+        from fill_registry_form
+        where user_id = #{userId}
+          and form_id = #{formId}
+    </select>
+
+    <select id="findAllFilled" resultMap="FillRegistryResult">
+        select *
+        from fill_registry_form
+        where form_id = #{formId}
+    </select>
+
+    <update id="updateFilledRegistry" parameterType="FillRegistry">
+        update fill_registry_form
+        <set>
+            <if test="fillContent!=null">
+                fill_content=#{fillContent},
+            </if>
+            <if test="alterTime!=null">
+                alter_time=#{alterTime},
+            </if>
+            <if test="fileList!=null">
+                file_list=#{fileList},
+            </if>
+            <if test="alterTime!=null">
+                check_state=#{checkState},
+            </if>
+        </set>
+        where user_id = #{userId} and form_id = #{formId}
+    </update>
+
+    <delete id="cancelFilledRegistry">
+        delete
+        from fill_registry_form
+        where user_id = #{userId}
+          and form_id = #{formId}
+          and (select end_time from all_built_form where form_id = #{formId}) >= #{now}
+    </delete>
+
+    <update id="deleteFilledRegistry">
+        update fill_registry_form
+        set user_id=id
+        where user_id = #{userId}
+          and form_id = #{formId}
+    </update>
+
+</mapper> 

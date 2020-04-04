@@ -62,7 +62,7 @@ public class YiBanLoginController {
             String openid=info.getString("yb_userid");
             String nickname=info.getString("yb_username");
             String profile=info.getString("yb_userhead");
-            Long userId=otherUserService.updateUser(nickname,profile,openid);
+            Long userId=otherUserService.updateUser(nickname,profile,openid,'Y');
             if(userId==null) return "redirect:"+DEFAULTREDIRECTURL;
 //            System.out.println(userId);
             Cookie uesrIdCookie=new Cookie("userId",String.valueOf(userId));

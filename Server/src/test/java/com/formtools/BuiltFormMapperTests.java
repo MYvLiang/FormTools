@@ -30,20 +30,22 @@ class BuiltFormMapperTests {
     @Test
     void testAddBuiltForm() {
         BuiltForm builtForm=new BuiltForm();
-        builtForm.setFormId("1111");
-        builtForm.setBuilderId("11111111");
+        builtForm.setFormId(2222L);
+        builtForm.setUserId(111111L);
         builtForm.setFormTitle("标题");
         builtForm.setFormInfo("字段");
         builtForm.setBuiltTime(new Timestamp(System.currentTimeMillis()));
         builtForm.setBeginTime(new Timestamp(System.currentTimeMillis()));
-//        builtForm.setEndTime(new Timestamp(System.currentTimeMillis()));
-        builtForm.setFormState(false);
+        builtForm.setEndTime(new Timestamp(System.currentTimeMillis()));
+        builtForm.setMaxCount(100);
+        builtForm.setFormState('E');
+        builtForm.setFormType('B');
         int n=builtFormMapper.addBuiltForm(builtForm);
         System.out.println("插入"+n+"行");
     }
     @Test
     void testGetBuiltForm(){
-        BuiltForm builtForm=builtFormMapper.getBuiltForm("2222");
+        BuiltForm builtForm=builtFormMapper.getBuiltForm(1111L);
         System.out.println(builtForm);
     }
     @Test
@@ -56,7 +58,7 @@ class BuiltFormMapperTests {
     @Test
     void testUpdateBuiltForm(){
         BuiltForm builtForm=new BuiltForm();
-        builtForm.setFormId("1111");
+        builtForm.setFormId(1111L);
         builtForm.setFormTitle("标题2");
         builtForm.setFormInfo("字段2");
         builtForm.setBuiltTime(new Timestamp(System.currentTimeMillis()));
@@ -64,13 +66,13 @@ class BuiltFormMapperTests {
         builtForm.setEndTime(new Timestamp(System.currentTimeMillis()));
         System.out.println(new Timestamp(System.currentTimeMillis()));
         builtForm.setMaxCount(500);
-        builtForm.setFormState(true);
+        builtForm.setFormState('E');
         int n=builtFormMapper.updateBuiltForm(builtForm);
         System.out.println("更改："+n);
     }
     @Test
     void testDeleteBuiltForm(){
-        int n=builtFormMapper.deleteBuiltForm("3333");
+        int n=builtFormMapper.deleteBuiltForm(2222L);
         System.out.println(n);
     }
 

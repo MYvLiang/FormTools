@@ -5,5 +5,5 @@ package com.formtools.service;
  * @create 2020-02-23  23:24
  */
 public interface OtherUserService {
-    Long updateUser(String nickname,String profile, String openid);
+    Long updateUser(String nickname,String profile, String openid,Character type);
 }

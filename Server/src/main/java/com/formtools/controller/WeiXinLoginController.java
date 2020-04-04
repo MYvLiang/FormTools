@@ -75,7 +75,7 @@ public class WeiXinLoginController {
      */
     @PostMapping("/login")
     public ResultVo wxLogin(@RequestBody @Valid WeiXinUser wxUser) {
-        Long userId=otherUserService.updateUser(wxUser.getNickName(),wxUser.getAvatarUrl(),wxUser.getOpenid());
+        Long userId=otherUserService.updateUser(wxUser.getNickName(),wxUser.getAvatarUrl(),wxUser.getOpenid(),'W');
         if(userId!=null){
             wxSceneMap.put(wxUser.getScene(),String.valueOf(userId));
             return ResultVo.success("success");

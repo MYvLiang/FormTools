@@ -12,21 +12,13 @@ import java.util.List;
 @Mapper
 public interface BuiltFormMapper {
 
-    @Insert("insert into all_built_form" +
-            "(form_id,builder_id,form_title,form_info," +
-            "built_time,begin_time,end_time,max_count,form_state)" +
-            " values " +
-            "(#{formId},#{builderId},#{formTitle}," +
-            "#{formInfo},#{builtTime},#{beginTime}," +
-            "#{endTime},#{maxCount},#{formState})")
     int addBuiltForm(BuiltForm builtForm);
 
-    BuiltForm getBuiltForm(String formId);
+    BuiltForm getBuiltForm(Long formId);
 
     List<BuiltForm> findAllBuiltForm();
 
     int updateBuiltForm(BuiltForm builtForm);
 
-    @Delete("delete from all_built_form where form_id= #{formId}")
-    int deleteBuiltForm(String id);
+    int deleteBuiltForm(Long formId);
 }

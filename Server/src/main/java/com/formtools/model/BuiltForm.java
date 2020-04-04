@@ -9,10 +9,12 @@ import java.sql.Timestamp;
  * @create 2020-02-05  14:13
  */
 public class BuiltForm {
+    //自增id
+    private Integer id;
     //表单id
-    private String formId;
+    private Long formId;
     //建表者id
-    private String builderId;
+    private Long userId;
     //表单标题
     private String formTitle;
     //表单结构，是一个json串
@@ -26,14 +28,16 @@ public class BuiltForm {
     //最多可填表的人数（可无）
     private Integer maxCount;
     //表单状态（是否截止）
-    private boolean formState;
+    private Character formState;
+    //表单类型
+    private Character formType;
 
     public BuiltForm() {
     }
 
-    public BuiltForm(String formId, String builderId, String formTitle, String formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount, boolean formState) {
+    public BuiltForm(Long formId, Long userId, String formTitle, String formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount, Character formState, Character formType) {
         this.formId = formId;
-        this.builderId = builderId;
+        this.userId = userId;
         this.formTitle = formTitle;
         this.formInfo = formInfo;
         this.builtTime = builtTime;
@@ -41,22 +45,31 @@ public class BuiltForm {
         this.endTime = endTime;
         this.maxCount = maxCount;
         this.formState = formState;
+        this.formType = formType;
     }
 
-    public String getFormId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Long getFormId() {
         return formId;
     }
 
-    public void setFormId(String formId) {
+    public void setFormId(Long formId) {
         this.formId = formId;
     }
 
-    public String getBuilderId() {
-        return builderId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setBuilderId(String builderId) {
-        this.builderId = builderId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getFormTitle() {
@@ -107,21 +120,31 @@ public class BuiltForm {
         this.maxCount = maxCount;
     }
 
-    public boolean isFormState() {
+    public Character getFormState() {
         return formState;
     }
 
-    public void setFormState(boolean formState) {
+    public void setFormState(Character formState) {
         this.formState = formState;
+    }
+
+    public Character getFormType() {
+        return formType;
+    }
+
+    public void setFormType(Character formType) {
+        this.formType = formType;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"formId\":\"")
+        sb.append("\"id\":")
+                .append(id);
+        sb.append(",\"formId\":\"")
                 .append(formId).append('\"');
-        sb.append(",\"builderId\":\"")
-                .append(builderId).append('\"');
+        sb.append(",\"userId\":\"")
+                .append(userId).append('\"');
         sb.append(",\"formTitle\":\"")
                 .append(formTitle).append('\"');
         sb.append(",\"formInfo\":\"")
@@ -136,6 +159,8 @@ public class BuiltForm {
                 .append(maxCount);
         sb.append(",\"formState\":")
                 .append(formState);
+        sb.append(",\"formType\":")
+                .append(formType);
         sb.append('}');
         return sb.toString();
     }
