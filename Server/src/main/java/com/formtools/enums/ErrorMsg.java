@@ -8,6 +8,9 @@ package com.formtools.enums;
 public enum ErrorMsg {
 
     ACCOUNT_EXIT("用户已存在"),
+    ACCOUNT_NOT_EXIT("用户不存在"),
+    PASSWORD_IS_NOT_SAME("密码不一致"),
+    PASSWORD_RESET_ERROR("修改密码失败"),
     EMAIL_SEND_ERROR("邮件发送失败 请重试"),
     PARAM_ERROR("参数错误"),
     SYSTEM_ERROR("系统错误"),
