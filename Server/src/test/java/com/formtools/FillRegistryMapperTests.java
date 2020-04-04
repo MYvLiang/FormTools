@@ -2,14 +2,12 @@ package com.formtools;
 
 import com.alibaba.fastjson.JSONArray;
 import com.formtools.mapper.FillRegistryMapper;
-import com.formtools.model.FillQuestionnaire;
 import com.formtools.model.FillRegistry;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

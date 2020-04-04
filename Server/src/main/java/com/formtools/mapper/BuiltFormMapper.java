@@ -16,7 +16,7 @@ public interface BuiltFormMapper {
 
     BuiltForm getBuiltForm(Long formId);
 
-    List<BuiltForm> findAllBuiltForm();
+    List<BuiltForm> findAllBuiltForm(Long userId);
 
     int updateBuiltForm(BuiltForm builtForm);
 
