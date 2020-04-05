@@ -30,15 +30,14 @@ class BuiltFormMapperTests {
     @Test
     void testAddBuiltForm() {
         BuiltForm builtForm=new BuiltForm();
-        builtForm.setFormId(2222L);
-        builtForm.setUserId(111111L);
+        builtForm.setFormId(33333L);
+        builtForm.setUserId(111112L);
         builtForm.setFormTitle("标题");
         builtForm.setFormInfo("字段");
         builtForm.setBuiltTime(new Timestamp(System.currentTimeMillis()));
         builtForm.setBeginTime(new Timestamp(System.currentTimeMillis()));
-        builtForm.setEndTime(new Timestamp(System.currentTimeMillis()));
+        builtForm.setEndTime(new Timestamp(System.currentTimeMillis()+1000*60*60*24*10));
         builtForm.setMaxCount(100);
-        builtForm.setFormState('E');
         builtForm.setFormType('B');
         int n=builtFormMapper.addBuiltForm(builtForm);
         System.out.println("插入"+n+"行");
@@ -50,7 +49,7 @@ class BuiltFormMapperTests {
     }
     @Test
     void testFindAllBuiltForm(){
-        List<BuiltForm> builtForms=builtFormMapper.findAllBuiltForm();
+        List<BuiltForm> builtForms=builtFormMapper.findAllBuiltForm(111111L);
         for (BuiltForm builtForm:builtForms)
             System.out.println(builtForm);
     }
@@ -66,7 +65,6 @@ class BuiltFormMapperTests {
         builtForm.setEndTime(new Timestamp(System.currentTimeMillis()));
         System.out.println(new Timestamp(System.currentTimeMillis()));
         builtForm.setMaxCount(500);
-        builtForm.setFormState('E');
         int n=builtFormMapper.updateBuiltForm(builtForm);
         System.out.println("更改："+n);
     }

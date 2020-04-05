@@ -31,7 +31,6 @@ CREATE TABLE `all_built_form` (
   `begin_time` DATETIME NOT NULL COMMENT '开始填表时间（默认为建表时间）',
   `end_time` DATETIME DEFAULT NULL COMMENT '截止时间（可无）',
   `max_count` INT DEFAULT NULL COMMENT '最多可填表的人数（可无）',
-  `form_state` CHAR(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单状态（未开始：P;进行中：I；已截止：E）',
   `form_type` CHAR(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单类型 （问卷：W；登记：D，报名：B）',
   UNIQUE (`form_id`),
   PRIMARY KEY (`id`)

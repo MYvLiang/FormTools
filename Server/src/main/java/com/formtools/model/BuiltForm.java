@@ -27,15 +27,13 @@ public class BuiltForm {
     private Timestamp endTime;
     //最多可填表的人数（可无）
     private Integer maxCount;
-    //表单状态（是否截止）
-    private Character formState;
     //表单类型
     private Character formType;
 
     public BuiltForm() {
     }
 
-    public BuiltForm(Long formId, Long userId, String formTitle, String formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount, Character formState, Character formType) {
+    public BuiltForm(Long formId, Long userId, String formTitle, String formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount, Character formType) {
         this.formId = formId;
         this.userId = userId;
         this.formTitle = formTitle;
@@ -44,7 +42,6 @@ public class BuiltForm {
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.maxCount = maxCount;
-        this.formState = formState;
         this.formType = formType;
     }
 
@@ -120,14 +117,6 @@ public class BuiltForm {
         this.maxCount = maxCount;
     }
 
-    public Character getFormState() {
-        return formState;
-    }
-
-    public void setFormState(Character formState) {
-        this.formState = formState;
-    }
-
     public Character getFormType() {
         return formType;
     }
@@ -157,8 +146,6 @@ public class BuiltForm {
                 .append(endTime).append('\"');
         sb.append(",\"maxCount\":")
                 .append(maxCount);
-        sb.append(",\"formState\":")
-                .append(formState);
         sb.append(",\"formType\":")
                 .append(formType);
         sb.append('}');

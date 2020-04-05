@@ -92,4 +92,8 @@ public class UserModelMapperTests {
         System.out.println(userService.updateUserInfo(userModel));
         System.out.println();
     }
+    @Test
+    void getUserVerifyTypeTest(){
+        System.out.println(userMapper.getUserVerifyType(1L));
+    }
 }

@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResultVo HttpMessageNotReadableExceptionHandler() {
-        return ResultVo.fail(ErrorMsg.MISSING_PARAMETER, "request body is missing!");
+        return ResultVo.fail(ErrorMsg.MISSING_PARAMETER, "requestBody错误!");
     }
 
     /**
