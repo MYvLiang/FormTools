@@ -1,0 +1,41 @@
+#top {
+    height: 100px;
+    background-color: darkorange;
+}
+#left{
+    float: left;
+    width: 160px;
+    height: 800px;
+    background-color: #f7cee2;
+}
+#main{
+    background-color: aquamarine;
+}
+li{
+    list-style: none;
+}
+ul{
+    padding: 0;
+    margin: 50px 0px;
+}
+a{
+    color: black;
+    text-decoration : none;
+}
+#l1,#l2,#l3,#l4{
+    margin: 10px 0px;
+    text-align: center;
+    height: 40px;
+    font-size:18px;
+    line-height: 200%;
+}
+/*
+#si {
+    width: auto;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    float: left;
+    color: black;
+   background-color: bisque;
+}
