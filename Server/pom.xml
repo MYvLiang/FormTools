@@ -83,6 +83,11 @@
             <scope>system</scope>
             <systemPath>${pom.basedir}/lib/yb/OpenApi/1.0/YBOpenApi.jar</systemPath>
         </dependency>
+        <!--引入redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
