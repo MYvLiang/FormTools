@@ -1,5 +1,6 @@
 package com.formtools.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -8,7 +9,7 @@ import java.sql.Timestamp;
  * @author myl
  * @create 2020-02-05  14:13
  */
-public class BuiltForm {
+public class BuiltForm implements Serializable {
     //自增id
     private Integer id;
     //表单id

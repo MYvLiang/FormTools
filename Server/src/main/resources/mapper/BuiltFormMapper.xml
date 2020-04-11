@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            #{beginTime},#{endTime},#{maxCount},#{formType})
 	</insert>
 
-	<select id="getBuiltForm" parameterType="String" resultMap="BuiltFormResult">
+	<select id="getBuiltForm" parameterType="Long" resultMap="BuiltFormResult">
 		select * from all_built_form where form_id= #{formId}
 	</select>
 
