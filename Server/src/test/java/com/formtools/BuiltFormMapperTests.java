@@ -30,7 +30,7 @@ class BuiltFormMapperTests {
     @Test
     void testAddBuiltForm() {
         BuiltForm builtForm=new BuiltForm();
-        builtForm.setFormId(33333L);
+        builtForm.setFormId(22222L);
         builtForm.setUserId(111112L);
         builtForm.setFormTitle("标题");
         builtForm.setFormInfo("字段");
@@ -44,7 +44,7 @@ class BuiltFormMapperTests {
     }
     @Test
     void testGetBuiltForm(){
-        BuiltForm builtForm=builtFormMapper.getBuiltForm(1111L);
+        BuiltForm builtForm=builtFormMapper.getBuiltForm(33333L);
         System.out.println(builtForm);
     }
     @Test
