@@ -6,13 +6,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
+import java.io.Serializable;
 
 /**
  * @author myl
  * @create 2020-02-05  21:59
  */
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-public class UserModel {
+public class UserModel implements Serializable {
 
     public interface register extends Default {}
 
