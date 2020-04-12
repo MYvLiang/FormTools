@@ -1,12 +1,13 @@
 package com.formtools.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * @author myl
  * @create 2020-04-04  13:53
  */
-public class FillRegistry {
+public class FillRegistry implements Serializable {
 
     private Integer id;
     private Long userId;
