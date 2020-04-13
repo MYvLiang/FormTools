@@ -42,6 +42,13 @@ public class FillRegistryController {
         return ResultVo.success(builtForm);
     }
 
+    /**
+     * 填表实时保存
+     * @param fill 答案
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @return 成功（无数据
+     */
     @PostMapping("/current-save")
     public ResultVo currentSaveAnswer(@RequestBody String fill, HttpServletRequest request, HttpServletResponse response) {
         //优化*****************************
@@ -90,7 +97,8 @@ public class FillRegistryController {
         //写入cookie
         Cookie cookie = new Cookie(formId, key);
         cookie.setHttpOnly(true);
-        cookie.setMaxAge(60 * 60 * 24 * 365);
+        //设置过期时间为7天
+        cookie.setMaxAge(60 * 60 * 24 * 7);
         response.addCookie(cookie);
         return ResultVo.success();
     }

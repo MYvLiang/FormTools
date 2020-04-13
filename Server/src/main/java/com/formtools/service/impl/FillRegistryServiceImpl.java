@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class FillRegistryServiceImpl implements FillRegistryService {
@@ -28,7 +29,7 @@ public class FillRegistryServiceImpl implements FillRegistryService {
     @Override
     public BuiltForm getFormInfo(Long formId) {
 
-        String FormInfoKey = "FormInfo" + formId;
+        String FormInfoKey = formId.toString();
 
         //从缓存获取表单 题目信息
         BuiltForm builtForm = (BuiltForm) redisTemplate.opsForValue().get(FormInfoKey);
@@ -57,7 +58,8 @@ public class FillRegistryServiceImpl implements FillRegistryService {
         if (uuid == null) {
             uuid = UUID.randomUUID().toString();
         }
-        redisTemplate.opsForValue().set(uuid, fillRegistry);
+        //设置过期时间为7天
+        redisTemplate.opsForValue().set(uuid, fillRegistry, 7, TimeUnit.DAYS);
         return uuid;
     }
 }
