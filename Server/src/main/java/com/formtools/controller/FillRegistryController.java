@@ -108,9 +108,10 @@ public class FillRegistryController {
 
     /**
      * 获取答案
-     * @param uid 用户id（从cookie获取
+     *
+     * @param uid     用户id（从cookie获取
      * @param request HttpServletRequest
-     * @param fId 表id
+     * @param fId     表id
      * @return 答案
      */
     @GetMapping("/filled")
@@ -150,5 +151,36 @@ public class FillRegistryController {
         }
         return ResultVo.success(fillRegistry);
     }
+
+    /**
+     * 问卷表 获取答案
+     *
+     * @param fId     表id
+     * @param request HttpServletRequest
+     * @return 成功+数据（数据可为空
+     */
+    @GetMapping("/questionnaire/filled")
+    public ResultVo getQuestionnaireAnswer(@RequestParam("formId") String fId, HttpServletRequest request) {
+        String key = null;
+        //遍历cookie 获取名为fId的cookie 内含缓存的key
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(fId)) {
+                key = cookie.getValue();
+                break;
+            }
+        }
+        //若缓存不存在
+        if (key == null) return ResultVo.success();
+        FillRegistry fillRegister;
+        try {
+            //只查缓存
+            fillRegister = fillRegistryService.getAnswer(null, null, key);
+        } catch (Exception e) {
+            return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+        }
+        return ResultVo.success(fillRegister);
+    }
+
 
 }
