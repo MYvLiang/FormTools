@@ -1,6 +1,7 @@
 package com.formtools.service.impl;
 
 import com.formtools.mapper.BuiltFormMapper;
+import com.formtools.mapper.FillRegistryMapper;
 import com.formtools.model.BuiltForm;
 import com.formtools.model.FillRegistry;
 import com.formtools.service.FillRegistryService;
@@ -16,6 +17,9 @@ public class FillRegistryServiceImpl implements FillRegistryService {
 
     @Resource
     private BuiltFormMapper builtFormMapper;
+
+    @Resource
+    private FillRegistryMapper fillRegistryMapper;
 
     @Resource
     private RedisTemplate<Object, Object> redisTemplate;
@@ -61,5 +65,21 @@ public class FillRegistryServiceImpl implements FillRegistryService {
         //设置过期时间为7天
         redisTemplate.opsForValue().set(uuid, fillRegistry, 7, TimeUnit.DAYS);
         return uuid;
+    }
+
+    /**
+     * 获取答案
+     * @param userId 用户id
+     * @param formId 表单id
+     * @param key 缓存的key 可为空
+     * @return 答案
+     */
+    public FillRegistry getAnswer(Long userId, Long formId, String key) {
+        //若缓存不存在 即为改表或填表 直接获取数据库
+        if (key == null || "".equals(key)) {
+            return fillRegistryMapper.getFilledRegistry(userId, formId);
+        } else {
+            return (FillRegistry) redisTemplate.opsForValue().get(key);
+        }
     }
 }
