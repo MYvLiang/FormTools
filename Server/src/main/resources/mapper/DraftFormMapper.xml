@@ -9,7 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id property="formId" column="form_id"/>
 		<result property="userId" column="user_id"/>
 		<result property="formTitle" column="form_title"/>
-		<result property="formInfo" column="form_info"/>
+		<result typeHandler="com.formtools.utils.JSONObjectTypeHandler" javaType="com.alibaba.fastjson.JSONObject"
+				jdbcType="VARCHAR" property="formInfo" column="form_info"/>
 		<result property="builtTime" column="built_time"/>
 		<result property="beginTime" column="begin_time"/>
 		<result property="endTime" column="end_time"/>
@@ -32,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into all_draft_form
 		    (id,form_id,user_id,form_title,form_info,built_time,
 		     begin_time,end_time,max_count,form_type,state)
-		     value (null,#{formId},#{userId},#{formTitle},#{formInfo},#{builtTime},
+		     value (null,#{formId},#{userId},#{formTitle},#{formInfo,typeHandler=com.formtools.utils.JSONObjectTypeHandler},#{builtTime},
 		            #{beginTime},#{endTime},#{maxCount},#{formType},#{state})
 	</insert>
 
@@ -48,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update all_draft_form
 		<set>
 			<if test="formInfo!=null">
-				form_info=#{formInfo},
+				form_info=#{formInfo,typeHandler=com.formtools.utils.JSONObjectTypeHandler},
 			</if>
 			<if test="formTitle!=null">
 				form_title=#{formTitle},

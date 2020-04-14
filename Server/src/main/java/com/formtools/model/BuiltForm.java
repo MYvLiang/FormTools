@@ -1,5 +1,7 @@
 package com.formtools.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -19,7 +21,7 @@ public class BuiltForm implements Serializable {
     //表单标题
     private String formTitle;
     //表单结构，是一个json串
-    private String formInfo;
+    private JSONObject formInfo;
     //建表时间
     private Timestamp builtTime;
     //开始填表时间（默认为建表时间）
@@ -29,12 +31,12 @@ public class BuiltForm implements Serializable {
     //最多可填表的人数（可无）
     private Integer maxCount;
     //表单类型
-    private Character formType;
+    private String formType;
 
     public BuiltForm() {
     }
 
-    public BuiltForm(Long formId, Long userId, String formTitle, String formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount, Character formType) {
+    public BuiltForm(Long formId, Long userId, String formTitle, JSONObject formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount, String formType) {
         this.formId = formId;
         this.userId = userId;
         this.formTitle = formTitle;
@@ -78,11 +80,11 @@ public class BuiltForm implements Serializable {
         this.formTitle = formTitle;
     }
 
-    public String getFormInfo() {
+    public JSONObject getFormInfo() {
         return formInfo;
     }
 
-    public void setFormInfo(String formInfo) {
+    public void setFormInfo(JSONObject formInfo) {
         this.formInfo = formInfo;
     }
 
@@ -118,11 +120,11 @@ public class BuiltForm implements Serializable {
         this.maxCount = maxCount;
     }
 
-    public Character getFormType() {
+    public String getFormType() {
         return formType;
     }
 
-    public void setFormType(Character formType) {
+    public void setFormType(String formType) {
         this.formType = formType;
     }
 

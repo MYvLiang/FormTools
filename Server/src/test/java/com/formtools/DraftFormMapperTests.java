@@ -1,5 +1,6 @@
 package com.formtools;
 
+import com.alibaba.fastjson.JSONObject;
 import com.formtools.mapper.DraftFormMapper;
 import com.formtools.model.DraftForm;
 import org.junit.jupiter.api.AfterEach;
@@ -29,11 +30,13 @@ class DraftFormMapperTests {
 
     @Test
     void testAddDraftForm() {
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("aa","aaa");
         DraftForm draftForm = new DraftForm();
-        draftForm.setFormId(12345678L);
+        draftForm.setFormId(154688L);
         draftForm.setUserId(111112L);
         draftForm.setFormTitle("标题");
-        draftForm.setFormInfo("字段");
+        draftForm.setFormInfo(jsonObject);
         draftForm.setBuiltTime(new Timestamp(System.currentTimeMillis()));
         draftForm.setBeginTime(new Timestamp(System.currentTimeMillis()));
         draftForm.setEndTime(new Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 10));
@@ -60,11 +63,13 @@ class DraftFormMapperTests {
 
     @Test
     void testUpdateDraftForm() {
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("aa","aaa");
         DraftForm draftForm = new DraftForm();
         draftForm.setFormId(666666L);
         draftForm.setUserId(111112L);
         draftForm.setFormTitle("标题");
-        draftForm.setFormInfo("字段");
+        draftForm.setFormInfo(jsonObject);
         draftForm.setBuiltTime(new Timestamp(System.currentTimeMillis()));
         draftForm.setBeginTime(new Timestamp(System.currentTimeMillis()));
         draftForm.setEndTime(new Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 10));

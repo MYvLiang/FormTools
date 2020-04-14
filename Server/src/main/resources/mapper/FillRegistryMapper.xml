@@ -8,7 +8,8 @@
         <id property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="formId" column="form_id"/>
-        <result property="fillContent" column="fill_content"/>
+        <result typeHandler="com.formtools.utils.JSONObjectTypeHandler" javaType="com.alibaba.fastjson.JSONObject"
+                jdbcType="VARCHAR" property="fillContent" column="fill_content"/>
         <result property="fillTime" column="fill_time"/>
         <result property="alterTime" column="alter_time"/>
         <result property="fileList" column="file_list"/>
@@ -18,7 +19,7 @@
     <insert id="addRegistry" parameterType="FillRegistry">
         insert into fill_registry_form
         (id, user_id, form_id, fill_content, fill_time, alter_time, file_list, check_state)
-            value (null, #{userId}, #{formId}, #{fillContent}, #{fillTime}, #{alterTime}, #{fileList}, #{checkState})
+            value (null, #{userId}, #{formId}, #{fillContent,typeHandler=com.formtools.utils.JSONObjectTypeHandler}, #{fillTime}, #{alterTime}, #{fileList}, #{checkState})
     </insert>
 
     <select id="getFilledRegistry" resultMap="FillRegistryResult">
@@ -38,7 +39,7 @@
         update fill_registry_form
         <set>
             <if test="fillContent!=null">
-                fill_content=#{fillContent},
+                fill_content=#{fillContent,typeHandler=com.formtools.utils.JSONObjectTypeHandler},
             </if>
             <if test="alterTime!=null">
                 alter_time=#{alterTime},

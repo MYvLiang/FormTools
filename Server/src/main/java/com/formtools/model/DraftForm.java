@@ -1,5 +1,7 @@
 package com.formtools.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.sql.Timestamp;
 
 /**
@@ -16,7 +18,7 @@ public class DraftForm {
     //表单标题
     private String formTitle;
     //表单结构，是一个json串
-    private String formInfo;
+    private JSONObject formInfo;
     //建表时间
     private Timestamp builtTime;
     //开始填表时间（默认为建表时间）
@@ -34,7 +36,7 @@ public class DraftForm {
 
     }
 
-    public DraftForm(Long formId, Long userId, String formTitle, String formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount, String formType, Boolean state) {
+    public DraftForm(Long formId, Long userId, String formTitle, JSONObject formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount, String formType, Boolean state) {
         this.formId = formId;
         this.userId = userId;
         this.formTitle = formTitle;
@@ -79,11 +81,11 @@ public class DraftForm {
         this.formTitle = formTitle;
     }
 
-    public String getFormInfo() {
+    public JSONObject getFormInfo() {
         return formInfo;
     }
 
-    public void setFormInfo(String formInfo) {
+    public void setFormInfo(JSONObject formInfo) {
         this.formInfo = formInfo;
     }
 

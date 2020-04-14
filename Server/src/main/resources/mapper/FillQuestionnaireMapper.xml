@@ -7,14 +7,15 @@
     <resultMap type="FillQuestionnaire" id="FillQuestionnaireResult">
         <id property="id" column="id"/>
         <result property="formId" column="form_id"/>
-        <result property="fillContent" column="fill_content"/>
+        <result typeHandler="com.formtools.utils.JSONObjectTypeHandler" javaType="com.alibaba.fastjson.JSONObject"
+                jdbcType="VARCHAR" property="fillContent" column="fill_content"/>
         <result property="fillTime" column="fill_time"/>
     </resultMap>
 
     <insert id="addQuestionnaire" parameterType="FillQuestionnaire">
         insert into fill_questionnaire
             (id,form_id,fill_content,fill_time)
-            value (null,#{formId},#{fillContent},#{fillTime})
+            value (null,#{formId},#{fillContent,typeHandler=com.formtools.utils.JSONObjectTypeHandler},#{fillTime})
     </insert>
 
     <select id="findFilledQuestionnaire" parameterType="long" resultMap="FillQuestionnaireResult">

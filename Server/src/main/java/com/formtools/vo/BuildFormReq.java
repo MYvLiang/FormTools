@@ -25,14 +25,14 @@ public class BuildFormReq {
 
     private Integer maxCount;
     @NotNull
-    private Character formType;
+    private String formType;
 
     private Short state;
 
     public BuildFormReq() {
     }
 
-    public BuildFormReq(Long formId, @NotNull String formTitle, @NotNull JSONObject formInfo, @NotNull Timestamp builtTime, @NotNull Timestamp beginTime, @NotNull Timestamp endTime, @NotNull Integer maxCount, @NotNull Character formType, Short state) {
+    public BuildFormReq(Long formId, String formTitle, JSONObject formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount,  String formType, Short state) {
         this.formId = formId;
         this.formTitle = formTitle;
         this.formInfo = formInfo;
@@ -84,11 +84,11 @@ public class BuildFormReq {
         this.maxCount = maxCount;
     }
 
-    public Character getFormType() {
+    public String getFormType() {
         return formType;
     }
 
-    public void setFormType(Character formType) {
+    public void setFormType(String formType) {
         this.formType = formType;
     }
 

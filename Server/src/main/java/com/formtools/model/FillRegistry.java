@@ -1,5 +1,7 @@
 package com.formtools.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.sql.Timestamp;
 
 /**
@@ -11,7 +13,7 @@ public class FillRegistry {
     private Integer id;
     private Long userId;
     private Long formId;
-    private String fillContent;
+    private JSONObject fillContent;
     private Timestamp fillTime;
     private Timestamp alterTime;
     private String fileList;
@@ -20,7 +22,7 @@ public class FillRegistry {
     public FillRegistry() {
     }
 
-    public FillRegistry(Long userId, Long formId, String fillContent, Timestamp fillTime, Timestamp alterTime, String fileList, Character checkState) {
+    public FillRegistry(Long userId, Long formId, JSONObject fillContent, Timestamp fillTime, Timestamp alterTime, String fileList, Character checkState) {
         this.userId = userId;
         this.formId = formId;
         this.fillContent = fillContent;
@@ -54,11 +56,11 @@ public class FillRegistry {
         this.formId = formId;
     }
 
-    public String getFillContent() {
+    public JSONObject getFillContent() {
         return fillContent;
     }
 
-    public void setFillContent(String fillContent) {
+    public void setFillContent(JSONObject fillContent) {
         this.fillContent = fillContent;
     }
 

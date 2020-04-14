@@ -1,5 +1,6 @@
 package com.formtools.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.formtools.enums.ErrorMsg;
 import com.formtools.model.BuiltForm;
 import com.formtools.model.DraftForm;
@@ -38,7 +39,7 @@ public class BuiltFormController {
                             String formType) {
         Long formId = System.currentTimeMillis();
         DraftForm draftForm = new DraftForm(
-                formId,Long.parseLong(userId),"未命名表单","{}",
+                formId,Long.parseLong(userId),"未命名表单", JSON.parseObject("{}"),
                 new Timestamp(System.currentTimeMillis()),
                 new Timestamp(System.currentTimeMillis()),
                 null,null,formType,false);
@@ -58,7 +59,7 @@ public class BuiltFormController {
                               @RequestBody @Valid BuildFormReq buildFormReq) {
         BuiltForm builtForm = new BuiltForm(
                 buildFormReq.getFormId(), Long.parseLong(userId),
-                buildFormReq.getFormTitle(), buildFormReq.getFormInfo().toJSONString(),
+                buildFormReq.getFormTitle(), buildFormReq.getFormInfo(),
                 new Timestamp(System.currentTimeMillis()), buildFormReq.getBeginTime(),
                 buildFormReq.getEndTime(), buildFormReq.getMaxCount(), buildFormReq.getFormType());
 
