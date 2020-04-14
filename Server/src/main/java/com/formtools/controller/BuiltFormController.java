@@ -5,6 +5,7 @@ import com.formtools.enums.ErrorMsg;
 import com.formtools.model.BuiltForm;
 import com.formtools.model.DraftForm;
 import com.formtools.service.BuiltFormService;
+import com.formtools.utils.IdBuilder;
 import com.formtools.vo.BuildFormReq;
 import com.formtools.vo.ResultVo;
 import org.springframework.validation.annotation.Validated;
@@ -37,12 +38,13 @@ public class BuiltFormController {
     public ResultVo newForm(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                             @NotEmpty(message = "登录异常,请重新登录") String userId,
                             String formType) {
-        Long formId = System.currentTimeMillis();
+        Long formId = IdBuilder.getFormId();
         DraftForm draftForm = new DraftForm(
                 formId,Long.parseLong(userId),"未命名表单", JSON.parseObject("{}"),
                 new Timestamp(System.currentTimeMillis()),
                 new Timestamp(System.currentTimeMillis()),
                 null,null,formType,false);
+
         return ResultVo.success();
     }
 
