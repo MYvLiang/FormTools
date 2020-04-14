@@ -16,12 +16,12 @@ public class FillRegistry implements Serializable {
     private Timestamp fillTime;
     private Timestamp alterTime;
     private String fileList;
-    private Character checkState;
+    private String checkState;
 
     public FillRegistry() {
     }
 
-    public FillRegistry(Long userId, Long formId, String fillContent, Timestamp fillTime, Timestamp alterTime, String fileList, Character checkState) {
+    public FillRegistry(Long userId, Long formId, String fillContent, Timestamp fillTime, Timestamp alterTime, String fileList, String checkState) {
         this.userId = userId;
         this.formId = formId;
         this.fillContent = fillContent;
@@ -87,11 +87,11 @@ public class FillRegistry implements Serializable {
         this.fileList = fileList;
     }
 
-    public Character getCheckState() {
+    public String getCheckState() {
         return checkState;
     }
 
-    public void setCheckState(Character checkState) {
+    public void setCheckState(String checkState) {
         this.checkState = checkState;
     }
 
