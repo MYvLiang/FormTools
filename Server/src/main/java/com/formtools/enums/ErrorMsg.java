@@ -23,7 +23,8 @@ public enum ErrorMsg {
     COOKIE_ERROR("请重新登录"),
     EMAIL_LOGIN_ERROR("登录失败 账号密码错误"),
     JSON_READ_ERROR("json参数解析错误"),
-    FORM_NUMBER_ERROR("表单id错误");
+    FORM_NUMBER_ERROR("表单id错误"),
+    REPEAT_COMMIT_ERROR("请勿重复提交");
 
     private String msg;
 

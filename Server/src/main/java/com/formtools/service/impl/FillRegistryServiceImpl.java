@@ -82,4 +82,12 @@ public class FillRegistryServiceImpl implements FillRegistryService {
             return (FillRegistry) redisTemplate.opsForValue().get(key);
         }
     }
+
+    public boolean insertRegistry(FillRegistry fillRegistry,String key){
+        if (fillRegistryMapper.insertFilledRegistry(fillRegistry)>0){
+            redisTemplate.delete(key);
+            return true;
+        }
+        return false;
+    }
 }

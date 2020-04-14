@@ -5,7 +5,8 @@ import com.formtools.model.BuiltForm;
 import com.formtools.model.FillRegistry;
 import com.formtools.service.FillRegistryService;
 import com.formtools.utils.CookieUtil;
-import com.formtools.utils.FillRegisteryUtil;
+import com.formtools.utils.FillRegistryUtil;
+import com.formtools.utils.ValidationUtil;
 import com.formtools.vo.FillRegistryReq;
 import com.formtools.vo.ResultVo;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
 
 @RestController
 public class FillRegistryController {
 
     @Resource
     private FillRegistryService fillRegistryService;
+
+    @Resource
+    private ValidationUtil validationUtil;
 
     /**
      * 获取表单题目
@@ -47,19 +52,19 @@ public class FillRegistryController {
     /**
      * 填表实时保存
      *
-     * @param fillRegistryReq  答案
-     * @param request  HttpServletRequest
-     * @param response HttpServletResponse
+     * @param fillRegistryReq 答案
+     * @param request         HttpServletRequest
+     * @param response        HttpServletResponse
      * @return 成功（无数据
      */
     @PostMapping("/current-save")
     public ResultVo currentSaveAnswer(@RequestBody FillRegistryReq fillRegistryReq, HttpServletRequest request, HttpServletResponse response) {
 
         //转化
-        FillRegistry fillRegistry= FillRegisteryUtil.toFillRegisteryCommen(fillRegistryReq);
-        String formId=fillRegistry.getFormId().toString();
+        FillRegistry fillRegistry = FillRegistryUtil.toFillRegisteryCommon(fillRegistryReq);
+        String formId = fillRegistry.getFormId().toString();
         //获取缓存key
-        String key = CookieUtil.getKeyFromFormIdCookie(request,formId);
+        String key = CookieUtil.getKeyFromFormIdCookie(request, formId);
         try {
             //取得缓存的key
             key = fillRegistryService.currentSaveAnswer(key, fillRegistry);
@@ -102,7 +107,7 @@ public class FillRegistryController {
         }
 
         //获取缓存key
-        String key = CookieUtil.getKeyFromFormIdCookie(request,fId);
+        String key = CookieUtil.getKeyFromFormIdCookie(request, fId);
 
         FillRegistry fillRegistry;
         try {
@@ -111,7 +116,7 @@ public class FillRegistryController {
             return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
         }
         //转化
-        return ResultVo.success(FillRegisteryUtil.toFillRegistryReq(fillRegistry));
+        return ResultVo.success(FillRegistryUtil.toFillRegistryReq(fillRegistry));
     }
 
     /**
@@ -124,7 +129,7 @@ public class FillRegistryController {
     @GetMapping("/questionnaire/filled")
     public ResultVo getQuestionnaireAnswer(@RequestParam("formId") String fId, HttpServletRequest request) {
         //获取缓存key
-        String key = CookieUtil.getKeyFromFormIdCookie(request,fId);
+        String key = CookieUtil.getKeyFromFormIdCookie(request, fId);
 
         //若缓存不存在
         if (key == null) return ResultVo.success();
@@ -135,8 +140,39 @@ public class FillRegistryController {
         } catch (Exception e) {
             return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
         }
-        return ResultVo.success(FillRegisteryUtil.toFillRegistryReq(fillRegistry));
+        return ResultVo.success(FillRegistryUtil.toFillRegistryReq(fillRegistry));
     }
 
-
+    @PostMapping("/filled")
+    public ResultVo insertFillRegistry(@CookieValue("userId")
+                                       @NotNull(message = "登录异常 请重新登录")
+                                       @NotEmpty(message = "登录异常 请重新登录") String uid,
+                                       @RequestBody FillRegistryReq fillRegistryReq, HttpServletRequest request, HttpServletResponse response) {
+        //参数校验
+        validationUtil.validateParam(fillRegistryReq,new Class[]{Default.class});
+        //若登录的用户id与表单用户id不一致 返回参数错误
+        if (!uid.equals(fillRegistryReq.getUserId().toString())) {
+            return ResultVo.fail(ErrorMsg.PARAM_ERROR);
+        }
+        //转化
+        FillRegistry fillRegistry = FillRegistryUtil.toFillRegisteryCommon(fillRegistryReq);
+        //获取缓存key
+        String key = CookieUtil.getKeyFromFormIdCookie(request, fillRegistry.getFormId().toString());
+        //若插入成功
+        boolean succeed;
+        try {
+            succeed = fillRegistryService.insertRegistry(fillRegistry, key);
+        } catch (Exception e) {
+            //返回重复提交错误
+            return ResultVo.fail(ErrorMsg.REPEAT_COMMIT_ERROR);
+        }
+        if (succeed) {
+            //删除cookie
+            Cookie cookie = new Cookie(fillRegistry.getFormId().toString(), null);
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+            return ResultVo.success();
+        }
+        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+    }
 }

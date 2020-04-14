@@ -2,10 +2,13 @@ package com.formtools.vo;
 
 import com.alibaba.fastjson.JSONObject;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 public class FillRegistryReq {
+    @NotNull
     private Long userId;
+    @NotNull
     private Long formId;
     private JSONObject fillContent;
     private Timestamp fillTime;
