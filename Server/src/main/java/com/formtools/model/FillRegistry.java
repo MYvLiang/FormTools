@@ -2,16 +2,20 @@ package com.formtools.model;
 
 import com.alibaba.fastjson.JSONObject;
 
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * @author myl
  * @create 2020-04-04  13:53
  */
-public class FillRegistry {
+public class FillRegistry implements Serializable {
 
     private Integer id;
+    @NotNull
     private Long userId;
+    @NotNull
     private Long formId;
     private JSONObject fillContent;
     private Timestamp fillTime;

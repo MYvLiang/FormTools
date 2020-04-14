@@ -25,4 +25,11 @@ public interface FillRegistryMapper {
     int cancelFilledRegistry(@Param("userId") Long userId, @Param("formId") Long formId, @Param("now")Timestamp now);
 
     int deleteFilledRegistry(@Param("userId") Long userId, @Param("formId") Long formId);
+
+    /**
+     * 若 此刻时间 晚于开始时间 早于截止时间 总填表人数小于最大填表人数 插入数据
+     * @param fillRegistry  数据
+     * @return 插入数据条数
+     */
+    int insertFilledRegistry(FillRegistry fillRegistry);
 }
