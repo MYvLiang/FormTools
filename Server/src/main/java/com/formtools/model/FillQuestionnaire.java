@@ -2,6 +2,7 @@ package com.formtools.model;
 
 import com.alibaba.fastjson.JSONObject;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 /**
@@ -12,6 +13,7 @@ public class FillQuestionnaire {
     //自增id
     private Integer id;
     //表单id
+    @NotNull
     private Long formId;
     //表单收集的数据
     private JSONObject fillContent;
