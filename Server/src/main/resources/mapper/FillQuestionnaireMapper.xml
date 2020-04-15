@@ -25,4 +25,18 @@
     <delete id="deleteFilledQuestionnaire" parameterType="int">
         delete from fill_questionnaire where id=#{id}
     </delete>
+
+    <insert id="insertFilledQuestionnaire">
+        insert into fill_questionnaire (id,form_id,fill_content,fill_time)
+        select null,#{formId},#{fillContent,typeHandler=com.formtools.utils.JSONObjectTypeHandler},now()
+        where
+            timestampdiff(second,(select begin_time from all_built_form where form_id=#{formId}),now()) > 0
+            and
+            timestampdiff(second,now(),(select end_time from all_built_form where form_id=#{formId})) > 0
+            and
+            (select max_count from all_built_form where form_id=#{formId}) >
+            (select count(*) from fill_questionnaire where form_id=#{formId})
+            and
+            (select form_type from all_built_form where form_id=#{formId}) = 'W'
+    </insert>
 </mapper> 

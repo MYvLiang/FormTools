@@ -7,6 +7,7 @@ import com.formtools.model.FillRegistry;
 import com.formtools.service.FillRegistryService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.UUID;
@@ -84,6 +85,13 @@ public class FillRegistryServiceImpl implements FillRegistryService {
         }
     }
 
+    /**
+     * 插入答案（非问卷类
+     * @param fillRegistry 答案
+     * @param key 缓存key
+     * @return 是否成功
+     */
+    @Transactional
     public boolean insertRegistry(FillRegistry fillRegistry, String key) {
         if (fillRegistryMapper.insertFilledRegistry(fillRegistry) > 0) {
             redisTemplate.delete(key);

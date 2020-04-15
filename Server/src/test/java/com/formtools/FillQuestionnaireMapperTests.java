@@ -40,4 +40,11 @@ class FillQuestionnaireMapperTests {
         int n=fillQuestionnaireMapper.deleteFilledQuestionnaire(3);
         System.out.println(n);
     }
+
+    @Test
+    void testInsert(){
+        FillQuestionnaire fillQuestionnaire=new FillQuestionnaire(1L,
+                JSON.parseObject("{}"),new Timestamp(System.currentTimeMillis()));
+        System.out.println(fillQuestionnaireMapper.insertFilledQuestionnaire(fillQuestionnaire));
+    }
 }
