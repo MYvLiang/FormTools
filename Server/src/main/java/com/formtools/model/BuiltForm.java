@@ -1,6 +1,7 @@
 package com.formtools.model;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
  * @author myl
  * @create 2020-02-05  14:13
  */
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class BuiltForm implements Serializable {
     //自增id
     private Integer id;

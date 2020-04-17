@@ -1,6 +1,7 @@
 package com.formtools.service;
 
 import com.formtools.model.BuiltForm;
+import com.formtools.model.DraftForm;
 
 import java.util.List;
 
@@ -10,14 +11,11 @@ import java.util.List;
  */
 public interface BuiltFormService {
 
+    List<BuiltForm> findAllBuiltForms(Long userId);
+
     boolean releaseForm(BuiltForm builtForm);
-//    boolean addBuiltForm(BuiltForm builtForm);
-//
-//    BuiltForm getBuiltForm(String id);
-//
-//    List<BuiltForm> findAllBuiltForm();
-//
-//    int updateBuiltForm(BuiltForm builtForm);
-//
-//    int deleteBuiltForm(String id);
+
+    BuiltForm copyBuiltForm(Long formId);
+
+    boolean deleteBuiltForm(Long formId,Long userId);
 }

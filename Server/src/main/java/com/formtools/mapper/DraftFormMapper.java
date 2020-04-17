@@ -2,6 +2,7 @@ package com.formtools.mapper;
 
 import com.formtools.model.DraftForm;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,11 +14,11 @@ import java.util.List;
 public interface DraftFormMapper {
     int addDraftForm(DraftForm draftForm);
 
-    DraftForm getDraftForm(Long formId);
+    DraftForm getDraftForm(@Param("formId") Long formId, @Param("userId") Long userId);
 
     List<DraftForm> findAllDraftForm(Long userId);
 
     int updateDraftForm(DraftForm draftForm);
 
-    int deleteDraftForm(Long formId);
+    int deleteDraftForm(@Param("formId") Long formId, @Param("userId") Long userId);
 }

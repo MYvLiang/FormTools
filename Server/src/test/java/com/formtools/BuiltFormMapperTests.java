@@ -75,7 +75,7 @@ class BuiltFormMapperTests {
     }
     @Test
     void testDeleteBuiltForm(){
-        int n=builtFormMapper.deleteBuiltForm(2222L);
+        int n=builtFormMapper.deleteBuiltForm(2222L,111L);
         System.out.println(n);
     }
 

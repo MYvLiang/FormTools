@@ -20,5 +20,5 @@ public interface BuiltFormMapper {
 
     int updateBuiltForm(BuiltForm builtForm);
 
-    int deleteBuiltForm(Long formId);
+    int deleteBuiltForm(@Param("formId") Long formId, @Param("userId") Long userId);
 }
