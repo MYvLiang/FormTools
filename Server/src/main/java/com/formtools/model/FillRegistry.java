@@ -1,17 +1,23 @@
 package com.formtools.model;
 
+import com.alibaba.fastjson.JSONObject;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * @author myl
  * @create 2020-04-04  13:53
  */
-public class FillRegistry {
+public class FillRegistry implements Serializable {
 
     private Integer id;
+    @NotNull
     private Long userId;
+    @NotNull
     private Long formId;
-    private String fillContent;
+    private JSONObject fillContent;
     private Timestamp fillTime;
     private Timestamp alterTime;
     private String fileList;
@@ -20,7 +26,7 @@ public class FillRegistry {
     public FillRegistry() {
     }
 
-    public FillRegistry(Long userId, Long formId, String fillContent, Timestamp fillTime, Timestamp alterTime, String fileList, Character checkState) {
+    public FillRegistry(Long userId, Long formId, JSONObject fillContent, Timestamp fillTime, Timestamp alterTime, String fileList, Character checkState) {
         this.userId = userId;
         this.formId = formId;
         this.fillContent = fillContent;
@@ -54,11 +60,11 @@ public class FillRegistry {
         this.formId = formId;
     }
 
-    public String getFillContent() {
+    public JSONObject getFillContent() {
         return fillContent;
     }
 
-    public void setFillContent(String fillContent) {
+    public void setFillContent(JSONObject fillContent) {
         this.fillContent = fillContent;
     }
 

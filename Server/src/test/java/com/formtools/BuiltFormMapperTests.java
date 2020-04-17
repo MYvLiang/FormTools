@@ -1,5 +1,6 @@
 package com.formtools;
 
+import com.alibaba.fastjson.JSONObject;
 import com.formtools.mapper.BuiltFormMapper;
 import com.formtools.model.BuiltForm;
 import org.junit.jupiter.api.AfterEach;
@@ -29,16 +30,18 @@ class BuiltFormMapperTests {
 
     @Test
     void testAddBuiltForm() {
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("aa","aaa");
         BuiltForm builtForm=new BuiltForm();
         builtForm.setFormId(22222L);
         builtForm.setUserId(111112L);
         builtForm.setFormTitle("标题");
-        builtForm.setFormInfo("字段");
+        builtForm.setFormInfo(jsonObject);
         builtForm.setBuiltTime(new Timestamp(System.currentTimeMillis()));
         builtForm.setBeginTime(new Timestamp(System.currentTimeMillis()));
         builtForm.setEndTime(new Timestamp(System.currentTimeMillis()+1000*60*60*24*10));
         builtForm.setMaxCount(100);
-        builtForm.setFormType('B');
+        builtForm.setFormType("B");
         int n=builtFormMapper.addBuiltForm(builtForm);
         System.out.println("插入"+n+"行");
     }
@@ -56,10 +59,12 @@ class BuiltFormMapperTests {
 
     @Test
     void testUpdateBuiltForm(){
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("aa","aaa");
         BuiltForm builtForm=new BuiltForm();
         builtForm.setFormId(1111L);
         builtForm.setFormTitle("标题2");
-        builtForm.setFormInfo("字段2");
+        builtForm.setFormInfo(jsonObject);
         builtForm.setBuiltTime(new Timestamp(System.currentTimeMillis()));
         builtForm.setBeginTime(new Timestamp(System.currentTimeMillis()));
         builtForm.setEndTime(new Timestamp(System.currentTimeMillis()));

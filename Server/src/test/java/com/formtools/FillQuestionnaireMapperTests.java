@@ -1,5 +1,6 @@
 package com.formtools;
 
+import com.alibaba.fastjson.JSON;
 import com.formtools.mapper.FillQuestionnaireMapper;
 import com.formtools.model.FillQuestionnaire;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class FillQuestionnaireMapperTests {
     @Test
     void testAdd(){
         FillQuestionnaire fillQuestionnaire=new FillQuestionnaire(1111L,
-                "data",new Timestamp(System.currentTimeMillis()));
+                JSON.parseObject("{}"),new Timestamp(System.currentTimeMillis()));
         int n= fillQuestionnaireMapper.addQuestionnaire(fillQuestionnaire);
         System.out.println(n);
     }
@@ -38,5 +39,12 @@ class FillQuestionnaireMapperTests {
     void testDelete(){
         int n=fillQuestionnaireMapper.deleteFilledQuestionnaire(3);
         System.out.println(n);
+    }
+
+    @Test
+    void testInsert(){
+        FillQuestionnaire fillQuestionnaire=new FillQuestionnaire(1L,
+                JSON.parseObject("{}"),new Timestamp(System.currentTimeMillis()));
+        System.out.println(fillQuestionnaireMapper.insertFilledQuestionnaire(fillQuestionnaire));
     }
 }

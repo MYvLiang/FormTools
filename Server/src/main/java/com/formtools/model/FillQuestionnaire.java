@@ -1,5 +1,8 @@
 package com.formtools.model;
 
+import com.alibaba.fastjson.JSONObject;
+
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 /**
@@ -10,16 +13,17 @@ public class FillQuestionnaire {
     //自增id
     private Integer id;
     //表单id
+    @NotNull
     private Long formId;
-    //表单收集的数据，是一个json串
-    private String fillContent;
+    //表单收集的数据
+    private JSONObject fillContent;
     //填表时间
     private Timestamp fillTime;
 
     public FillQuestionnaire() {
     }
 
-    public FillQuestionnaire(Long formId, String fillContent, Timestamp fillTime) {
+    public FillQuestionnaire(Long formId, JSONObject fillContent, Timestamp fillTime) {
         this.formId = formId;
         this.fillContent = fillContent;
         this.fillTime = fillTime;
@@ -41,11 +45,11 @@ public class FillQuestionnaire {
         this.formId = formId;
     }
 
-    public String getFillContent() {
+    public JSONObject getFillContent() {
         return fillContent;
     }
 
-    public void setFillContent(String fillContent) {
+    public void setFillContent(JSONObject fillContent) {
         this.fillContent = fillContent;
     }
 

@@ -9,6 +9,7 @@ MySQL - 8.0.18 : Database - formtools
 
 /*!40101 SET SQL_MODE=''*/;
 
+
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
@@ -16,6 +17,25 @@ MySQL - 8.0.18 : Database - formtools
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`formtools` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `formtools`;
+
+DROP TABLE IF EXISTS `all_draft_form`;
+
+CREATE TABLE `all_draft_form`
+(
+    `id`         INT                                     NOT NULL AUTO_INCREMENT,
+    `form_id`    BIGINT COLLATE utf8mb4_unicode_ci       NOT NULL COMMENT '表单的id',
+    `user_id`    BIGINT COLLATE utf8mb4_unicode_ci       NOT NULL COMMENT '表单创建者的userId',
+    `form_title` VARCHAR(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '表单标题',
+    `form_info`  TEXT COLLATE utf8mb4_unicode_ci         NOT NULL COMMENT '表单的信息',
+    `built_time` DATETIME                                NOT NULL COMMENT '建表时间',
+    `begin_time` DATETIME                                NOT NULL COMMENT '开始填表时间（默认为建表时间）',
+    `end_time`   DATETIME DEFAULT NULL COMMENT '截止时间（可无）',
+    `max_count`  INT      DEFAULT NULL COMMENT '最多可填表的人数（可无）',
+    `form_type`  CHAR(1) COLLATE utf8mb4_unicode_ci      NOT NULL COMMENT '表单类型 （问卷：W；登记：D，报名：B）',
+    `state`      BIT                                     NOT NULL COMMENT '草稿是否持久化',
+    UNIQUE (`form_id`),
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 /*Table structure for table `all_built_form` */
 

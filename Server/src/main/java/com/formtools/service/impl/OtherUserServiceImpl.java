@@ -4,6 +4,7 @@ import com.formtools.mapper.UserMapper;
 import com.formtools.model.UserInfo;
 import com.formtools.model.UserVerify;
 import com.formtools.service.OtherUserService;
+import com.formtools.utils.IdBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,7 +27,7 @@ public class OtherUserServiceImpl implements OtherUserService {
             userId=userVerify.getUserId();
             n=userMapper.updateUserInfo(new UserInfo(userId,nickname,profile));
         }else {
-            userId=System.currentTimeMillis();//需要优化，保证userId的唯一性
+            userId= IdBuilder.getUserId();
             n=userMapper.addUserVerify(new UserVerify(null,userId,openid,type));
             if(n==1){
                 n=userMapper.addUserInfo(new UserInfo(userId,nickname,profile));

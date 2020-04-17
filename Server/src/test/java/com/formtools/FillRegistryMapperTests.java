@@ -1,5 +1,6 @@
 package com.formtools;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.formtools.mapper.FillRegistryMapper;
 import com.formtools.model.FillRegistry;
@@ -26,7 +27,7 @@ class FillRegistryMapperTests {
         fileArray.add("www/a/file1.zip");
         fileArray.add("www/a/file2.zip");
         fileArray.add("www/a/file3.zip");
-        FillRegistry fillRegistry=new FillRegistry(1114L,1234L,"contnet",
+        FillRegistry fillRegistry=new FillRegistry(1114L,1234L, JSON.parseObject("{}"),
                 new Timestamp(System.currentTimeMillis()),
                 new Timestamp(System.currentTimeMillis()),fileArray.toString(),'T');
         int n= fillRegistryMapper.addRegistry(fillRegistry);
@@ -51,7 +52,7 @@ class FillRegistryMapperTests {
         JSONArray fileArray=new JSONArray();
         fileArray.add("www/a/file1.zip");
         fileArray.add("www/a/file2.zip");
-        FillRegistry fillRegistry=new FillRegistry(1114L,1234L,"contnet2",
+        FillRegistry fillRegistry=new FillRegistry(1114L,1234L,JSON.parseObject("{}"),
                 new Timestamp(System.currentTimeMillis()),
                 new Timestamp(System.currentTimeMillis()),fileArray.toString(),'F');
         int n= fillRegistryMapper.updateFilledRegistry(fillRegistry);

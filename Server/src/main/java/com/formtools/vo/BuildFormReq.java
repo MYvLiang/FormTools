@@ -10,29 +10,38 @@ import java.sql.Timestamp;
  * @create 2020-04-04  21:24
  */
 public class BuildFormReq {
+
+    private Long formId;
     @NotNull
     private String formTitle;
     @NotNull
     private JSONObject formInfo;
-    @NotNull
+
+    private Timestamp builtTime;
+
     private Timestamp beginTime;
-    @NotNull
+
     private Timestamp endTime;
-    @NotNull
+
     private Integer maxCount;
     @NotNull
-    private Character formType;
+    private String formType;
+
+    private Short state;
 
     public BuildFormReq() {
     }
 
-    public BuildFormReq(String formTitle, JSONObject formInfo, Timestamp beginTime, Timestamp endTime, Integer maxCount, Character formType) {
+    public BuildFormReq(Long formId, String formTitle, JSONObject formInfo, Timestamp builtTime, Timestamp beginTime, Timestamp endTime, Integer maxCount,  String formType, Short state) {
+        this.formId = formId;
         this.formTitle = formTitle;
         this.formInfo = formInfo;
+        this.builtTime = builtTime;
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.maxCount = maxCount;
         this.formType = formType;
+        this.state = state;
     }
 
     public String getFormTitle() {
@@ -75,21 +84,49 @@ public class BuildFormReq {
         this.maxCount = maxCount;
     }
 
-    public Character getFormType() {
+    public String getFormType() {
         return formType;
     }
 
-    public void setFormType(Character formType) {
+    public void setFormType(String formType) {
         this.formType = formType;
+    }
+
+    public Long getFormId() {
+        return formId;
+    }
+
+    public void setFormId(Long formId) {
+        this.formId = formId;
+    }
+
+    public Timestamp getBuiltTime() {
+        return builtTime;
+    }
+
+    public void setBuiltTime(Timestamp builtTime) {
+        this.builtTime = builtTime;
+    }
+
+    public Short getState() {
+        return state;
+    }
+
+    public void setState(Short state) {
+        this.state = state;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"formTitle\":\"")
+        sb.append("\"formId\":")
+                .append(formId);
+        sb.append(",\"formTitle\":\"")
                 .append(formTitle).append('\"');
         sb.append(",\"formInfo\":")
                 .append(formInfo);
+        sb.append(",\"builtTime\":\"")
+                .append(builtTime).append('\"');
         sb.append(",\"beginTime\":\"")
                 .append(beginTime).append('\"');
         sb.append(",\"endTime\":\"")
@@ -98,6 +135,8 @@ public class BuildFormReq {
                 .append(maxCount);
         sb.append(",\"formType\":")
                 .append(formType);
+        sb.append(",\"state\":")
+                .append(state);
         sb.append('}');
         return sb.toString();
     }

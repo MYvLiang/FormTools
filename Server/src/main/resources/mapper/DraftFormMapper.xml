@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.formtools.mapper.BuiltFormMapper">
+<mapper namespace="com.formtools.mapper.DraftFormMapper">
 
-	<resultMap type="BuiltForm" id="BuiltFormResult">
+	<resultMap type="DraftForm" id="DraftFormResult">
 		<id property="id" column="id"/>
 		<id property="formId" column="form_id"/>
 		<result property="userId" column="user_id"/>
@@ -16,9 +16,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="endTime" column="end_time"/>
 		<result property="maxCount" column="max_count"/>
 		<result property="formType" column="form_type"/>
+		<result property="state" column="state"/>
 	</resultMap>
 
-	<resultMap type="BuiltForm" id="BuiltFormListResult">
+	<resultMap type="DraftForm" id="DraftFormListResult">
 		<id property="formId" column="form_id"/>
 		<result property="formTitle" column="form_title"/>
 		<result property="builtTime" column="built_time"/>
@@ -28,32 +29,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="formType" column="form_type"/>
 	</resultMap>
 
-	<insert id="addBuiltForm" parameterType="BuiltForm">
-		insert into all_built_form
+	<insert id="addDraftForm" parameterType="DraftForm">
+		insert into all_draft_form
 		    (id,form_id,user_id,form_title,form_info,built_time,
-		     begin_time,end_time,max_count,form_type)
+		     begin_time,end_time,max_count,form_type,state)
 		     value (null,#{formId},#{userId},#{formTitle},#{formInfo,typeHandler=com.formtools.utils.JSONObjectTypeHandler},#{builtTime},
-		            #{beginTime},#{endTime},#{maxCount},#{formType})
+		            #{beginTime},#{endTime},#{maxCount},#{formType},#{state})
 	</insert>
 
-	<select id="getBuiltForm" parameterType="Long" resultMap="BuiltFormResult">
-		select * from all_built_form where form_id= #{formId}
+	<select id="getDraftForm" parameterType="Long" resultMap="DraftFormResult">
+		select * from all_draft_form where form_id= #{formId}
 	</select>
 
-	<select id="findAllBuiltForm" resultMap="BuiltFormListResult">
-		select form_id,form_title,built_time,begin_time,end_time,max_count,form_type from all_built_form where user_id= #{userId}
+	<select id="findAllDraftForm" resultMap="DraftFormListResult">
+		select form_id,form_title,built_time,begin_time,end_time,max_count,form_type from all_draft_form where user_id= #{userId}
 	</select>
 
-	<update id="updateBuiltForm" parameterType="BuiltForm">
-		update all_built_form
+	<update id="updateDraftForm" parameterType="DraftForm">
+		update all_draft_form
 		<set>
 			<if test="formInfo!=null">
 				form_info=#{formInfo,typeHandler=com.formtools.utils.JSONObjectTypeHandler},
 			</if>
 			<if test="formTitle!=null">
 				form_title=#{formTitle},
+		    </if>
+			<if test="builtTime!=null">
+				built_time=#{builtTime},
 			</if>
-			<if test="beginTime!=null">
+		    <if test="beginTime!=null">
 				begin_time=#{beginTime},
 			</if>
 			<if test="endTime!=null">
@@ -62,12 +66,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="maxCount!=null">
 				max_count=#{maxCount},
 			</if>
+			<if test="state!=null">
+				state=#{state},
+			</if>
 		</set>
 		where form_id=#{formId}
 	</update>
 
-	<delete id="deleteBuiltForm" parameterType="long">
-		delete from all_built_form where form_id= #{formId}
+	<delete id="deleteDraftForm" parameterType="Long">
+		delete from all_draft_form where form_id= #{formId}
 	</delete>
 
 </mapper> 

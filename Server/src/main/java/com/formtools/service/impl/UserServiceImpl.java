@@ -11,6 +11,7 @@ import com.formtools.service.UserService;
 import com.formtools.utils.CodeUtil;
 import com.formtools.utils.EmailUtil;
 import com.formtools.utils.Examiner;
+import com.formtools.utils.IdBuilder;
 import com.formtools.vo.ResultVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
     @Transactional //事务控制
     public void addUser(UserModel userModel) {
         //获取userId （可优化
-        long userId = System.currentTimeMillis();
+        long userId = IdBuilder.getUserId();
 
         UserVerify userVerify=new UserVerify();
         userVerify.setUserId(userId);

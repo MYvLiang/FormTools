@@ -17,4 +17,11 @@ public interface FillQuestionnaireMapper {
     List<FillQuestionnaire> findFilledQuestionnaire(Long formId);
 
     int deleteFilledQuestionnaire(Integer id);
+
+    /**
+     * 当 当前时间晚于开始时间 早于截止时间 人数符合 则插入
+     * @param fillQuestionnaire 问卷答案
+     * @return 插入信息条数（1||0
+     */
+    int insertFilledQuestionnaire(FillQuestionnaire fillQuestionnaire);
 }

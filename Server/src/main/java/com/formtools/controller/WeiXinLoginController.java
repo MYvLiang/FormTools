@@ -4,6 +4,7 @@ import com.formtools.OtherConfig;
 import com.formtools.enums.ErrorMsg;
 import com.formtools.model.UserModel;
 import com.formtools.service.OtherUserService;
+import com.formtools.utils.IdBuilder;
 import com.formtools.utils.WeiXinCodeUtil;
 import com.formtools.vo.ResultVo;
 import com.formtools.vo.WeiXinUser;
@@ -36,7 +37,7 @@ public class WeiXinLoginController {
      */
     @GetMapping(value = "/code", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getwxCode(HttpServletResponse response) {
-        String scene = "scene" + System.currentTimeMillis();
+        String scene = "scene" + IdBuilder.getSceneId();
         byte[] code = WeiXinCodeUtil.getCode(scene);
         wxSceneMap.put(scene, "no");
         response.setHeader("scene", scene);
