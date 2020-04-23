@@ -1,7 +1,7 @@
 body {
     background: #fff;
 }
-#login-box{
+.login-box{
     width:20%;
     height:auto;
 //border: 2px solid rgba(17, 8, 22, 0.46);
@@ -13,16 +13,16 @@ body {
     padding: 20px 50px;
     box-shadow: 0px 0px 5px 5px rgba(12, 43, 63, 0.43), 10px 10px 10px 10px rgba(255,255,255,0.5)
 }
-#login-box .form .item{
+.login-box .form .item{
     margin-top: 15px;
 }
-#login-box .form .item input{
+.login-box .form .item input{
     border:2px solid #00000010;
     border-radius:5px;
     padding: 5px 10px;
     background: #ffffff00;
     color: #000000;
 }
-#login-box button{
+.login-box button{
     width: 300px;
 }
