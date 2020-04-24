@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>通知页</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style type="text/css">
+        .main{
+            width:65%;
+            height:170px;
+            border: 2px solid rgba(17, 8, 22, 0.46);
+            border-radius:30px;
+            margin-left: 15%;
+            text-align: center;
+            background: #fff;
+            padding: 20px 50px;
+        }
+        .top{
+            width:65%;
+            height:10px;
+            border: 2px solid rgba(17, 8, 22, 0.46);
+            border-radius:30px;
+            margin-left: 15%;
+            text-align:left;
+            background: #fff;
+            padding: 20px 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="top" style="font-size: x-large; text-align: left">
+    <b>消息中心</b>
+</div>
+<div id="app">
+    <p v-for="(item, index) in items" class="main">
+        {{ parentMessage }} - {{ index }} - {{ item.message }}
+    </p>
+    </ul>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ]
+        }
+    })
+</script>
+</html>
