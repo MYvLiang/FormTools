@@ -22,6 +22,9 @@ public class FileController {
     @Value("${formDataFileDir}")
     private String formDataFileDir;
 
+    @Value("${zipDir}")
+    private String zipDir;
+
     @Resource
     private UserService userService;
 
@@ -56,17 +59,17 @@ public class FileController {
 
     @GetMapping("/file")
     public void downloadFile(@CookieValue("userId")
-                                 @NotNull(message = "登录异常 请重新登录")
-                                 @NotEmpty(message = "登录异常 请重新登录") String uid,
-                                 @RequestParam("formId") String formId,
-                                 @RequestParam("fileName") String fileName,
-                                 HttpServletResponse response) {
+                             @NotNull(message = "登录异常 请重新登录")
+                             @NotEmpty(message = "登录异常 请重新登录") String uid,
+                             @RequestParam("formId") String formId,
+                             @RequestParam("fileName") String fileName,
+                             HttpServletResponse response) {
         try {
             fileName = URLEncoder.encode(fileName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        Long userId=0L;
+        Long userId = 0L;
         try {
             userId = Long.parseLong(uid);
         } catch (NumberFormatException e) {
@@ -100,4 +103,46 @@ public class FileController {
 //        //返回文件不存在
 //        return ResultVo.fail(ErrorMsg.FILE_NOT_EXIT);
     }
+
+
+    @GetMapping("/zip")
+    public void getZip(@CookieValue("userId")
+                       @NotNull(message = "登录异常 请重新登录")
+                       @NotEmpty(message = "登录异常 请重新登录") String uid,
+                       @RequestParam("formId") String formId,
+                       HttpServletResponse response) {
+        //待打包文件夹位置
+        String resourceFile = formDataFileDir + formId;
+        //待打包文件夹
+        File refile = new File(resourceFile);
+        //zip名
+        String zipName = formId + ".zip";
+        if (refile.exists()) {
+            try {
+                fileService.createZipFile(resourceFile, zipDir, zipName);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        File zipFile = new File(zipDir + zipName);
+        if (zipFile.exists()) {
+            try {
+                FileInputStream inputStream = new FileInputStream(zipFile);
+                byte[] bytes = new byte[(int) zipFile.length()];
+                inputStream.read(bytes);
+                inputStream.close();
+                //设置文件MIME类型
+                response.setContentType(formId);
+                //设置Content-Disposition
+                response.setHeader("Content-Disposition", "attachment;filename=" + zipFile);
+                OutputStream outputStream = response.getOutputStream();
+                outputStream.write(bytes);
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }
