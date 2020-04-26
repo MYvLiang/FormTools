@@ -1,116 +1,62 @@
-
-@charset "utf-8";
-
-/* CSS Document */
-
-
-
-body {
-
-    font-family: "Lato", sans-serif;
-
-    transition: background-color .5s;
-
+*{
+background-color:f4f4f4;
+padding:0;
+margin:0;
+}
+.body
+{
+	margin:0px;
+	padding: 0px;
+}
+.top {
+	margin:0px;
+	position: absolute;
+	background-color: #FFF;
+	position: static;
+	clear:both;
+	height:80px;
+	box-shadow: 3px 3px 5px #888888;
+}
+.top .logo {
+	position: absolute;
+	margin-left: 140px;
+	margin-top:10px;
+	width:97px;
+	float:left;
+	background-color:#FF9F9F;
+	top: -1px;
+	height: 56px;
+}
+.top ._name {
+	position: static;
+	margin:20px 140px 20px 0;
+	width:auto;
+	padding:10px 30px;
+	float:right;
+	background-color:#A2A2FF;	
+}
+.2top {
+	position: absolute;
+	height:80px;
+	padding:5px 0;
+	margin:5px 0;
+	box-shadow: 3px 2px 2px #888888;
+	left: -1px;
+	top: 78px;
+}
+.2top .creat {
+	position: relative;
+	float: left;
+	margin:0 60px;
+	width: 112px;
+	height: 31px;
+	left: 39px;
+	top: 27px;
+}
+.top .type {
+	position: static;
+	float:left;
+	margin:5px 0 0 300px;
 }
 
-
-
-/*侧边栏选择器*/
-
-.sidenav {
-
-    height: 100%;
-
-    width: 0; /*原始宽度*/
-
-    position: fixed;
-
-    /*z-index、top、left共同控制侧栏的悬浮（上方1，下方-1）*/
-
-    z-index: 1;
-
-    top: 0;
-
-    left: 0;
-
-    background-color: #111;
-
-    overflow-x: hidden;
-
-    transition: 0.5s; /*侧栏延迟0.5s显示*/
-
-    padding-top: 60px;
-
-}
-
-
-
-/*侧边栏标签选择器*/
-
-.sidenav a {
-
-    padding: 8px 8px 8px 32px;
-
-    text-decoration: none;
-
-    font-size: 25px;
-
-    color: #818181;
-
-    display: block;
-
-    transition: 0.3s; /*标签延迟0.3s显示*/
-
-}
-
-
-
-/*侧栏标签和关闭按钮光标的效果*/
-
-.sidenav a:hover, .offcanvas a:focus{
-
-     color: #f1f1f1;
-
-}
-
-
-
-/*侧栏和关闭按钮的位置选择器*/
-
-.sidenav .closebtn {
-
-    position: absolute;
-
-    top: 0;
-
-    right: 25px;
-
-    font-size: 36px;
-
-    margin-left: 50px;
-
-}
-
-
-
-/*主体内容*/
-
-#main {
-
-    transition: margin-left .5s;/*主体内容延迟0.5s整体y右移动*/
-
-    padding: 16px;
-
-}
-
-
-
-/*当文档高度小于450px时，改变侧栏的padding属性和字体大小*/
-
-@media screen and (max-height: 450px) {
-
-    .sidenav {padding-top: 15px;}
-
-    .sidenav a {font-size: 18px;}
-
-}
+	
