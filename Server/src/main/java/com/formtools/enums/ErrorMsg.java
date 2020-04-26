@@ -17,6 +17,8 @@ public enum ErrorMsg {
     REGISTER_ERROR("注册失败"),
     FILE_TYPE_ERROR("文件类型错误 请选择.jpg或.png"),
     FILE_UPLOAD_ERROR("文件上传失败"),
+    FILE_NOT_EXIT("文件不存在"),
+    FILE_DOWNLOAD_ERROR("文件下载异常"),
     FILE_SIZE_ERROR("文件过大"),
     OPERAT_FREQUENCY("操作频繁 稍后重试"),
     MISSING_PARAMETER("缺少参数"),

@@ -24,7 +24,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="builtTime" column="built_time"/>
 		<result property="beginTime" column="begin_time"/>
 		<result property="endTime" column="end_time"/>
-		<result property="maxCount" column="max_count"/>
 		<result property="formType" column="form_type"/>
 	</resultMap>
 
@@ -41,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="findAllBuiltForm" resultMap="BuiltFormListResult">
-		select form_id,form_title,built_time,begin_time,end_time,max_count,form_type from all_built_form where user_id= #{userId}
+		select form_id,form_title,built_time,begin_time,end_time,form_type from all_built_form where user_id= #{userId}
 	</select>
 
 	<update id="updateBuiltForm" parameterType="BuiltForm">
@@ -67,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<delete id="deleteBuiltForm" parameterType="long">
-		delete from all_built_form where form_id= #{formId}
+		delete from all_built_form where form_id= #{formId} and user_id=#{userId}
 	</delete>
 
 </mapper> 

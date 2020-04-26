@@ -42,7 +42,6 @@ class DraftFormMapperTests {
         draftForm.setEndTime(new Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 10));
         draftForm.setMaxCount(100);
         draftForm.setFormType("B");
-        short s = 0;
         draftForm.setState(false);
         int n = draftFormMapper.addDraftForm(draftForm);
         System.out.println("插入" + n + "行");
@@ -50,7 +49,7 @@ class DraftFormMapperTests {
 
     @Test
     void testGetDraftForm() {
-        DraftForm draftForm = draftFormMapper.getDraftForm(666666L);
+        DraftForm draftForm = draftFormMapper.getDraftForm(666666L,1111L);
         System.out.println(draftForm);
     }
 
@@ -82,7 +81,7 @@ class DraftFormMapperTests {
 
     @Test
     void testDeleteBuiltForm() {
-        int n = draftFormMapper.deleteDraftForm(22222L);
+        int n = draftFormMapper.deleteDraftForm(22222L,11L);
         System.out.println(n);
     }
 
