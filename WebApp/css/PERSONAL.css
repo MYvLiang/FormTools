@@ -1,0 +1,70 @@
+.logo{
+    position: absolute;
+    top: 80px;
+    left: 175px;
+}
+.sh3{
+    position: absolute;
+    top: 160px;
+    left: 850px;
+}
+li{display: inline;}
+a{text-decoration: none}
+.head{
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    top: 320px;
+    left: 770px;
+}
+.nav{
+    background-color: white;
+    width:360px;
+    height: 30px;
+    font-size: 20px;
+    position: absolute;
+    top: 80px;
+    left: 1300px;
+}
+#\=field1{
+    position: absolute;
+    top: 620px;
+    left: 570px;
+}
+#button1{
+    font-size: 25px;
+    position: absolute;
+    top: 820px;
+    left: 1100px;
+}
+#\=field2{
+    position: absolute;
+    top: 920px;
+    left: 570px;
+}
+
+#button2{
+    font-size: 25px;
+    position: absolute;
+    top: 1020px;
+    left:1105px;
+}
+#\=field3{
+    position: absolute;
+    top: 1120px;
+    left: 570px;
+}
+
+#button3{
+    font-size: 25px;
+    position: absolute;
+    top:1180px;
+    left:1105px;
+}
+.biaoti{
+    color: gray;
+    font-size: 30px;
+    position: absolute;
+    top:650px;
+    left:180px;
+}
