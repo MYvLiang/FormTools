@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>多平台通用表单工具</title>
+    <link rel="stylesheet"href="css/login.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style type="text/css">
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div v-if="wxLogin">
+        <div class="login-box" style="position: absolute; top: -10%; left: 37%">
+            <p>请用微信扫描二维码登录</p>
+            <img src="http://api.shinytengxvnyun.cn:55555/images/weixin/codescene1585214317966.jpg" width="300px" height="300px">
+            <p></p>
+            <a @click="toOtherLogin">用其他方式登录</a>
+        </div>
+    </div>
+    <div v-else>
+        <div class="login-box">
+            <h1 style="color: cornflowerblue">登录</h1>
+            <div class="form">
+                <div class="item">
+                    <input type="text" v-model="email" placeholder="电子邮箱">
+                </div>
+                <div class="item">
+                    <input type="password" v-model="password" placeholder="密码">
+                </div>
+            </div>
+            <a @click="toSignin" style="color: black">注册</a>
+            <a @click="toForgotPassword" style="color: black">找回密码</a>
+            <p></p>
+            <button @click="login" style="height: 40px; background-color: cornflowerblue; border: cornflowerblue; color: white; border-radius:15px;">登录</button>
+            <p></p>
+            <img src="images/codescene1585214317966.jpg"
+                 width="25px" height="25px"> <a @click="toWXLogin" style="color: black">微信登录</a>
+            <img src="http://m.qpic.cn/psc?/V112TgEJ1gE547/7o.xLwnHK.dZGyBaILrm99KQ8ZsA8VyruXLY8T6DlWCiPsLVOOrNbl0KDGtY2LWAeZReXJn6rvf0qvMTNyXzbaDpUqezf6refzuGsP9q7zI!/b&bo=AAQABAAAAAARFyA!&rf=viewer_4"
+                 width="25px" height="25px"><a @click="toYBLogin">易班登录</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/login.js"></script>
+</body>
+</html>
