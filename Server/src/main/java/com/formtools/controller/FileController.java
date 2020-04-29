@@ -15,6 +15,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 public class FileController {
@@ -144,5 +146,36 @@ public class FileController {
         }
     }
 
+    @GetMapping("/image")
+    public void getImage(@CookieValue("userId")
+                           @NotNull(message = "登录异常 请重新登录")
+                           @NotEmpty(message = "登录异常 请重新登录") String uid,
+                           @RequestParam("formId") String formId,
+                           @RequestParam("image") String imageName,
+                           HttpServletResponse response) throws IOException {
+        String reg = ".+(.JPG|.jpg|.GIF|.gif|.PNG|.png)$";
+        Pattern pattern = Pattern.compile(reg);
+        Matcher matcher = pattern.matcher(imageName);
 
+        Long userId;
+        try {
+            userId=Long.parseLong(uid);
+        } catch (NumberFormatException e) {
+            return;
+        }
+        if (matcher.find()){
+            String userDir=uid+userService.getUserInfo(userId).getNickname();
+            File image=new File(formDataFileDir+formId+"\\"+userDir+"\\"+imageName);
+            if (image.exists()){
+                FileInputStream fileInputStream=new FileInputStream(image);
+                byte[] bytes=new byte[fileInputStream.available()];
+                if (fileInputStream.read(bytes)>0){
+                    OutputStream outputStream=response.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.close();
+                }
+                fileInputStream.close();
+            }
+        }
+    }
 }
