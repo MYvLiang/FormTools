@@ -1,0 +1,93 @@
+.logo{
+    position: absolute;
+    top: 80px;
+    left: 175px;
+}
+.sh3{
+    position: absolute;
+    top: 160px;
+    left: 850px;
+}
+li{display: inline;}
+a{text-decoration: none}
+.head{
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    top: 320px;
+    left: 770px;
+}
+.sc{
+    position: absolute;
+    top: 1905px;
+    left: 380px;
+}
+.nav{
+    background-color: white;
+    width:360px;
+    height: 30px;
+    font-size: 20px;
+    position: absolute;
+    top: 80px;
+    left: 1300px;
+}
+.activity1{
+     position: absolute;
+     top: 1000px;
+     left: 475px;
+ }
+.text1{
+    border:1px solid white;
+    position: absolute;
+    top: 1250px;
+    left: 520px;
+}
+.activity2{
+    position: absolute;
+    top: 1000px;
+    left: 875px;
+}
+.text2{
+    border:1px solid white;
+    position: absolute;
+    top: 1250px;
+    left: 925px;
+}
+.activity3{
+    position: absolute;
+    top: 1000px;
+    left: 1275px;
+}
+.text3{
+    border:1px solid white;
+    position: absolute;
+    top: 1250px;
+    left: 1325px;
+}
+.text4{
+    color: aliceblue;
+    font-size: 20px;
+    position: absolute;
+    top: 1870px;
+    left: 1020px;
+}
+.sc1{
+    position: absolute;
+    top: 2470px;
+    left: 1020px;
+}
+.text5{
+    color: aliceblue;
+    font-size: 24px;
+    position: absolute;
+    top: 3970px;
+    left: 1080px;
+}
+.text6{
+    background-color: white;
+    color: blue;
+    font-size: 24px;
+    position: absolute;
+    top: 4400px;
+    left: 1140px;
+}
