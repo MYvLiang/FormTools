@@ -8,6 +8,8 @@ import com.formtools.model.UserModel;
 import com.formtools.service.UserService;
 import com.formtools.utils.ValidationUtil;
 import com.formtools.vo.ResultVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ import java.io.IOException;
 /**
  * 用户的账号操作
  */
+@Api(tags = "用户的账号操作")
 @RestController
 @Validated
 public class UserController {
@@ -46,6 +49,7 @@ public class UserController {
      * @param response
      * @return
      */
+    @ApiOperation("登录")
     @GetMapping("/login")
     public ResultVo emailLogin(@RequestParam("email") @NotEmpty @NotNull @Email String email,
                                @RequestParam("password") @NotEmpty @NotNull String password,
@@ -70,6 +74,7 @@ public class UserController {
      * @param response
      * @return
      */
+    @ApiOperation("退出登录")
     @GetMapping("/logout")
     public ResultVo logout(@CookieValue("userId")
                                @NotNull(message = "登录异常 请重新登录")
@@ -89,6 +94,7 @@ public class UserController {
      * @param email
      * @return
      */
+    @ApiOperation("注册，向邮箱发送验证码")
     @GetMapping("/email-code")
     public ResultVo sendEmailCode(@RequestParam("email") @Email String email){
         try {
@@ -100,10 +106,11 @@ public class UserController {
     }
 
     /**
-     * 用户注册功能：验证码发送api
+     * 用户忘记密码：验证码发送api
      * @param email
      * @return
      */
+    @ApiOperation("忘记密码，向邮箱发送验证码")
     @GetMapping("/email-code/reset-password")
     public ResultVo sendEmailCodeResetPassword(@RequestParam("email") @Email String email){
         try {
@@ -119,6 +126,7 @@ public class UserController {
      * @param message
      * @return
      */
+    @ApiOperation("邮箱注册")
     @PostMapping("/user")
     public ResultVo register(@RequestBody String message){
         JSONObject jsonObject= null;
@@ -152,6 +160,7 @@ public class UserController {
      * @param message
      * @return
      */
+    @ApiOperation("重设密码")
     @PostMapping("reset-password")
     public ResultVo resetPassword(@RequestBody String message){
         JSONObject jsonObject;
@@ -189,6 +198,7 @@ public class UserController {
      * @param id
      * @return 用户头像url
      */
+    @ApiOperation("上传头像")
     @PostMapping("/upload")
     public ResultVo upload(@RequestParam("uploadFile") MultipartFile uploadFile,
                            @CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
@@ -224,6 +234,7 @@ public class UserController {
      * @param id cookie所带userId
      * @return
      */
+    @ApiOperation("获取用户信息")
     @GetMapping("/user")
     public ResultVo getUser(@CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
                             @NotEmpty(message = "登录异常 请重新登录")
@@ -243,6 +254,7 @@ public class UserController {
      * @param id
      * @return
      */
+    @ApiOperation("修改用户个人信息")
     @PutMapping("/user")
     public  ResultVo updateUser(@CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
                                  @NotEmpty(message = "登录异常 请重新登录")
@@ -262,6 +274,7 @@ public class UserController {
         return ResultVo.fail(ErrorMsg.ACCOUNT_NOT_EXIT);
     }
 
+    @ApiOperation("查询用户已有登录验证方式")
     @GetMapping("all-verify-type")
     public  ResultVo updateUser(@CookieValue("userId") @NotNull(message = "登录异常 请重新登录")
                                 @NotEmpty(message = "登录异常 请重新登录")

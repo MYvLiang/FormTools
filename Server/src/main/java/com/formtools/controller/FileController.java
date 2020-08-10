@@ -5,6 +5,8 @@ import com.formtools.model.UserInfo;
 import com.formtools.service.UserService;
 import com.formtools.service.impl.FileServiceImpl;
 import com.formtools.vo.ResultVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +20,7 @@ import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Api(tags = "文件api")
 @RestController
 public class FileController {
 
@@ -34,6 +37,7 @@ public class FileController {
     private FileServiceImpl fileService;
 
 
+    @ApiOperation("上传文件")
     @PostMapping("/file")
     public ResultVo uploadFile(@CookieValue("userId")
                                @NotNull(message = "登录异常 请重新登录")
@@ -59,6 +63,7 @@ public class FileController {
         return ResultVo.fail(ErrorMsg.FILE_UPLOAD_ERROR);
     }
 
+    @ApiOperation("下载文件")
     @GetMapping("/file")
     public void downloadFile(@CookieValue("userId")
                              @NotNull(message = "登录异常 请重新登录")
@@ -107,6 +112,7 @@ public class FileController {
     }
 
 
+    @ApiOperation("打包表单收集的附件下载")
     @GetMapping("/zip")
     public void getZip(@CookieValue("userId")
                        @NotNull(message = "登录异常 请重新登录")
@@ -146,6 +152,7 @@ public class FileController {
         }
     }
 
+    @ApiOperation("获取图片")
     @GetMapping("/image")
     public void getImage(@CookieValue("userId")
                            @NotNull(message = "登录异常 请重新登录")

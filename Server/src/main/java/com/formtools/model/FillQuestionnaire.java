@@ -1,6 +1,8 @@
 package com.formtools.model;
 
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -9,6 +11,7 @@ import java.sql.Timestamp;
  * @author myl
  * @create 2020-04-04  10:45
  */
+@ApiModel("问卷类表单收集的信息")
 public class FillQuestionnaire {
     //自增id
     private Integer id;
@@ -16,8 +19,10 @@ public class FillQuestionnaire {
     @NotNull
     private Long formId;
     //表单收集的数据
+    @ApiModelProperty("用户填写的信息")
     private JSONObject fillContent;
     //填表时间
+    @ApiModelProperty("用户填写完成的时间")
     private Timestamp fillTime;
 
     public FillQuestionnaire() {

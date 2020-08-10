@@ -1,5 +1,7 @@
 package com.formtools.model;
 
+import io.swagger.annotations.ApiModel;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -8,6 +10,7 @@ import javax.validation.constraints.Null;
  * @author myl
  * @create 2020-03-27  11:41
  */
+@ApiModel("邮箱登录验证")
 public class EmailVerify {
     @Null
     private Integer id;

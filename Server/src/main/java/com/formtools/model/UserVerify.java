@@ -1,6 +1,8 @@
 package com.formtools.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -10,6 +12,7 @@ import javax.validation.constraints.Null;
  * @author myl
  * @create 2020-03-27  11:27
  */
+@ApiModel("用户的第三方账号信息")
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class UserVerify {
     @Null
@@ -19,8 +22,10 @@ public class UserVerify {
 
     @NotNull
     @NotEmpty
+    @ApiModelProperty("第三方账号id")
     private String openid;
 
+    @ApiModelProperty("第三方账号类型")
     private Character type;
 
     public UserVerify() {
