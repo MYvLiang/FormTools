@@ -1,6 +1,8 @@
 package com.formtools.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -10,6 +12,7 @@ import javax.validation.groups.Default;
  * @author myl
  * @create 2020-03-27  11:18
  */
+@ApiModel("用户基本信息")
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class UserInfo {
     public interface register extends Default {}
@@ -20,9 +23,11 @@ public class UserInfo {
     @NotNull(groups = UserInfo.register.class)
     @NotEmpty(groups = UserInfo.register.class)
     //昵称
+    @ApiModelProperty("用户昵称")
     private String nickname;
 
     //头像
+    @ApiModelProperty("用户头像的url")
     private String profile;
 
     public UserInfo() {

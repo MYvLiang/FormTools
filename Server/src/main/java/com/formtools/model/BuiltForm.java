@@ -2,6 +2,8 @@ package com.formtools.model;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -12,6 +14,7 @@ import java.sql.Timestamp;
  * @author myl
  * @create 2020-02-05  14:13
  */
+@ApiModel("表单信息")
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class BuiltForm implements Serializable {
     //自增id
@@ -23,6 +26,7 @@ public class BuiltForm implements Serializable {
     //表单标题
     private String formTitle;
     //表单结构，是一个json串
+    @ApiModelProperty("所有题目（一个JSON对象）")
     private JSONObject formInfo;
     //建表时间
     private Timestamp builtTime;

@@ -8,6 +8,8 @@ import com.formtools.service.BuiltFormService;
 import com.formtools.service.DraftFormService;
 import com.formtools.utils.IdBuilder;
 import com.formtools.vo.ResultVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ import java.util.List;
  * @author myl
  * @create 2020-04-04  21:17
  */
+@Api(tags = "管理表单")
 @RestController
 @RequestMapping("/manage")
 @Validated
@@ -37,6 +40,7 @@ public class ManageFormController {
      * @param userId
      * @return
      */
+    @ApiOperation("查询所有已创建发布的表单的简略信息")
     @GetMapping("/all/released/forms")
     public ResultVo allReleasedForms(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                                          @NotEmpty(message = "登录异常,请重新登录") String userId){
@@ -49,6 +53,7 @@ public class ManageFormController {
      * @param userId
      * @return
      */
+    @ApiOperation("查询所有草稿表单的简略信息")
     @GetMapping("/all/draft/forms")
     public ResultVo allDraftForms(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                                      @NotEmpty(message = "登录异常,请重新登录") String userId){
@@ -61,6 +66,7 @@ public class ManageFormController {
      * @param userId
      * @return
      */
+    @ApiOperation("新建表单，创建草稿表单")
     @PostMapping("/new/form")
     public ResultVo newForm(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                             @NotEmpty(message = "登录异常,请重新登录") String userId,
@@ -83,6 +89,7 @@ public class ManageFormController {
      * @param formId
      * @return
      */
+    @ApiOperation("获取草稿")
     @GetMapping("/draft/form")
     public ResultVo getDraftForm(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                                      @NotEmpty(message = "登录异常,请重新登录") String userId,
@@ -95,6 +102,7 @@ public class ManageFormController {
      * 复制表单
      * @return
      */
+    @ApiOperation("复制表单")
     @GetMapping("/copy/form")
     public ResultVo copyForm(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                                  @NotEmpty(message = "登录异常,请重新登录") String userId,
@@ -107,6 +115,7 @@ public class ManageFormController {
      * 实时保存表单
      * @return
      */
+    @ApiOperation("实时保存表单")
     @PostMapping("/save/form")
     public ResultVo saveForm(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                                  @NotEmpty(message = "登录异常,请重新登录") String userId,
@@ -121,6 +130,7 @@ public class ManageFormController {
      * @param draftForm
      * @return
      */
+    @ApiOperation("保存表单草稿")
     @PostMapping("save/draft")
     public ResultVo saveDraft(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                                   @NotEmpty(message = "登录异常,请重新登录") String userId,
@@ -138,6 +148,7 @@ public class ManageFormController {
      * @param draftForm
      * @return
      */
+    @ApiOperation("发布表单")
     @PostMapping("/release/form")
     public ResultVo buildForm(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                               @NotEmpty(message = "登录异常,请重新登录") String userId,
@@ -151,6 +162,7 @@ public class ManageFormController {
             return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
     }
 
+    @ApiOperation("删除表单")
     @GetMapping("/delete/form")
     public ResultVo deleteForm(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                                    @NotEmpty(message = "登录异常,请重新登录") String userId,
@@ -161,6 +173,7 @@ public class ManageFormController {
             return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
     }
 
+    @ApiOperation("删除草稿")
     @GetMapping("/delete/draft")
     public ResultVo deleteDraft(@CookieValue("userId") @NotNull(message = "登录异常,请重新登录")
                                @NotEmpty(message = "登录异常,请重新登录") String userId,

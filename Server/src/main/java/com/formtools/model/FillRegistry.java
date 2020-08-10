@@ -1,6 +1,8 @@
 package com.formtools.model;
 
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -10,6 +12,7 @@ import java.sql.Timestamp;
  * @author myl
  * @create 2020-04-04  13:53
  */
+@ApiModel("非问卷类表单收集的信息")
 public class FillRegistry implements Serializable {
 
     private Integer id;
@@ -17,10 +20,15 @@ public class FillRegistry implements Serializable {
     private Long userId;
     @NotNull
     private Long formId;
+    @ApiModelProperty("用户填写的信息")
     private JSONObject fillContent;
+    @ApiModelProperty("用户填写完成的时间")
     private Timestamp fillTime;
+    @ApiModelProperty("用户最后一次修改的时间")
     private Timestamp alterTime;
+    @ApiModelProperty("附件列表，每个附件的url")
     private String fileList;
+    @ApiModelProperty("审核类表单的状态")
     private Character checkState;
 
     public FillRegistry() {
