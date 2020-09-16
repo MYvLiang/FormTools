@@ -15,6 +15,18 @@ public class FileServiceImpl {
     @Value("${formDataFileDir}")
     private String formDataFileDir;
 
+    /**
+     * 储存路径为  "（上线需更改配置文件）formDataFileDir/表单id/用户id+用户名”
+     * 判断文件夹是否存在，判断文件是否存在
+     * 文件夹不存在则创建 文件存在则覆盖
+     * 返回保存成功或失败
+     * @param userId
+     * @param userName
+     * @param formId
+     * @param multipartFile
+     * @return
+     * @throws IOException
+     */
     @Transactional(rollbackFor = Exception.class)
     public boolean uploadFile(String userId, String userName, String formId, MultipartFile multipartFile) throws IOException {
         File fileDir = new File(formDataFileDir + formId + "\\" + userId + userName);//该用户于该表中文件储存位置
@@ -38,6 +50,10 @@ public class FileServiceImpl {
     }
 
     /**
+     * 将 “（上线需更改配置文件）formDataFileDir/表单id”路径下的文件打包
+     * 将zip包放置于zipDir（上线需更改配置文件）下
+     * 重复请求会重新打包，把原有zip覆盖。
+     * ps 这段具体实现不要问我，我忘光了。
      * @param sourceFilePath 待压缩文件（夹）路径
      * @param targetPath     压缩文件所在目录
      * @param zipFileName    压缩后的文件名称{.zip结尾}

@@ -194,7 +194,10 @@ public class UserController {
 
     /**
      * 上传头像
-     * @param uploadFile
+     * 支持jpg png 非该类型返回错误
+     * 在开发测试模式时，图片储存地址为：{项目根目录}/target/static/images/users/images/id.jpg
+     * 返回图片url
+     * @param uploadFile @RequestParam("uploadFile")头像
      * @param id
      * @return 用户头像url
      */
