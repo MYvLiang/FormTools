@@ -1,6 +1,8 @@
 package com.formtools.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +14,7 @@ import java.io.Serializable;
  * @author myl
  * @create 2020-02-05  21:59
  */
+@ApiModel("用户所有信息")
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class UserModel implements Serializable {
 
@@ -32,15 +35,16 @@ public class UserModel implements Serializable {
 
     @NotNull(groups = {register.class,resetPassword.class})
     @NotEmpty(groups = {register.class,resetPassword.class})
-    //密码
     private String password;
 
+    //昵称
     @NotNull(groups = {register.class,updateUserInfo.class})
     @NotEmpty(groups = {register.class,updateUserInfo.class})
-    //昵称
+    @ApiModelProperty("用户昵称")
     private String nickname;
 
     //头像
+    @ApiModelProperty("用户头像的url")
     private String profile;
 
     public UserModel() {

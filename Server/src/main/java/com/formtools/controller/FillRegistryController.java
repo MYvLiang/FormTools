@@ -7,6 +7,8 @@ import com.formtools.service.FillRegistryService;
 import com.formtools.utils.CookieUtil;
 import com.formtools.utils.ValidationUtil;
 import com.formtools.vo.ResultVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -17,6 +19,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
 
+@Api(tags = "活动报名，信息登记")
 @RestController
 public class FillRegistryController {
 
@@ -32,6 +35,7 @@ public class FillRegistryController {
      * @param id 表单id
      * @return vo
      */
+    @ApiOperation("获取表单")
     @GetMapping("/form-question-info")
     public ResultVo getFormQuestionInfo(@RequestParam("form-id") String id) {
         long formId;
@@ -55,6 +59,7 @@ public class FillRegistryController {
      * @param response     HttpServletResponse
      * @return 成功（无数据
      */
+    @ApiOperation("保存答案")
     @PostMapping("/current-save")
     public ResultVo currentSaveAnswer(@RequestBody FillRegistry fillRegistry, HttpServletRequest request, HttpServletResponse response) {
 
@@ -85,6 +90,7 @@ public class FillRegistryController {
      * @param fId     表id
      * @return 答案
      */
+    @ApiOperation("获取活动报名，信息登记类表单已填的信息")
     @GetMapping("/filled")
     public ResultVo getFilledInfo(@CookieValue("userId")
                                   @NotNull(message = "登录异常 请重新登录")
@@ -123,6 +129,7 @@ public class FillRegistryController {
      * @param request HttpServletRequest
      * @return 成功+数据（数据可为空
      */
+    @ApiOperation("获取问卷类表单已填的信息")
     @GetMapping("/questionnaire/filled")
     public ResultVo getQuestionnaireAnswer(@RequestParam("formId") String fId, HttpServletRequest request) {
         //获取缓存key
@@ -149,6 +156,7 @@ public class FillRegistryController {
      * @param response     HttpServletRespond
      * @return 成功||失败
      */
+    @ApiOperation("提交活动报名，信息登记类表单")
     @PostMapping("/filled")
     public ResultVo insertFillRegistry(@CookieValue("userId")
                                        @NotNull(message = "登录异常 请重新登录")

@@ -1,0 +1,93 @@
+*{
+	background-color:f4f4f4;
+	padding:0;
+	margin:0;
+}
+.body
+{
+	margin:0px;
+	padding: 0px;
+}
+#top {
+	margin:0px;
+	position: absolute;
+	background-color: #F4F4F4;
+	position: static;
+	clear:both;
+	height:80px;
+	box-shadow: 3px 3px 5px #888888;
+}
+#top #logo {
+	position: fixed;
+	margin-left: 140px;
+	margin-top:10px;
+	width:97px;
+	float:left;
+	background-color:#FF9F9F;
+	top: -1px;
+	height: 56px;
+	left: 8px;
+}
+#top #_name {
+	position: static;
+	margin:20px 200px 20px 0;
+	width:auto;
+	padding:10px 30px;
+	float:right;
+	background-color:#A2A2FF;	
+}
+.2_top {
+	position: relative;
+	height:30px;
+	margin:5px 0;
+	box-shadow: 3px 2px 2px #888888;
+	left: -1px;
+}
+.2_top ._creat {
+	float:left;
+	margin:0 60px;
+	position:absolute;
+	left: 71px;
+	top: 87px;
+	width: 112px;
+	height: 31px;
+}
+	
+#main{
+	position:relative;
+	margin:20%;
+	background-color:#C4C4C4;
+	}
+#LeftMenu1_divChildMenu{
+	position: relative;
+	float: left;
+	width:186px;
+	margin:10px 0 0 5px;
+	top: 40px;
+	left: 200px;
+	height: 397px;
+}
+ul li{
+list-style: none;
+
+}
+#LeftMenu1_divChildMenu .Nsb_l_list_top {
+	padding:10px 15px;
+	font-size:16px
+}
+#LeftMenu1_divChildMenu ul li .exam_user_exam {
+	padding: 20px;
+	margin:0 5px
+}
+#_right{
+ float:right;
+ position: absolute;
+ height:50%;
+ width:30%;
+ background-color:#BEBEBE
+}
+.2_top ._type {
+	position:relative;
+	float:left;
+	margin:5px 0 0 300px;
+}

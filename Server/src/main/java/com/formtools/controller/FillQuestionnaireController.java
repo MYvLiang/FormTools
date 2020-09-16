@@ -7,6 +7,8 @@ import com.formtools.service.FillQuestionnaireService;
 import com.formtools.utils.CookieUtil;
 import com.formtools.utils.ValidationUtil;
 import com.formtools.vo.ResultVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.groups.Default;
 
+@Api(tags = "调查问卷")
 @RestController
 public class FillQuestionnaireController {
 
@@ -31,6 +34,7 @@ public class FillQuestionnaireController {
      * @param response response
      * @return 成功
      */
+    @ApiOperation("提交问卷答案")
     @PostMapping("/fill-questionnaire")
     public ResultVo InsertFillQuestionnaire(@RequestBody FillQuestionnaire fillQuestionnaire, HttpServletRequest request, HttpServletResponse response){
         //参数验证
@@ -68,6 +72,7 @@ public class FillQuestionnaireController {
      * @param request request
      * @return 问卷表 答案缓存
      */
+    @ApiOperation("获取问卷答案缓存")
     @GetMapping("/fill-questionnaire")
     public ResultVo getFillQuestionnaire(@RequestParam("formId") String fid,HttpServletRequest request){
         //获取缓存key

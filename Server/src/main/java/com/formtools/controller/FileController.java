@@ -5,6 +5,8 @@ import com.formtools.model.UserInfo;
 import com.formtools.service.UserService;
 import com.formtools.service.impl.FileServiceImpl;
 import com.formtools.vo.ResultVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +20,7 @@ import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Api(tags = "文件api")
 @RestController
 public class FileController {
 
@@ -34,6 +37,17 @@ public class FileController {
     private FileServiceImpl fileService;
 
 
+    /**
+     * 上传文件，文件无限制
+     * 储存路径为  "（上线需更改配置文件）formDataFileDir/表单id/用户id+用户名”
+     * 成功返回文件名
+     * 失败返回错误信息
+     * @param uid
+     * @param formId @RequestParam("formId")表单id
+     * @param multipartFile @RequestParam("file")文件
+     * @return
+     */
+    @ApiOperation("上传文件")
     @PostMapping("/file")
     public ResultVo uploadFile(@CookieValue("userId")
                                @NotNull(message = "登录异常 请重新登录")
@@ -59,6 +73,15 @@ public class FileController {
         return ResultVo.fail(ErrorMsg.FILE_UPLOAD_ERROR);
     }
 
+    /**
+     * 下载文件
+     * 请求该接口则直接下载文件
+     * @param uid
+     * @param formId @RequestParam("formId")表单id
+     * @param fileName @RequestParam("fileName")文件名
+     * @param response
+     */
+    @ApiOperation("下载文件")
     @GetMapping("/file")
     public void downloadFile(@CookieValue("userId")
                              @NotNull(message = "登录异常 请重新登录")
@@ -107,6 +130,16 @@ public class FileController {
     }
 
 
+    /**
+     * 打包下载
+     * 将“（上线需更改配置文件）formDataFileDir/表单id”路径下的文件打包并将zip包放置于zipDir（上线需更改配置文件）下
+     * 然后下载
+     * 请求即下载
+     * @param uid
+     * @param formId @RequestParam("formId")表单id
+     * @param response
+     */
+    @ApiOperation("打包表单收集的附件下载")
     @GetMapping("/zip")
     public void getZip(@CookieValue("userId")
                        @NotNull(message = "登录异常 请重新登录")
@@ -146,6 +179,15 @@ public class FileController {
         }
     }
 
+    /**
+     * 上传文件若为图片时需用该接口展示。
+     * @param uid
+     * @param formId @RequestParam("formId") String formId表单id
+     * @param imageName @RequestParam("image") String imageName图片名，即上传文件接口处所返回的文件名
+     * @param response
+     * @throws IOException
+     */
+    @ApiOperation("获取图片")
     @GetMapping("/image")
     public void getImage(@CookieValue("userId")
                            @NotNull(message = "登录异常 请重新登录")

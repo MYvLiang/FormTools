@@ -2,6 +2,8 @@ package com.formtools.model;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.sql.Timestamp;
 
@@ -9,9 +11,12 @@ import java.sql.Timestamp;
  * @author myl
  * @create 2020-04-13  11:56
  */
+@ApiModel("草稿表单")
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class DraftForm extends BuiltForm{
+
     //redis的数据是否持久化到该表
+    @ApiModelProperty("数据是否持久化")
     private Boolean state;
 
     public DraftForm(){

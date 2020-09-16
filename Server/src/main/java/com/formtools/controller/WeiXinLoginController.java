@@ -8,6 +8,8 @@ import com.formtools.utils.IdBuilder;
 import com.formtools.utils.WeiXinCodeUtil;
 import com.formtools.vo.ResultVo;
 import com.formtools.vo.WeiXinUser;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author myl
  * @create 2020-02-23  21:39
  */
+@Api(tags = "微信登录")
 @RestController
 @RequestMapping("/weixin")
 @Validated
@@ -35,6 +38,7 @@ public class WeiXinLoginController {
      *
      * @return
      */
+    @ApiOperation("获取登录二维码和scene")
     @GetMapping(value = "/code", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getwxCode(HttpServletResponse response) {
         String scene = "scene" + IdBuilder.getSceneId();
@@ -52,9 +56,10 @@ public class WeiXinLoginController {
      * @param scene
      * @return
      */
+    @ApiOperation("判断是否登录成功")
     @GetMapping("/isLogin")
     public ResultVo isLogin(@RequestParam String scene,HttpServletResponse response) {
-        String sceneState = wxSceneMap.get(scene);
+        String sceneState = wxSceneMap.get(scene.trim());
         if(sceneState==null){
             return ResultVo.fail(ErrorMsg.PARAM_ERROR,"该scene不存在");
         }else if (!sceneState.equals("no")) {
@@ -74,11 +79,12 @@ public class WeiXinLoginController {
      * @param wxUser
      * @return
      */
+    @ApiOperation("微信端调用进行登录")
     @PostMapping("/login")
     public ResultVo wxLogin(@RequestBody @Valid WeiXinUser wxUser) {
         Long userId=otherUserService.updateUser(wxUser.getNickName(),wxUser.getAvatarUrl(),wxUser.getOpenid(),'W');
         if(userId!=null){
-            wxSceneMap.put(wxUser.getScene(),String.valueOf(userId));
+            wxSceneMap.put(wxUser.getScene().trim(),String.valueOf(userId));
             return ResultVo.success("success");
         }
         return ResultVo.fail(ErrorMsg.SYSTEM_ERROR,"更新或添加用户信息时出错");

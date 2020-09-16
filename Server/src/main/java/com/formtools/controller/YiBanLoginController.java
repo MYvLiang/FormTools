@@ -5,10 +5,14 @@ import cn.yiban.open.common.User;
 import com.alibaba.fastjson.JSONObject;
 import com.formtools.OtherConfig;
 import com.formtools.service.OtherUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author myl
  * @create 2020-02-23  23:02
  */
+@Api(tags = "易班登录")
 @Controller
 @RequestMapping("/YBAPI")
 public class YiBanLoginController {
@@ -28,7 +33,8 @@ public class YiBanLoginController {
     private final String BACK_URL=OtherConfig.BACK_URL;
     private final String DEFAULTREDIRECTURL=OtherConfig.DEFAULTREDIRECTURL;
 
-    @RequestMapping("/login")
+    @ApiOperation("登录")
+    @GetMapping("/login")
     public String yblogin(@RequestParam(value = "state",
             defaultValue = DEFAULTREDIRECTURL)String state){
         Authorize authorize=new Authorize(APP_ID,APP_SEC);
@@ -36,6 +42,7 @@ public class YiBanLoginController {
         return "redirect:"+url;
     }
 
+    @ApiIgnore
     @RequestMapping("/auth")
     public String  ybauth(@RequestParam(value = "code",required = false)String code,
                           @RequestParam(value = "state",
