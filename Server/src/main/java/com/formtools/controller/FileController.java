@@ -89,11 +89,6 @@ public class FileController {
                              @RequestParam("formId") String formId,
                              @RequestParam("fileName") String fileName,
                              HttpServletResponse response) {
-        try {
-            fileName = URLEncoder.encode(fileName, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
         Long userId = 0L;
         try {
             userId = Long.parseLong(uid);
@@ -102,8 +97,12 @@ public class FileController {
         }
         UserInfo userInfo = userService.getUserInfo(userId);
         String userName = userInfo.getNickname();//获取用户名
-
         File file = new File(formDataFileDir + formId + "\\" + uid + userName + "\\" + fileName);
+        try {
+            fileName = URLEncoder.encode(fileName, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         if (file.exists()) {
             try {
                 FileInputStream inputStream = new FileInputStream(file);
