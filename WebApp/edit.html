@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>多平台通用表单工具</title>
+    <link rel="stylesheet" href="css/edit.css">
+    <script type="text/javascript" src="js/edit.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//unpkg.com/element-ui@2.13.2/lib/index.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <a class="header-item" v-bind:class="{ 'header-item-select': topSelect==1 }" v-on:click="editForm" href="#">编辑</a>
+        <a class="header-item" v-bind:class="{ 'header-item-select': topSelect==2 }" v-on:click="preview" href="#">预览</a>
+        <a class="header-item" v-bind:class="{ 'header-item-select': topSelect==3 }"  v-on:click="setFrom" href="#">设置</a>
+        <a class="header-item" v-on:click="save" href="#">保存草稿</a>
+        <a class="header-item" v-on:click="releaseForm" href="#">发布</a>
+    </div>
+    <div v-if="design" class="design-page-body">
+        <div class="menu-body">
+            <div class="question_type" v-on:click="addQue('danx')">单选题</div>
+            <div class="question_type" v-on:click="addQue('duox')">多选题</div>
+            <div class="question_type" v-on:click="addQue('danhtk')">单行文本题</div>
+            <div class="question_type" v-on:click="addQue('duohtk')">多行文本题</div>
+            <div class="question_type" v-on:click="addQue('img')">图片题</div>
+            <div class="question_type" v-on:click="addQue('fujian')">附件题</div>
+        </div>
+        <div class="form-design" id="form-design" v-on:click="selectQuestion(-1)">
+            <div class="form-design-container">
+                <!--表单标题和说明-->
+                <div class="form-design-title">
+                    <input placeholder="请输入标题..." v-model="formData.formTitle">
+                    <el-input
+                            type="textarea"
+                            autosize
+                            placeholder="请输入说明..."
+                            v-model="formData.formInfo.explain">
+                    </el-input>
+                </div>
+                <!--表单所有题目-->
+                <div class="form-question" v-for="(item, index) in formData.formInfo.subjects" v-bind:id="'q'+index"
+                     :key="item.id" v-on:click.stop="selectQuestion(index)">
+                    <!--选中的题目-->
+                    <div v-if="index===selectId" class="form-design-question">
+                        <div class="form-design-question-index">{{index+1}}.</div>
+
+                        <div class="question-title">
+                            <div class="question-title-text">题目</div>
+                            <el-input
+                                    placeholder="请输入题目..."
+                                    v-model="item.title"
+                                    clearable>
+                            </el-input>
+                        </div>
+
+                        <div class="question-tip">
+                            <div class="question-tip-text">备注</div>
+                            <div class="question-tip-input">
+                                <el-input
+                                        size="mini"
+                                        placeholder="请输入备注（可选）..."
+                                        v-model="item.tip"
+                                        clearable>
+                                </el-input>
+                            </div>
+                        </div>
+
+                        <div v-if="item.type === 'duox'||item.type === 'danx'" class="question-select-container">
+                            <div class="question-select-item" v-for="(selectitem, s) in item.options" :key="s">
+                                <div class="question-select-item-index">{{s+1}}.</div>
+                                <input class="question-select-item-input" placeholder="请输入选项..."
+                                       v-model="item.options[s]">
+                            </div>
+
+                            <div class="question-select-add">
+                                <el-button type="primary" size="mini">增加选项<i
+                                        class="el-icon-circle-plus el-icon--right"></i>
+                                </el-button>
+                            </div>
+                        </div>
+
+                        <div class="question-set">
+                            <div>
+                                <el-select size="mini" v-model="item.type" v-on:change="selectType($event,index)"
+                                           placeholder="请选择题型">
+                                    <el-option
+                                            v-for="item in typeOptions"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </div>
+                            <div>
+                                <el-switch
+                                        v-model="item.necessary"
+                                        active-color="#1593ff"
+                                        inactive-color="#eeeeee"
+                                        active-text="必填">
+                                </el-switch>
+                            </div>
+                            <div>
+                                <el-button type="danger" size="mini" icon="el-icon-delete" circle
+                                           v-on:click.stop="delQue(index)"></el-button>
+                            </div>
+                            <div>
+                                <el-button size="mini" type="primary" v-on:click="copyQue(index)">复制</el-button>
+                            </div>
+                            <div>
+                                <el-button size="mini" type="primary" v-on:click="xiayi(index)">下移</el-button>
+                            </div>
+                            <div>
+                                <el-button size="mini" type="primary" v-on:click="shangyi(index)">上移</el-button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--无选中的题目-->
+                    <div v-else class="question-item">
+                        <div class="question-title-text">{{ index+1 }}.{{ item.title }}</div>
+                        <div class="question-item-tip-text">{{ item.tip }}</div>
+                        <div v-if="item.type === 'danhtk'" class="question-item-input">答题区</div>
+                        <div v-if="item.type === 'duohtk'" class="question-item-areatext">答题区</div>
+                        <div v-if="item.type === 'danx'" class="question-item-radio">
+                            <el-radio v-for="(rad, r) in item.options" v-model="item.radioValue" :key="r"
+                                      v-bind:label="r+1">{{rad}}
+                            </el-radio>
+                        </div>
+                        <div v-if="item.type === 'duox'" class="question-item-checkbox">
+                            <el-checkbox-group v-model="selectOptions">
+                                <el-checkbox v-for="(checkbox,cc) in item.options" :label="checkbox" :key="cc">
+                                    {{checkbox}}
+                                </el-checkbox>
+                            </el-checkbox-group>
+                        </div>
+                        <div v-if="item.type === 'img'">
+                            <el-upload
+                                    v-bind:disabled="upload"
+                                    class="upload-demo"
+                                    drag
+                                    action="#"
+                                    multiple>
+                                <i class="el-icon-upload"></i>
+                                <div class="el-upload__text">将图片拖到此处，或<em>点击上传</em></div>
+                                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过5000kb</div>
+                            </el-upload>
+                        </div>
+                        <div v-if="item.type === 'fujian'">
+                            <el-upload
+                                    v-bind:disabled="upload"
+                                    class="upload-demo"
+                                    drag
+                                    action="#"
+                                    multiple>
+                                <i class="el-icon-upload"></i>
+                                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                                <div class="el-upload__tip" slot="tip">上传文件，且不超过50m</div>
+                            </el-upload>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div v-else class="design-page-body">
+        预览
+    </div>
+</div>
+<script>
+    var designApp = new Vue({
+        el: '#app',
+        data: {
+            design:true,
+            topSelect:1,
+            upload: true,
+            typeOptions: [{
+                value: 'danx',
+                label: '单选题'
+            }, {
+                value: 'duox',
+                label: '多选题'
+            }, {
+                value: 'danhtk',
+                label: '单行文本题'
+            }, {
+                value: 'duohtk',
+                label: '多行文本题'
+            }, {
+                value: 'img',
+                label: '图片题'
+            }, {
+                value: 'fujian',
+                label: '附件题'
+            }],
+            selectOptions: [],
+            formData: {
+                formId: 1600345245035002,
+                userId: 1586002337793,
+                formTitle: "活动报名表1",
+                formInfo: {
+                    explain: "表单说明",
+                    subjects: [{
+                        id: 1,
+                        title: "题目标题",
+                        tip: "题目说明",
+                        type: "danhtk",
+                        necessary: true
+                    }, {
+                        id: 11,
+                        title: "题目标题",
+                        tip: "题目说明",
+                        type: "duohtk",
+                        necessary: true
+                    }, {
+                        id: 111,
+                        title: "题目标题",
+                        tip: "题目说明",
+                        type: "danx",
+                        necessary: true,
+                        options: ["选项1fgfd", "选项2", "选项3"],
+                        other: false
+                    }, {
+                        id: 113435,
+                        title: "题目标题",
+                        tip: "题目说明",
+                        type: "danx",
+                        necessary: true,
+                        options: ["选项1", "选项2", "选项3"],
+                        other: false
+                    }, {
+                        id: 1111,
+                        title: "题目标题",
+                        tip: "题目说明",
+                        type: "duox",
+                        necessary: true,
+                        options: ["选项1", "选项2", "选项3"],
+                        other: false
+                    }, {
+                        id: 1112,
+                        title: "题目标题",
+                        tip: "题目说明",
+                        type: "duox",
+                        necessary: true,
+                        options: ["选项111", "选项222", "选项33"],
+                        other: false
+                    }, {
+                        id: 16666,
+                        title: "题目标题",
+                        tip: "题目说明",
+                        type: "img",
+                        necessary: true
+                    }, {
+                        id: 1777,
+                        title: "题目标题",
+                        tip: "题目说明",
+                        type: "fujian",
+                        necessary: true
+                    }]
+                },
+                builtTime: "2020-04-14T14:46:44.000+0000",
+                beginTime: "2020-04-18T01:58:31.000+0000",
+                endTime: "2020-06-18T01:58:31.000+0000",
+                maxCount: 100,
+                formType: "B",
+                state: false
+            },
+            selectId: -1
+        },
+        methods: {
+            selectQuestion: function (id) {
+                console.log(id);
+                this.selectId = id;
+            },
+            selectType: function (type, index) {
+                if (this.formData.formInfo.subjects[index].type === "danx") {
+                    this.formData.formInfo.subjects[index].options = ["", ""];
+                } else if (this.formData.formInfo.subjects[index].type === "duox") {
+                    this.formData.formInfo.subjects[index].options = ["", "", ""];
+                }
+            },
+            delQue: function (index) {
+                this.formData.formInfo.subjects.splice(index, 1);
+                this.selectId--;
+                console.log(this.selectId)
+            },
+            copyQue: function (index) {
+                var temp = JSON.parse(JSON.stringify(this.formData.formInfo.subjects[index]));
+                temp.id = (new Date()).getTime();
+                this.formData.formInfo.subjects.push(temp);
+                var that = this
+                setTimeout(function () {
+                    that.updated(that.formData.formInfo.subjects.length - 1);
+                }, 200);
+
+                if (this.formData.formInfo.subjects.length > 3) {
+                    var toId = '#q' + String(this.formData.formInfo.subjects.length - 2);
+                    $("html,body").animate({
+                        scrollTop: $(toId).offset().top
+                    }, {duration: 500, easing: "swing"});
+                }
+            },
+            xiayi: function (index) {
+                if (index < this.formData.formInfo.subjects.length - 1) {
+                    var temp = this.formData.formInfo.subjects[index];
+                    this.formData.formInfo.subjects[index] = this.formData.formInfo.subjects[index + 1];
+                    this.formData.formInfo.subjects[index + 1] = temp;
+                    this.selectId = index + 1;
+                }
+            },
+            shangyi: function (index) {
+                if (index > 0) {
+                    var temp = this.formData.formInfo.subjects[index];
+                    this.formData.formInfo.subjects[index] = this.formData.formInfo.subjects[index - 1];
+                    this.formData.formInfo.subjects[index - 1] = temp
+                    this.selectId = index - 1;
+                }
+            },
+            addQue: function (type) {
+                var que = {
+                    id: (new Date()).getTime(),
+                    title: "",
+                    tip: "",
+                    type: type,
+                    necessary: true,
+                    options: ["", "", ""]
+                }
+                if (this.selectId == -1 || this.selectId == this.formData.formInfo.subjects.length - 1) {
+
+                    this.formData.formInfo.subjects.push(que);
+                    console.log('add-1', this.formData.formInfo.subjects.length - 1)
+                    this.updated(this.formData.formInfo.subjects.length - 1);
+                    if (this.formData.formInfo.subjects.length > 3) {
+                        var toId = '#q' + String(this.formData.formInfo.subjects.length - 2);
+                        $("html,body").animate({
+                            scrollTop: $(toId).offset().top
+                        }, {duration: 500, easing: "swing"});
+                    }
+                } else {
+                    this.formData.formInfo.subjects.splice(this.selectId + 1, 0, que);
+                    var that = this
+                    this.updated(this.selectId + 1);
+                }
+            },
+            editForm:function(){
+              this.topSelect=1;
+              this.design=true;
+              console.log('edit')
+            },
+            preview:function(){
+                this.design=false;
+                this.topSelect=2;
+                console.log("yulan")
+            },
+            setFrom:function(){
+                this.topSelect=3;
+                console.log("set")
+            },
+            save: function () {
+                console.log('保存', this.formData)
+            },
+            releaseForm: function () {
+                console.log('发布', this.formData)
+            },
+            updated: function (updateSelect) {
+                this.$nextTick(function () {
+                    if (updateSelect || updateSelect == 0) {
+                        console.log('updateSelect')
+                        this.selectId = updateSelect;
+                    } else {
+                        console.log('update', updateSelect)
+                    }
+                })
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
