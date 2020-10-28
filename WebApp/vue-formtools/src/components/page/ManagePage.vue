@@ -10,7 +10,7 @@
                 <header-user-info></header-user-info>
             </el-header>
             <el-container>
-                <el-aside>
+                <el-aside style="width: 160px;">
                     <el-menu
                             default-active="1">
                         <el-menu-item index="1">
@@ -46,9 +46,23 @@
                             <el-tab-pane label="活动报名" name="third"></el-tab-pane>
                         </el-tabs>
                         <div class="form-list">
-                            <ul class="infinite-list"  style="overflow:auto">
-                                <li v-for="i in count" class="infinite-list-item">{{ i }}</li>
-                            </ul>
+                            <div class="form-list-item" v-for="(i,index) in count">
+                                <span>{{ i }}.班级信息收集表</span>
+                                <div class="form-list-item-more">
+                                    <div :class="status[index%3]">{{statusText[index%3]}}</div>
+                                    <div class="create-time">创建时间2020-10-28</div>
+                                    <div class="edit-button">编辑</div>
+                                    <el-dropdown>
+                                        <i class="el-icon-more"></i>
+                                        <el-dropdown-menu slot="dropdown">
+                                            <el-dropdown-item>转发填写</el-dropdown-item>
+                                            <el-dropdown-item>复制创建</el-dropdown-item>
+                                            <el-dropdown-item>停止收集</el-dropdown-item>
+                                            <el-dropdown-item style="color: #f0261f" divided>删除表单</el-dropdown-item>
+                                        </el-dropdown-menu>
+                                    </el-dropdown>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </el-main>
@@ -68,36 +82,114 @@
         data() {
             return {
                 activeName: 'first',
-                count: 0
+                count: 10,
+                status: ["status1", "status2", "status3"],
+                statusText: ["收集中", "草稿", "已停止"]
             }
         },
         methods: {
             handleClick(tab, event) {
-                console.log(tab.name,event);
+                console.log(tab.name, event);
             }
         }
     }
 </script>
 
 <style scoped>
-    .form-list{
-        background-color: #999999;
-        height: 100%;
+    .form-list-item-more .status1 {
+        color: #087afb;
+        font-size: 14px;
+        background-color: rgba(184, 216, 219, 0.47);
+        border-radius: 10px;
+        width: 80px;
+        text-align: center;
     }
-    .type-tip{
+
+    .form-list-item-more .status2 {
+        color: #ef8d00;
+        font-size: 14px;
+        background-color: #FFF5E5;
+        border-radius: 8px;
+        width: 80px;
+        text-align: center;
+    }
+
+    .form-list-item-more .status3 {
+        color: #eb5451;
+        font-size: 14px;
+        background-color: rgba(240, 85, 82, 0.05);
+        border-radius: 8px;
+        width: 80px;
+        text-align: center;
+    }
+
+    .form-list-item-more .create-time {
+        color: #999999;
+        font-size: 13px;
+    }
+
+    .form-list-item-more .edit-button {
+        color: #333333;
+        font-size: 14px;
+    }
+
+    .form-list-item-more {
+        color: #999999;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .form-list-item-more div {
+        margin: 0 20px;
+    }
+
+    .form-list {
+        height: calc(100vh - 325px);
+        overflow: auto;
+        position: relative;
+        top: -14px;
+    }
+
+    .form-list-item {
+        height: 60px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #dddddd;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        font-size: 16px;
+        color: #555555;
+    }
+
+    .form-list-item:last-child {
+        border-bottom: none;
+    }
+
+    .form-list-item:hover {
+        background-color: #f9f9f9;
+
+    }
+
+    .type-tip {
         padding-left: 24px;
         padding-bottom: 10px;
     }
-    .create-type{
+
+    .create-type {
         display: flex;
         margin-bottom: 20px;
     }
-    .create-icon{
+
+    .create-icon {
         font-size: 30px;
         color: #409EFF;
-        font-weight:800;
+        font-weight: 800;
     }
-    .create-button{
+
+    .create-button {
         width: 170px;
         height: 120px;
         border: 1px solid #409EFF;
@@ -106,11 +198,15 @@
         justify-content: center;
         align-items: center;
         margin: 5px 20px;
+        /*cursor: pointer;鼠标悬停变手指*/
+        cursor: pointer;
     }
-    .create-button span{
+
+    .create-button span {
         font-size: 14px;
         margin-top: 10px;
     }
+
     .el-header {
         display: flex;
         padding: 20px;
@@ -119,14 +215,18 @@
         box-shadow: 1px 1px 5px 1px #eee;
         margin-bottom: 2px;
     }
-    .el-aside{
+
+    .el-aside {
         background-color: #ffffff;
         margin-right: 2px;
     }
-    .el-main{
+
+    .el-main {
         background-color: #ffffff;
+        padding-bottom: 0;
     }
-    .el-container{
+
+    .el-container {
         height: 100%;
         background-color: #eeeeee;
     }
