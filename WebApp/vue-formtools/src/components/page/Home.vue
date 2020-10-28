@@ -34,32 +34,36 @@
                 <li class="question3">学生调查</li>
                 <input type="button" name="question" value="立即创建" class="but-act" style="left: 66.5%">
             </ul>
-<!--            <img src="../../assets/img/images/sb2.jpg" class="bg1">-->
+        </div>
+        <div class="contain"></div>
+        <div class="mess-con">
             <img src="../../assets/img/images/sc.jpg" class="pic3">
             <span class="introduce">
-            <h1 class="head" style="color: white">ABOUT TOOLS</h1>
-            <p class="text">支持无登录和登录使用，填写问卷类无需登录，为公示信息审核提供私密的环境。<br>
-                独特的在线审核功能，在规定时间内可重复修改提交，后台自动更新信息，大大降低了信息收集与整理的工作量，也大大降低了信息的错误率。<br>
-            支持临时通讯功能，管理者可随时发出信息错误提醒，表单创建者与填写者交流更方便，具有灵活的可操作性。</p>
-        </span>
-            <img src="../../assets/img/images/sc3.png" style="width: 28%; height: 60%; position: absolute; top: 285%; left: 55%; z-index: 2">
-            <img src="../../assets/img/images/sc2.png" style="width: 28%; height: 60%; position: absolute; top: 352%; left: 25%; z-index: 2">
+                <h1 class="head" style="color: white">ABOUT TOOLS</h1>
+                <p class="text">支持无登录和登录使用，填写问卷类无需登录，为公示信息审核提供私密的环境。<br>
+                    独特的在线审核功能，在规定时间内可重复修改提交，后台自动更新信息，大大降低了信息收集与整理的工作量，也大大降低了信息的错误率。<br>
+                支持临时通讯功能，管理者可随时发出信息错误提醒，表单创建者与填写者交流更方便，具有灵活的可操作性。</p>
+            </span>
+            <img src="../../assets/img/images/sc3.png" class="mid-pic1">
+            <img src="../../assets/img/images/sc2.png" class="mid-pic2">
             <span class="last">
-            <h1 style="color: white">专属自定义表单</h1>
-            <p class="text">该表单工具应用于调查问卷，生活，工作或者学习的事物信息登记，各种活动的通知发布和收集报名信息，各平台数据互通和统一，且该工具使用完全免费。</p>
-            <input type="button" name="registered" value="立即注册" style="border-color: rgba(250,239,239,0.29); color: cornflowerblue; font-size: 20px;width: 250px;height: 70px; position: absolute; top: 300%; left: -12%" >
-        </span>
-            <span class="foot">
-            <ul class="foot">
-                <li style="float: left; text-align: center; padding: 14px 16px;"><a href="#" style="text-decoration: none; color: #dddddd"> 首页</a></li>
-                <li style="float: left; text-align: center; padding: 14px 16px;"><a href="#" style="text-decoration: none; color: #dddddd">我的管理</a></li>
-                <li style="float: left; text-align: center; padding: 14px 16px;"><a href="#" style="text-decoration: none; color: #dddddd">我的参与</a></li>
-                <li style="float: left; text-align: center; padding: 14px 16px;"><a href="#" style="text-decoration: none; color: #dddddd">关于我们</a></li>
-            </ul>
-            <p style="color: #dddddd; position: absolute; top: 525%; left: 2%">工作时间</p>
-            <p style="color: #dddddd; position: absolute; top: 535%; left: 2%">地址:</p>
-        </span>
+                <h1 style="font-weight:400;font-size: 48px;color: white">专属自定义表单</h1>
+                <p class="text">该表单工具应用于调查问卷，生活，工作或者学习的事物信息登记，各种活动的通知发布和收集报名信息，各平台数据互通和统一，且该工具使用完全免费。</p>
+                <input type="button" name="registered" value="立即注册" class="but-f" >
+            </span>
         </div>
+        <footer class="foot">
+            <span class="fon-pos">
+                <ul style=" list-style-type: none;">
+                    <li><a href="#" >首页</a></li>
+                    <li><a href="#" >我的填写</a></li>
+                    <li><a href="#" >我的创建</a></li>
+                    <li><a href="#" >关于我们</a></li>
+                </ul>
+                <p class="work-time">工作时间：</p>
+                <p class="work-adr">地址：</p>
+            </span>
+        </footer>
     </div>
 
 </template>
@@ -75,6 +79,9 @@
         margin: 0;
         padding: 0;
     }
+    html {
+        height: auto;
+    }
     .m-header{
         width: 100%;
         height: 55%;
@@ -88,6 +95,7 @@
         left: 0;
         right: 0;
         background-image: url("../../assets/img/images/sh1.jpg");
+        background-size:cover;
     }
     ul.index{
         position: absolute;
@@ -96,7 +104,6 @@
         right: 15%;
         list-style-type: none;
         overflow: hidden;
-        border: 1px solid #e7e7e7;
     }
     .index li{
         position: relative;
@@ -173,6 +180,23 @@
         height: 120%;
         width: 100%;
     }
+    .contain {
+        position: absolute;
+        top: 1670px;
+        height: 289%;
+        width: 100%;
+    }
+    .contain:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        background-image: url("../../assets/img/images/sb2.jpg");
+        background-size:cover;
+    }
     .activity {
         position: static;
         list-style-type: none;
@@ -222,6 +246,7 @@
         color: #fff;
         overflow: hidden;
         text-align: center;
+        cursor: pointer;
     }
     .information {
         position: static;
@@ -288,51 +313,124 @@
         color: #dddddd;
 
     }
+    .mess-con{
+        width: 100%;
+        height: 100%;
+    }
     .pic3 {
-        width: 30%;
-        height: 41%;
+        width: 606px;
+        height: 385px;
         position: absolute;
-        top: 239%;
-        left: 20%;
+        top: 188.5%;
+        left: 19.5%;
         z-index: 2;
     }
     .introduce {
-        width: 300px;
+        width: 25%;
         position: absolute;
-        top: 236%;
-        left: 57%;
+        top: 193%;
+        left: 55%;
     }
     .introduce .text{
-        font-size: small;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 31px;
+        margin-top: 30px;
         color: white;
         position: absolute;
-        left: -25%;
-        top: 110%;
+    }
+    .mid-pic1 {
+        position: absolute;
+        top:247%;
+        left: 55%;
+        width: 407px;
+        height: 447px;
+    }
+    .mid-pic1:hover {
+        border-image-slice: 1;
+        border-width: 0.5px;
+        border-style: solid;
+        border-color: rgb(0, 0, 0);
+    }
+    .mid-pic2 {
+        position: absolute;
+        top:310%;
+        left: 30%;
+        width: 407px;
+        height: 447px;
+    }
+    .mid-pic2:hover {
+        border-image-slice: 1;
+        border-width: 0.5px;
+        border-style: solid;
+        border-color: rgb(0, 0, 0);
     }
     .last {
-        width: 260px;
+        width: 35%;
         position: absolute;
-        top: 455%;
-        left: 65%;
+        top: 410%;
+        left: 55%;
     }
     .last .text{
-        line-height: 30px;
-        font-size: medium;
+        margin-top: 40px;
+        line-height: 32px;
+        font-size: 16px;
+        font-weight: 400;
         color: white;
-        position: absolute;
-        top: 100%;
-        left: -13%;
+        text-align: left;
+        word-break: break-word;
+        width: 45%;
+    }
+    .but-f {
+        position: relative;
+        top: 50px;
+        left: 10px;
+        width: 176px;
+        height: 52px;
+        border: 10px solid transparent;
+        background-color: #ffffff;
+        margin-top: -10px;
+        margin-left: -10px;
+        font-weight: normal;
+        font-size: 16px;
+        color: rgba(0, 143, 255, 1);
+        cursor: pointer;
     }
 
     .foot{
-        height: 200px;
+        position: absolute;
+        top: 4487px;
+        height: 360px;
         width: 100%;
-        background-color: black;
+        background-color: #202020;
+        overflow: hidden;
     }
-    ul.foot{
-        color: #dddddd;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
+
+    .fon-pos{
+        position: relative;
+        top: 55px;
+        left: 18%;
+
+    }
+    .fon-pos ul li {
+        float: left;
+        text-align: center;
+        padding: 14px 25px;
+    }
+    .fon-pos ul li a{
+        text-decoration: none;
+        color: rgb(121, 129, 138);
+    }
+    .work-time {
+        position: absolute;
+        top: 45%;
+        left: 19%;
+        color: rgb(121, 129, 138);
+    }
+    .work-adr {
+        position: absolute;
+        top: 55%;
+        left: 19%;
+        color: rgb(121, 129, 138);
     }
 </style>
