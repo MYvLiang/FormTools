@@ -6,12 +6,15 @@
            href="javascript:void(0);">预览</a>
         <a class="header-item" @click="$emit('save')" href="javascript:void(0);">保存草稿</a>
         <a class="header-item" @click="$emit('release-form')" href="javascript:void(0);">发布</a>
+        <header-user-info></header-user-info>
     </div>
 </template>
 
 <script>
+    import HeaderUserInfo from '../../common/HeaderUserInfo.vue'
     export default {
         name: "EditHeader",
+        components:{HeaderUserInfo},
         data() {
             return {
                 topSelect: 0
@@ -28,7 +31,7 @@
 
 <style scoped>
     .header {
-        padding-left: 140px;
+        padding-right: 370px;
         display: flex;
         align-items: center;
         justify-content: center;
