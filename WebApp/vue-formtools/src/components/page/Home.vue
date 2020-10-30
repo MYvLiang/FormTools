@@ -35,22 +35,23 @@
                 <input type="button" name="question" value="立即创建" class="but-act" style="left: 66.5%">
             </ul>
         </div>
-        <div class="contain"></div>
-        <div class="mess-con">
-            <img src="../../assets/img/images/sc.jpg" class="pic3">
-            <span class="introduce">
-                <h1 class="head" style="color: white">ABOUT TOOLS</h1>
+        <div class="contain">
+            <div class="mess-con">
+                <img src="../../assets/img/images/sc.jpg" class="pic3">
+                <span class="introduce">
+                <h1 style="color: white">ABOUT TOOLS</h1>
                 <p class="text">支持无登录和登录使用，填写问卷类无需登录，为公示信息审核提供私密的环境。<br>
                     独特的在线审核功能，在规定时间内可重复修改提交，后台自动更新信息，大大降低了信息收集与整理的工作量，也大大降低了信息的错误率。<br>
                 支持临时通讯功能，管理者可随时发出信息错误提醒，表单创建者与填写者交流更方便，具有灵活的可操作性。</p>
             </span>
-            <img src="../../assets/img/images/sc3.png" class="mid-pic1">
-            <img src="../../assets/img/images/sc2.png" class="mid-pic2">
-            <span class="last">
-                <h1 style="font-weight:400;font-size: 48px;color: white">专属自定义表单</h1>
-                <p class="text">该表单工具应用于调查问卷，生活，工作或者学习的事物信息登记，各种活动的通知发布和收集报名信息，各平台数据互通和统一，且该工具使用完全免费。</p>
+                <img src="../../assets/img/images/sc3.png" class="mid-pic1">
+                <img src="../../assets/img/images/sc2.png" class="mid-pic2">
+                <span class="last">
+                    <h1 style="font-weight:400;font-size: 48px;color: white">专属自定义表单</h1>
+                    <p class="text">该表单工具应用于调查问卷，生活，工作或者学习的事物信息登记，各种活动的通知发布和收集报名信息，各平台数据互通和统一，且该工具使用完全免费。</p>
                 <input type="button" name="registered" value="立即注册" class="but-f" >
             </span>
+            </div>
         </div>
         <footer class="foot">
             <span class="fon-pos">
@@ -321,14 +322,14 @@
         width: 606px;
         height: 385px;
         position: absolute;
-        top: 188.5%;
+        top: 6%;
         left: 19.5%;
         z-index: 2;
     }
     .introduce {
         width: 25%;
         position: absolute;
-        top: 193%;
+        top: 7.5%;
         left: 55%;
     }
     .introduce .text{
@@ -341,7 +342,7 @@
     }
     .mid-pic1 {
         position: absolute;
-        top:247%;
+        top:25%;
         left: 55%;
         width: 407px;
         height: 447px;
@@ -354,7 +355,7 @@
     }
     .mid-pic2 {
         position: absolute;
-        top:310%;
+        top:50%;
         left: 30%;
         width: 407px;
         height: 447px;
@@ -368,7 +369,7 @@
     .last {
         width: 35%;
         position: absolute;
-        top: 410%;
+        top: 82.5%;
         left: 55%;
     }
     .last .text{
@@ -422,15 +423,15 @@
         color: rgb(121, 129, 138);
     }
     .work-time {
-        position: absolute;
-        top: 45%;
-        left: 19%;
+        position: relative;
+        top: 150px;
+        left: -3%;
         color: rgb(121, 129, 138);
     }
     .work-adr {
-        position: absolute;
-        top: 55%;
-        left: 19%;
+        position: relative;
+        top: 200px;
+        left: -3%;
         color: rgb(121, 129, 138);
     }
 </style>
