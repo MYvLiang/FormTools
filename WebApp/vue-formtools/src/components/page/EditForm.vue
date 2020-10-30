@@ -66,6 +66,7 @@
         min-height: 800px;
         padding-bottom: 50px;
         justify-content: center;
+        padding-right: 360px;
     }
 
 </style>

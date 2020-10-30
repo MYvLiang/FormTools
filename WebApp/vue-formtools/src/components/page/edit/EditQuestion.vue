@@ -106,6 +106,7 @@
                                         class="upload-demo"
                                         drag
                                         action="#"
+                                        list-type="picture"
                                         multiple>
                                     <i class="el-icon-upload"></i>
                                     <div class="el-upload__text">将图片拖到此处，或<em>点击上传</em></div>
@@ -116,6 +117,7 @@
                                 <el-upload
                                         v-bind:disabled="upload"
                                         class="upload-demo"
+                                        list-type="picture"
                                         drag
                                         action="#"
                                         multiple>
@@ -397,22 +399,27 @@
         border-radius: 2px;
     }
     .question-type a{
-        padding: 10px;
+        padding: 10px 20px;
         display: block;
+        font-size: 16px;
+        color: #666666;
+    }
+    .question-type a:hover {
+        background-color: #eeeeee;
     }
 
     .form-design {
         min-height: 800px;
         width: 100%;
-        margin-left: 150px;
-        display: flex;
-
+        /*margin-left: 10px;*/
+        /*display: flex;*/
+        padding: 0 500px;
     }
 
     .form-design-container {
         margin-top: 20px;
         width: 700px;
-        padding: 0 50px;
+        /*padding: 0 50px;*/
     }
 
     .form-design-title input {
@@ -426,8 +433,9 @@
     }
 
     .set-container {
-        margin-top: 20px;
-        padding: 0 50px;
+        position: fixed;
+        top: 70px;
+        right: 70px;
         width: 450px;
     }
 
@@ -435,7 +443,7 @@
         border: 1px solid #eeeeee;
         border-radius: 10px;
         margin-bottom: 20px;
-        box-shadow: 0px 0px 5px 5px #eeeeee;
+        box-shadow: 0 0 5px 5px #eeeeee;
     }
 
     .form-design-question-index {
