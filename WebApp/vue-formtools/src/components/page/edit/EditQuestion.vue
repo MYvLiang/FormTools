@@ -38,7 +38,8 @@
                                 </el-form>
                                 <div v-if="item.type === 'duox'||item.type === 'danx'">
                                     <el-form label-width="40px" label-position="right">
-                                        <el-form-item  v-for="(selectitem, s) in item.options" :key="s" :label="(s+1)+').'">
+                                        <el-form-item v-for="(selectitem, s) in item.options" :key="s"
+                                                      :label="(s+1)+').'">
                                             <el-input v-model="item.options[s]"></el-input>
                                         </el-form-item>
                                     </el-form>
@@ -51,7 +52,8 @@
                                 </div>
                                 <el-row :gutter="30">
                                     <el-col :span="8">
-                                        <el-select size="mini" v-model="item.type" v-on:change="selectType($event,index)"
+                                        <el-select size="mini" v-model="item.type"
+                                                   v-on:change="selectType($event,index)"
                                                    placeholder="请选择题型">
                                             <el-option
                                                     v-for="item in typeOptions"
@@ -62,9 +64,12 @@
                                         </el-select>
                                     </el-col>
                                     <el-col :span="5">
-                                        <div class="switch-necessary"><el-switch v-model="item.necessary" active-color="#1593ff" inactive-color="#eeeeee"
-                                                                                 active-text="必填">
-                                        </el-switch></div>
+                                        <div class="switch-necessary">
+                                            <el-switch v-model="item.necessary" active-color="#1593ff"
+                                                       inactive-color="#eeeeee"
+                                                       active-text="必填">
+                                            </el-switch>
+                                        </div>
                                     </el-col>
                                     <el-col :span="2">
                                         <el-button type="danger" size="mini" icon="el-icon-delete" circle
@@ -106,6 +111,7 @@
                                         class="upload-demo"
                                         drag
                                         action="#"
+                                        list-type="picture"
                                         multiple>
                                     <i class="el-icon-upload"></i>
                                     <div class="el-upload__text">将图片拖到此处，或<em>点击上传</em></div>
@@ -116,6 +122,7 @@
                                 <el-upload
                                         v-bind:disabled="upload"
                                         class="upload-demo"
+                                        list-type="picture"
                                         drag
                                         action="#"
                                         multiple>
@@ -135,7 +142,8 @@
                     </div>
                     <div class="block">
                         <div class="set-explain">最大填写人数</div>
-                        <el-input-number v-model="formData.maxCount" :step="1000" :min="1" :max="10000"></el-input-number>
+                        <el-input-number v-model="formData.maxCount" :step="1000" :min="1"
+                                         :max="10000"></el-input-number>
                     </div>
                     <div class="block">
                         <div class="set-explain">填写时间</div>
@@ -168,13 +176,13 @@
 </template>
 
 <script>
-    let beginTime=new Date();
-    let endTime=new Date(2030, 1, 1, 12, 0);
+    let beginTime = new Date();
+    let endTime = new Date(2030, 1, 1, 12, 0);
     export default {
         name: "EditQuestion",
         data() {
             return {
-                timeArr: [beginTime,endTime ],
+                timeArr: [beginTime, endTime],
                 options1: [{
                     value: 'W',
                     label: '调查问卷'
@@ -209,67 +217,69 @@
                 formData: {
                     formId: 1600345245035002,
                     userId: 1586002337793,
-                    formTitle: "活动报名表*************************",
+                    formTitle: "马拉松参与者需求调查问卷",
                     formInfo: {
-                        explain: "表单说明",
+                        explain: "您好，为了更好了解马拉松参与者的需求，我们特地开展本次调查，希望您在百忙之中抽出一分钟时间帮助我们完成这次调查，我们希望得到您真实的想法。谢谢您的合作！",
                         subjects: [
-                            /*{
-                            id: 1,
-                            title: "题目标题",
-                            tip: "题目说明",
-                            type: "danhtk",
-                            necessary: true
-                        }, {
-                            id: 11,
-                            title: "题目标题",
-                            tip: "题目说明",
-                            type: "duohtk",
-                            necessary: true
-                        }, {
-                            id: 111,
-                            title: "题目标题",
-                            tip: "题目说明",
-                            type: "danx",
-                            necessary: true,
-                            options: ["选项1fgfd", "选项2", "选项3"],
-                            other: false
-                        }, {
-                            id: 113435,
-                            title: "题目标题",
-                            tip: "题目说明",
-                            type: "danx",
-                            necessary: true,
-                            options: ["选项1", "选项2", "选项3"],
-                            other: false
-                        }, {
-                            id: 1111,
-                            title: "题目标题",
-                            tip: "题目说明",
-                            type: "duox",
-                            necessary: true,
-                            options: ["选项1", "选项2", "选项3"],
-                            other: false
-                        }, {
-                            id: 1112,
-                            title: "题目标题",
-                            tip: "题目说明",
-                            type: "duox",
-                            necessary: true,
-                            options: ["选项111", "选项222", "选项33"],
-                            other: false
-                        }, {
-                            id: 16666,
-                            title: "题目标题",
-                            tip: "题目说明",
-                            type: "img",
-                            necessary: true
-                        }, {
-                            id: 1777,
-                            title: "题目标题",
-                            tip: "题目说明",
-                            type: "fujian",
-                            necessary: true
-                        }*/
+                            {
+                                id: 1,
+                                title: "你的性别",
+                                tip: "",
+                                type: "danx",
+                                necessary: true,
+                                options: ["男", "女"],
+                                other: false
+                            }, {
+                                id: 11,
+                                title: "你的年龄",
+                                tip: "",
+                                type: "duohtk",
+                                necessary: true
+                            }, {
+                                id: 111,
+                                title: "你的跑步频率",
+                                tip: "",
+                                type: "danx",
+                                necessary: true,
+                                options: ["每天", "一周1至3次", "一周4次以上","基本不跑"],
+                                other: false
+                            }, {
+                                id: 113435,
+                                title: "题目标题",
+                                tip: "题目说明",
+                                type: "danx",
+                                necessary: true,
+                                options: ["选项1", "选项2", "选项3"],
+                                other: false
+                            }, {
+                                id: 1111,
+                                title: "题目标题",
+                                tip: "题目说明",
+                                type: "duox",
+                                necessary: true,
+                                options: ["选项1", "选项2", "选项3"],
+                                other: false
+                            }, {
+                                id: 1112,
+                                title: "题目标题",
+                                tip: "题目说明",
+                                type: "duox",
+                                necessary: true,
+                                options: ["选项111", "选项222", "选项33"],
+                                other: false
+                            }, {
+                                id: 16666,
+                                title: "题目标题",
+                                tip: "题目说明",
+                                type: "img",
+                                necessary: true
+                            }, {
+                                id: 1777,
+                                title: "题目标题",
+                                tip: "题目说明",
+                                type: "fujian",
+                                necessary: true
+                            }
                         ]
                     },
                     builtTime: new Date(),
@@ -283,10 +293,10 @@
             }
         },
         methods: {
-            changeTime(data){
-                console.log("changeTime",data);
-                this.formData.beginTime=data[0];
-                this.formData.endTime=data[1];
+            changeTime(data) {
+                console.log("changeTime", data);
+                this.formData.beginTime = data[0];
+                this.formData.endTime = data[1];
             },
             selectQuestion: function (id) {
                 console.log(id);
@@ -396,23 +406,30 @@
         border: 1px solid #dddddd;
         border-radius: 2px;
     }
-    .question-type a{
-        padding: 10px;
+
+    .question-type a {
+        padding: 10px 20px;
         display: block;
+        font-size: 16px;
+        color: #666666;
+    }
+
+    .question-type a:hover {
+        background-color: #eeeeee;
     }
 
     .form-design {
         min-height: 800px;
         width: 100%;
-        margin-left: 150px;
-        display: flex;
-
+        /*margin-left: 10px;*/
+        /*display: flex;*/
+        /*padding: 0 500px;*/
     }
 
     .form-design-container {
         margin-top: 20px;
         width: 700px;
-        padding: 0 50px;
+        /*padding: 0 50px;*/
     }
 
     .form-design-title input {
@@ -426,8 +443,9 @@
     }
 
     .set-container {
-        margin-top: 20px;
-        padding: 0 50px;
+        position: fixed;
+        top: 70px;
+        right: 70px;
         width: 450px;
     }
 
@@ -435,7 +453,7 @@
         border: 1px solid #eeeeee;
         border-radius: 10px;
         margin-bottom: 20px;
-        box-shadow: 0px 0px 5px 5px #eeeeee;
+        box-shadow: 0 0 5px 5px #eeeeee;
     }
 
     .form-design-question-index {
@@ -564,13 +582,15 @@
         height: 20px;
         padding: 5px;
     }
-    .switch-necessary{
+
+    .switch-necessary {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 28px;
     }
-    .set-explain{
+
+    .set-explain {
         font-size: 16px;
         padding: 10px 0;
     }

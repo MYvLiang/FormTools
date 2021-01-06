@@ -3,6 +3,8 @@ import Router from 'vue-router';
 import EditForm from '../components/page/EditForm'
 import Home from '../components/page/Home'
 import ManagePage from '../components/page/ManagePage'
+import FillForm from '../components/page/FillForm'
+import FormDetails from '../components/page/FormDetails'
 
 Vue.use(Router);
 
@@ -15,7 +17,7 @@ export default new Router({
         {
             path: '/home',
             component: Home,
-            meta: { title: '通用表单工具' }
+            meta: { title: '通用表单数据收集系统' }
         },
         {
             path: '/editForm',
@@ -25,7 +27,17 @@ export default new Router({
         {
             path: '/managePage',
             component: ManagePage,
-            meta: { title: '通用表单工具' }
+            meta: { title: '通用表单数据收集系统' }
+        },
+        {
+            path: '/fillForm',
+            component: FillForm,
+            meta: { title: '通用表单数据收集系统' }
+        },
+        {
+            path: '/formDetails',
+            component: FormDetails,
+            meta: { title: '通用表单数据收集系统' }
         },
         {
             path: '*',
